@@ -1,0 +1,140 @@
+@import '../../style/index.scss';
+
+.wrapper {
+   position: relative;
+
+   .executor {
+
+      display: flex;
+      flex-direction: column;
+
+      .musics {
+         margin: 0 auto;
+         margin-bottom: 20px;
+         display: flex;
+         flex-direction: column;
+         gap: 5px;
+         width: 100%;
+         max-width: 1000px;
+
+      }
+
+      .players {
+         display: flex;
+         gap: 20px;
+
+
+
+         img {
+            cursor: pointer;
+         }
+
+         .music_player {
+
+            width: 55px;
+            height: 55px;
+            background: #1fdf64;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s ease-in-out;
+
+            img {
+               object-fit: contain;
+               width: 20px;
+               height: 20px;
+               transform: rotate(0deg);
+            }
+         }
+      }
+
+      .title {
+         position: absolute;
+         top: 140px;
+         left: 120px;
+         z-index: 10;
+
+         font-size: 50px;
+         font-weight: bold;
+         margin: 0;
+         color: #ffffff;
+
+
+      }
+
+      .about_track {
+         background-size: cover;
+         background-position: center;
+         filter: blur(2px);
+         background-repeat: no-repeat;
+         padding: 20px 40px;
+         display: flex;
+         height: 240px;
+
+         gap: 20px;
+         position: relative;
+
+         img {
+            width: 100%;
+         }
+
+         .text {
+            margin-top: auto;
+
+            .full_info {
+               display: flex;
+               gap: 30px;
+               align-items: center;
+               color: white;
+
+               .rating {
+                  background-color: green;
+                  width: 40px;
+                  height: 40px;
+                  border-radius: 50%;
+                  text-align: center;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+               }
+
+               a {
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+                  color: white;
+                  font-weight: 600;
+
+                  img {
+                     width: 40px;
+                     height: 40px;
+                     border-radius: 50%;
+                  }
+               }
+            }
+
+            .name_track {
+               color: white;
+               font-size: 40px;
+               margin-bottom: 35px;
+            }
+
+
+         }
+
+         .image {
+
+            img {
+               max-width: 240px;
+               height: 240px;
+               object-fit: cover;
+               width: 100%;
+            }
+         }
+
+      }
+
+   }
+}

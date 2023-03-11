@@ -1,0 +1,225 @@
+a {
+   color: white;
+}
+
+.navbar_user {
+   .up_nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 80px;
+      width: 100%;
+      z-index: 1;
+      background-color: black;
+      display: flex;
+      justify-content: flex-end;
+
+      .logo {
+         position: absolute;
+         left: 50%;
+         color: white;
+         cursor: pointer;
+         color: white;
+         font-size: 30px;
+         font-weight: bold;
+         top: 50%;
+
+         transform: translate(-50%, -50%);
+
+      }
+
+      .nav_profile {
+         margin-right: 20px;
+         display: flex;
+         align-items: center;
+         position: relative;
+
+         .down_nav {
+            position: absolute;
+            top: 80px;
+            width: 100%;
+            padding: 6px;
+            max-width: 240px;
+            border-radius: 10px;
+            background-color: #282828;
+            transition: all 0.3s ease-in-out;
+            display: none;
+
+            &.open {
+               display: block;
+            }
+
+            ul {
+               display: flex;
+               flex-direction: column;
+
+               .line {
+                  background-color: gray;
+                  height: 1px;
+                  width: 90%;
+               }
+
+               li {
+                  border-radius: 10px;
+                  cursor: pointer;
+
+                  padding: 10px;
+
+                  a {
+                     color: white;
+                     font-weight: 600;
+                     display: block;
+                     padding: 10px;
+                     border-radius: 10px;
+                     transition: all 0.3s ease-in-out;
+
+                     &:hover {
+                        color: #e6e6e6;
+                        background-color: gray;
+                     }
+                  }
+               }
+            }
+         }
+
+         .circle {
+            position: relative;
+            right: -4%;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #171717;
+
+            img {
+               width: 50%;
+               object-fit: cover;
+            }
+         }
+
+         .name {
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 0px 10px 10px 0px;
+            display: flex;
+            background-color: white;
+            gap: 10px;
+            align-items: center;
+
+            .polygon {
+               transition: all 0.3s ease-in-out;
+               transform: rotate(0deg);
+
+               &.open {
+                  transform: rotate(180deg);
+               }
+            }
+
+            img {
+               height: 10px;
+               height: 10px;
+            }
+         }
+      }
+
+      .output {
+         margin-right: 20px;
+         display: flex;
+         z-index: 10;
+
+         display: flex;
+         gap: 20px;
+         align-items: center;
+
+         .register {
+            color: gray;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            font-size: 19px;
+
+            &:hover {
+               color: white;
+            }
+         }
+
+         .login {
+            background-color: white;
+            color: black;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-size: 19px;
+            cursor: pointer;
+         }
+      }
+   }
+
+   .navbar {
+      z-index: 2;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 200px;
+      height: 100vh;
+      background-color: black;
+      color: gray;
+      display: flex;
+      flex-direction: column;
+
+      .logo {
+         margin-top: 20px;
+         color: white;
+         font-size: 30px;
+         font-weight: bold;
+         padding: 10px;
+         margin: 5px;
+      }
+
+      ul {
+         padding: 10px;
+         margin: 5px;
+         margin-top: 120px;
+         display: flex;
+         flex-direction: column;
+         gap: 15px;
+
+         a {
+            list-style: none;
+            text-decoration: none;
+
+            &:nth-child(4) {
+               margin-top: 30px;
+            }
+         }
+
+         li {
+            cursor: pointer;
+
+
+
+            img {
+               width: 20px;
+               height: 20px;
+               object-fit: cover;
+            }
+
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            p {
+               font-size: 18px;
+               font-weight: 600;
+            }
+
+            transition: all 0.3s ease-in-out;
+
+            &:hover {
+               color: white;
+            }
+         }
+      }
+   }
+}

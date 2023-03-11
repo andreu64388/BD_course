@@ -1,0 +1,185 @@
+@charset "UTF-8";
+body {
+  background-color: #181818;
+}
+
+.wrapper {
+  margin-top: 80px;
+  margin-left: 200px;
+  margin-bottom: 100px;
+}
+
+* {
+  font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+}
+
+.app .content {
+  background-color: #3E4751;
+  border-radius: 20px;
+  padding: 20px;
+  width: 100%;
+  max-width: 600px;
+}
+.app .content .blocks {
+  display: flex;
+  gap: 20px;
+}
+.app .content .blocks .img {
+  flex: 1;
+  width: 50%;
+}
+.app .content .blocks .img img {
+  width: 100%;
+}
+.app .content .blocks .text {
+  flex: 1;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+.app .content .blocks .text .block_one {
+  margin-top: 30px;
+  color: white;
+}
+.app .content .blocks .text .block_one .title {
+  font-size: 24px;
+  margin-bottom: 40px;
+}
+.app .content .blocks .text .block_one a {
+  font-size: 20px;
+  margin-top: 20px;
+  padding: 10px 25px;
+  color: white;
+  background-color: #1FDF64;
+  border-radius: 20px;
+}
+
+.wrapper_all {
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 5px;
+  background-color: red;
+}
+
+.login_main {
+  margin-top: 90px;
+  max-width: 500px;
+  margin: 90px auto;
+}
+.login_main .title {
+  color: white;
+  text-align: center;
+  font-size: 25px;
+}
+.login_main .block_form {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.login_main .block_form .login {
+  text-align: center;
+  color: gray;
+}
+.login_main .block_form .login a {
+  color: white;
+}
+.login_main .block_form .submit {
+  color: white;
+  background-color: #10B557;
+  max-width: 260px;
+  width: 100%;
+  padding: 4px;
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: 25px;
+  margin: 20px auto;
+  transition: all 0.3s ease-in;
+}
+.login_main .block_form .submit:hover {
+  background-color: #19914f;
+}
+.login_main .block_form .block_image {
+  margin-top: 30px;
+}
+.login_main .block_form .block_image .buttom_download {
+  display: flex;
+  padding: 4px;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  background-color: #10B557;
+  border-radius: 16px;
+  cursor: pointer;
+  justify-content: center;
+  max-width: 100px;
+}
+.login_main .block_form .block {
+  display: flex;
+  flex-direction: column;
+}
+.login_main .block_form .block .dates {
+  display: flex;
+  gap: 10px;
+  /* Цвет фона элемента select при наведении курсора */
+  /* Цвет фона элемента select при активации (после клика) */
+  /* Цвет фона элемента select, когда он находится в состоянии фокуса */
+  /* Стили для опций */
+}
+.login_main .block_form .block .dates input {
+  max-width: 100px;
+}
+.login_main .block_form .block .dates select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px 32px 8px 8px;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  position: relative;
+}
+.login_main .block_form .block .dates select::after {
+  content: "▼";
+  font-size: 16px;
+  color: #000;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+.login_main .block_form .block .dates select:hover {
+  background-color: #f5f5f5;
+}
+.login_main .block_form .block .dates select:active {
+  background-color: #eee;
+}
+.login_main .block_form .block .dates select:focus {
+  outline: none;
+}
+.login_main .block_form .block .dates option {
+  background-color: #fff;
+  color: #000;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+}
+.login_main .block_form .block .dates option:hover,
+.login_main .block_form .block .dates option:focus {
+  background-color: #f5f5f5;
+}
+.login_main .block_form .block .enter_value {
+  font-size: 18px;
+  color: white;
+  margin: 14px 0;
+}
+.login_main .block_form .block input {
+  outline: none;
+  border: 0;
+  padding: 10px;
+  border-radius: 3px;
+}/*# sourceMappingURL=Login.css.map */

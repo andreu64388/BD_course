@@ -1,0 +1,114 @@
+@import '../../style/index.scss';
+
+.wrapper {
+   display: flex;
+   flex-direction: column;
+
+   .musics {
+
+      margin: 0 auto;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+   }
+
+   .players {
+      display: flex;
+      gap: 20px;
+      padding: 20px 0;
+
+      .heart {
+         width: 25px;
+      }
+
+      img {
+         cursor: pointer;
+
+      }
+
+      .music_player {
+
+         width: 55px;
+         height: 55px;
+         background: #1fdf64;
+         border-radius: 50%;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         cursor: pointer;
+         transition: all 0.4s ease-in-out;
+
+         img {
+            object-fit: contain;
+            width: 20px;
+            height: 20px;
+            transform: rotate(0deg);
+         }
+      }
+   }
+
+   .about_track {
+      background-color: black;
+      padding: 20px 40px;
+      display: flex;
+      gap: 20px;
+      height: 240px;
+
+      .text {
+         margin-top: auto;
+
+         .full_info {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            color: white;
+
+            .rating {
+               background-color: green;
+               width: 40px;
+               height: 40px;
+               border-radius: 50%;
+               text-align: center;
+               display: flex;
+               justify-content: center;
+               align-items: center;
+            }
+
+            a {
+               display: flex;
+               align-items: center;
+               gap: 10px;
+               color: white;
+               font-weight: 600;
+
+               img {
+                  width: 40px;
+                  height: 40px;
+                  border-radius: 50%;
+               }
+            }
+         }
+
+         .name_track {
+            color: white;
+            font-size: 40px;
+            margin-bottom: 35px;
+         }
+
+
+      }
+
+      .image {
+
+         img {
+            max-width: 200px;
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+         }
+      }
+
+   }
+
+}

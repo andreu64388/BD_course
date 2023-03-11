@@ -1,0 +1,283 @@
+@charset "UTF-8";
+.wrapper_all {
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 5px;
+}
+
+body {
+  background-color: #181818;
+}
+
+.wrapper {
+  margin-top: 80px;
+  margin-left: 200px;
+  margin-bottom: 100px;
+}
+
+* {
+  font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+}
+
+.app .content {
+  background-color: #3E4751;
+  border-radius: 20px;
+  padding: 20px;
+  width: 100%;
+  max-width: 600px;
+}
+.app .content .blocks {
+  display: flex;
+  gap: 20px;
+}
+.app .content .blocks .img {
+  flex: 1;
+  width: 50%;
+}
+.app .content .blocks .img img {
+  width: 100%;
+}
+.app .content .blocks .text {
+  flex: 1;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+.app .content .blocks .text .block_one {
+  margin-top: 30px;
+  color: white;
+}
+.app .content .blocks .text .block_one .title {
+  font-size: 24px;
+  margin-bottom: 40px;
+}
+.app .content .blocks .text .block_one a {
+  font-size: 20px;
+  margin-top: 20px;
+  padding: 10px 25px;
+  color: white;
+  background-color: #1FDF64;
+  border-radius: 20px;
+}
+
+.song {
+  display: flex;
+  background-color: #191919;
+  padding: 10px 14px;
+  border-radius: 6px;
+  color: white;
+  transition: all 0.4s ease;
+  align-items: center;
+}
+.song:hover {
+  background-color: #282828;
+}
+.song .modal_content_change {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  width: 100%;
+  color: white;
+  background-color: #2BC48A;
+  border-radius: 20px;
+}
+.song .modal_content_change .title {
+  margin: 10px 0;
+  font-size: 25px;
+  text-align: center;
+}
+.song .modal_content_change .blocks {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  background-color: #3E4751;
+  gap: 10px;
+  text-align: center;
+}
+.song .modal_content_change .blocks .save {
+  display: table;
+  padding: 10px 10px;
+  background: #2BC48A;
+  cursor: pointer;
+  text-align: center;
+}
+.song .modal_content_change .blocks .block {
+  display: flex;
+  flex-direction: column;
+  background-color: #3E4751;
+  gap: 3px;
+  /* Цвет фона элемента select при наведении курсора */
+  /* Цвет фона элемента select при активации (после клика) */
+  /* Цвет фона элемента select, когда он находится в состоянии фокуса */
+  /* Стили для опций */
+}
+.song .modal_content_change .blocks .block select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px 32px 8px 8px;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  position: relative;
+}
+.song .modal_content_change .blocks .block select::after {
+  content: "▼";
+  font-size: 16px;
+  color: #000;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+.song .modal_content_change .blocks .block select:hover {
+  background-color: #f5f5f5;
+}
+.song .modal_content_change .blocks .block select:active {
+  background-color: #eee;
+}
+.song .modal_content_change .blocks .block select:focus {
+  outline: none;
+}
+.song .modal_content_change .blocks .block option {
+  background-color: #fff;
+  color: #000;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+}
+.song .modal_content_change .blocks .block option:hover,
+.song .modal_content_change .blocks .block option:focus {
+  background-color: #f5f5f5;
+}
+.song .modal_content_change .blocks .block .image {
+  padding: 5px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  color: white;
+  background-color: #2BC48A;
+  display: table;
+  margin: 0 auto;
+  max-width: 100px;
+}
+.song .modal_content_change .blocks .block .enter_value {
+  font-size: 18px;
+  color: white;
+  margin: 5px 0;
+}
+.song .modal_content_change .blocks .block input {
+  outline: none;
+  border: 0;
+  padding: 10px;
+  border-radius: 3px;
+}
+.song .description {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.song .play {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  margin-right: 14px;
+}
+.song .name_author {
+  color: gray;
+}
+.song .action {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+}
+.song .action .plus {
+  cursor: pointer;
+  width: 30px;
+  height: 20px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  background-color: #191919;
+  border-radius: 10px;
+}
+.song .action .menu {
+  position: absolute;
+  bottom: 30px;
+  right: -50%;
+  background-color: #282828;
+  border-radius: 4px;
+  padding: 10px;
+  z-index: 1;
+  width: 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 20px;
+}
+.song .action .menu::before {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  /* расстояние между треугольником и меню */
+  left: calc(75% - 10px);
+  /* центрирование по горизонтали */
+  border-width: 10px 10px 0 10px;
+  /* размеры треугольника */
+  border-style: solid;
+  border-color: white transparent transparent transparent;
+  /* цвета границ */
+}
+.song .action .menu .btn {
+  text-align: center;
+  display: block;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  color: white;
+  transition: all 0.4s ease;
+  border-radius: 10px;
+  position: relative;
+}
+.song .action .menu .btn .add_list {
+  position: absolute;
+  right: 110%;
+  top: -40px;
+  background-color: #282828;
+  padding: 10px 20px;
+  border-radius: 10px;
+  max-height: 200px;
+  max-width: 200px;
+  width: 100%;
+  overflow: auto;
+}
+.song .action .menu .btn .add_list ul {
+  list-style: none;
+}
+.song .action .menu .btn .add_list ul li {
+  color: white;
+  padding: 3px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+.song .action .menu .btn .add_list ul li:hover {
+  background-color: gray;
+}
+.song .action .menu .btn:hover {
+  background-color: gray;
+}
+.song .action img {
+  width: 20px;
+  cursor: pointer;
+}/*# sourceMappingURL=Song.css.map */

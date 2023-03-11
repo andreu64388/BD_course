@@ -1,0 +1,103 @@
+.music-player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  color: white;
+  max-width: 340px;
+}
+.music-player .block_lines {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+.music-player .line {
+  width: 2px;
+  height: 10px;
+  margin: 0 5px;
+  background-color: #fff;
+}
+.music-player .line-1 {
+  animation: soundEffect 0.4s ease-in-out infinite;
+}
+.music-player .line-2 {
+  animation: soundEffect 0.6s ease-in-out infinite;
+}
+.music-player .line-3 {
+  animation: soundEffect 0.7s ease-in-out infinite;
+}
+@keyframes soundEffect {
+  0% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1, 3);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+.music-player-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.music-player-controls button {
+  font-size: 10px;
+  font-weight: bold;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  margin: 0 5px;
+  transition: transform 0.2s ease;
+}
+.music-player-controls button img {
+  width: 35px;
+}
+.music-player-controls button:hover {
+  transform: scale(1.1);
+}
+.music-player-progress {
+  border-radius: 20px;
+  width: 100%;
+  max-width: 320px;
+  height: 8px;
+  background-color: gray;
+  cursor: pointer;
+  position: relative;
+}
+.music-player-progress-bar {
+  border-radius: 20px;
+  height: 100%;
+  background-color: #1DB954;
+  width: 0;
+  transition: width 0.1s ease;
+}
+.music-player-progress-bar::-webkit-progress-bar {
+  background-color: #eee;
+}
+.music-player-progress-bar::-webkit-progress-value {
+  background-color: #1DB954;
+}
+.music-player-progress-bar::-moz-progress-bar {
+  background-color: #1DB954;
+}
+.music-player-progress-circle {
+  width: 15px;
+  height: 15px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: -5px;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+.music-player-time {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 14px;
+  margin-top: 4px;
+}/*# sourceMappingURL=MusicPlayer.css.map */

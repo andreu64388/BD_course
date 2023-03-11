@@ -1,0 +1,89 @@
+body {
+  background-color: #181818;
+}
+
+.wrapper {
+  margin-top: 80px;
+  margin-left: 200px;
+  margin-bottom: 100px;
+}
+
+* {
+  font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+}
+
+.app .content {
+  background-color: #3E4751;
+  border-radius: 20px;
+  padding: 20px;
+  width: 100%;
+  max-width: 600px;
+}
+.app .content .blocks {
+  display: flex;
+  gap: 20px;
+}
+.app .content .blocks .img {
+  flex: 1;
+  width: 50%;
+}
+.app .content .blocks .img img {
+  width: 100%;
+}
+.app .content .blocks .text {
+  flex: 1;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+.app .content .blocks .text .block_one {
+  margin-top: 30px;
+  color: white;
+}
+.app .content .blocks .text .block_one .title {
+  font-size: 24px;
+  margin-bottom: 40px;
+}
+.app .content .blocks .text .block_one a {
+  font-size: 20px;
+  margin-top: 20px;
+  padding: 10px 25px;
+  color: white;
+  background-color: #1FDF64;
+  border-radius: 20px;
+}
+
+.wrapper_all {
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 5px;
+  background-color: red;
+}
+
+.center .homes {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.center .homes .blocks_reccomemd .recoomecd_text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.center .homes .blocks_reccomemd .recoomecd_text a {
+  color: gray;
+}
+.center .homes .blocks_reccomemd .recoomecd_text .title {
+  margin: 10px 0;
+  color: white;
+  font-size: 25px;
+}
+.center .homes .blocks_reccomemd .blocks_card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}/*# sourceMappingURL=Home.css.map */

@@ -1,0 +1,155 @@
+.wrapper_all {
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 5px;
+}
+
+body {
+  background-color: #181818;
+}
+
+.wrapper {
+  margin-top: 80px;
+  margin-left: 200px;
+  margin-bottom: 100px;
+}
+
+* {
+  font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+}
+
+.app .content {
+  background-color: #3E4751;
+  border-radius: 20px;
+  padding: 20px;
+  width: 100%;
+  max-width: 600px;
+}
+.app .content .blocks {
+  display: flex;
+  gap: 20px;
+}
+.app .content .blocks .img {
+  flex: 1;
+  width: 50%;
+}
+.app .content .blocks .img img {
+  width: 100%;
+}
+.app .content .blocks .text {
+  flex: 1;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+.app .content .blocks .text .block_one {
+  margin-top: 30px;
+  color: white;
+}
+.app .content .blocks .text .block_one .title {
+  font-size: 24px;
+  margin-bottom: 40px;
+}
+.app .content .blocks .text .block_one a {
+  font-size: 20px;
+  margin-top: 20px;
+  padding: 10px 25px;
+  color: white;
+  background-color: #1FDF64;
+  border-radius: 20px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.wrapper .musics {
+  margin: 0 auto;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.wrapper .players {
+  display: flex;
+  gap: 20px;
+  padding: 20px 0;
+}
+.wrapper .players .heart {
+  width: 25px;
+}
+.wrapper .players img {
+  cursor: pointer;
+}
+.wrapper .players .music_player {
+  width: 55px;
+  height: 55px;
+  background: #1fdf64;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
+}
+.wrapper .players .music_player img {
+  -o-object-fit: contain;
+     object-fit: contain;
+  width: 20px;
+  height: 20px;
+  transform: rotate(0deg);
+}
+.wrapper .about_track {
+  background-color: black;
+  padding: 20px 40px;
+  display: flex;
+  gap: 20px;
+  height: 240px;
+}
+.wrapper .about_track .text {
+  margin-top: auto;
+}
+.wrapper .about_track .text .full_info {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  color: white;
+}
+.wrapper .about_track .text .full_info .rating {
+  background-color: green;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.wrapper .about_track .text .full_info a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  font-weight: 600;
+}
+.wrapper .about_track .text .full_info a img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.wrapper .about_track .text .name_track {
+  color: white;
+  font-size: 40px;
+  margin-bottom: 35px;
+}
+.wrapper .about_track .image img {
+  max-width: 200px;
+  height: 200px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 100%;
+}/*# sourceMappingURL=Track.css.map */

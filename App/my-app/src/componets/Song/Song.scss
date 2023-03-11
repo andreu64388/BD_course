@@ -1,0 +1,277 @@
+@import '../../style/index.scss';
+
+.song {
+   display: flex;
+   background-color: #191919;
+   padding: 10px 14px;
+   border-radius: 6px;
+   color: white;
+   transition: all 0.4s ease;
+
+   &:hover {
+      background-color: #282828;
+   }
+
+   .modal_content_change {
+
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      max-width: 400px;
+      width: 100%;
+      color: white;
+      background-color: #2BC48A;
+      ;
+      border-radius: 20px;
+
+      .title {
+         margin: 10px 0;
+         font-size: $title;
+         text-align: center;
+      }
+
+      .blocks {
+         padding: 10px;
+         display: flex;
+         flex-direction: column;
+         background-color: #3E4751;
+         gap: 10px;
+         text-align: center;
+
+         .save {
+            display: table;
+            padding: 10px 10px;
+            background: #2BC48A;
+
+            cursor: pointer;
+            text-align: center;
+         }
+
+         .block {
+            display: flex;
+            flex-direction: column;
+
+            background-color: #3E4751;
+            gap: 3px;
+
+            select {
+               appearance: none;
+               -webkit-appearance: none;
+               -moz-appearance: none;
+               background-color: #fff;
+               border: 1px solid #ccc;
+               border-radius: 4px;
+               padding: 8px 32px 8px 8px;
+               font-size: 16px;
+               font-family: Arial, sans-serif;
+               position: relative;
+            }
+
+            select::after {
+               content: "\25BC";
+               font-size: 16px;
+               color: #000;
+               position: absolute;
+               top: 50%;
+               right: 10px;
+               transform: translateY(-50%);
+            }
+
+            /* Цвет фона элемента select при наведении курсора */
+            select:hover {
+               background-color: #f5f5f5;
+            }
+
+            /* Цвет фона элемента select при активации (после клика) */
+            select:active {
+               background-color: #eee;
+            }
+
+            /* Цвет фона элемента select, когда он находится в состоянии фокуса */
+            select:focus {
+               outline: none;
+            }
+
+            /* Стили для опций */
+            option {
+               background-color: #fff;
+               color: #000;
+               font-size: 16px;
+               font-family: Arial, sans-serif;
+            }
+
+            option:hover,
+            option:focus {
+               background-color: #f5f5f5;
+            }
+
+            .image {
+               padding: 5px 10px;
+               border-radius: 20px;
+               cursor: pointer;
+
+               color: white;
+               background-color: #2BC48A;
+               display: table;
+               margin: 0 auto;
+               max-width: 100px;
+            }
+
+            .enter_value {
+               font-size: $fill_text ;
+               color: white;
+               margin: 5px 0;
+
+            }
+
+            input {
+               outline: none;
+               border: 0;
+               padding: 10px;
+               border-radius: 3px;
+            }
+         }
+      }
+
+
+
+
+   }
+
+   .description {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+   }
+
+
+   align-items: center;
+
+   .play {
+      cursor: pointer;
+      width: 20px;
+      height: 20px;
+      margin-right: 14px;
+   }
+
+   .name_author {
+      color: gray;
+   }
+
+
+
+   .action {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      position: relative;
+
+      .plus {
+         cursor: pointer;
+         width: 30px;
+         height: 20px;
+         text-align: center;
+         justify-content: center;
+         align-items: center;
+         background-color: #191919;
+         border-radius: 10px;
+      }
+
+      .menu {
+         position: absolute;
+         bottom: 30px;
+         right: -50%;
+         background-color: #282828;
+
+         border-radius: 4px;
+
+         padding: 10px;
+         z-index: 1;
+         width: 140px;
+         display: flex;
+         flex-direction: column;
+         gap: 10px;
+
+         &::before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            /* расстояние между треугольником и меню */
+            left: calc(75% - 10px);
+            /* центрирование по горизонтали */
+            border-width: 10px 10px 0 10px;
+            /* размеры треугольника */
+            border-style: solid;
+            border-color: white transparent transparent transparent;
+            /* цвета границ */
+         }
+
+         border-radius: 20px;
+      }
+
+
+      .menu .btn {
+         text-align: center;
+         display: block;
+         width: 100%;
+         background-color: transparent;
+         border: none;
+         padding: 5px;
+         cursor: pointer;
+         font-size: 16px;
+         color: white;
+
+         transition: all 0.4s ease;
+         border-radius: 10px;
+         position: relative;
+
+         .add_list {
+            position: absolute;
+            right: calc(110%);
+            top: -40px;
+            background-color: #282828;
+            padding: 10px 20px;
+            border-radius: 10px;
+            max-height: 200px;
+            max-width: 200px;
+            width: 100%;
+            overflow: auto;
+
+
+            ul {
+               list-style: none;
+
+               li {
+                  color: white;
+                  padding: 3px 10px;
+                  border-radius: 4px;
+                  cursor: pointer;
+                  transition: all 0.4s ease;
+
+                  &:hover {
+                     background-color: gray;
+                  }
+               }
+
+
+            }
+         }
+
+
+         &:hover {
+            background-color: gray;
+         }
+      }
+
+
+
+      img {
+         width: 20px;
+         cursor: pointer;
+      }
+   }
+
+
+
+}

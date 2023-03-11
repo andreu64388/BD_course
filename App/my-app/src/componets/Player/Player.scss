@@ -1,0 +1,204 @@
+   .player {
+      position: fixed;
+      bottom: -90px;
+      left: 0;
+      width: 100%;
+      z-index: 2;
+      height: 90px;
+      background-color: #1F1F1F;
+      animation-name: slide-up;
+      animation-duration: 0.5s;
+      animation-timing-function: ease-in-out;
+      animation-fill-mode: forwards;
+      display: flex;
+      padding: 14px 30px;
+
+
+      justify-content: space-between;
+
+      &.hide {
+
+         bottom: -90px;
+         transform: translateY(100%);
+         animation-name: slide-down;
+         animation-duration: 0.5s;
+         animation-timing-function: ease-in-out;
+         animation-fill-mode: forwards;
+      }
+
+      .contents {
+         max-width: 1100px;
+         margin: 0 auto;
+         display: flex;
+         width: 100%;
+         position: relative;
+
+         .hide {
+            position: absolute;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background-color: #1F1F1F;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            top: -40px;
+            right: 60px;
+
+            cursor: pointer;
+            color: white;
+
+            img {
+               margin-top: 5px;
+               width: 100%;
+               width: 15px;
+               height: 15px;
+
+            }
+         }
+
+         .show {
+            position: absolute;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background-color: #1F1F1F;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            top: -130px;
+            right: 60px;
+            animation: slideIn 0.5s ease-in-out forwards;
+            cursor: pointer;
+            color: white;
+            transition: 0.4s ease-in-out;
+
+            &:hover {
+
+               background-color: #808080;
+
+            }
+
+
+            img {
+               margin-top: 5px;
+               width: 100%;
+               width: 15px;
+               height: 15px;
+
+            }
+         }
+
+         @keyframes slideIn {
+            0% {
+               transform: translateY(100%);
+               opacity: 0;
+            }
+
+            100% {
+               transform: translateY(0%);
+               opacity: 1;
+            }
+         }
+
+         .close {
+            position: absolute;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background-color: #1F1F1F;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            top: -40px;
+            right: 5px;
+
+            cursor: pointer;
+            color: white;
+
+            img {
+               margin-top: 5px;
+               width: 100%;
+               width: 15px;
+               height: 15px;
+
+            }
+         }
+
+         align-items: center;
+
+         .player_block {
+
+            margin: 0 auto;
+            max-width: 320px;
+            width: 100%;
+
+         }
+
+
+         .track {
+
+            padding: 5px 20px;
+            display: flex;
+            gap: 20px;
+
+            align-items: center;
+
+            transition: all 0.3s;
+
+            .play {
+               width: 21px;
+               height: 21px;
+            }
+
+            &:hover {
+               background-color: #282828;
+            }
+
+            .text {
+
+               display: flex;
+               flex-direction: column;
+               gap: 5px;
+
+               a {
+                  color: gray;
+               }
+            }
+
+            .img {
+               img {
+                  width: 50px;
+                  height: 50px;
+                  object-fit: cover;
+               }
+            }
+         }
+      }
+
+
+   }
+
+   @keyframes slide-up {
+      0% {
+         bottom: -90px;
+         transform: translateY(100%);
+      }
+
+      100% {
+         bottom: 0;
+         transform: translateY(0);
+      }
+   }
+
+   @keyframes slide-down {
+      0% {
+         bottom: 0px;
+         transform: translateY(0%);
+      }
+
+      100% {
+         bottom: -90px;
+         transform: translateY(100%);
+      }
+   }

@@ -1,0 +1,206 @@
+@import '../../style/index.scss';
+
+.profile_edit {
+   .save {
+      background-color: #10B557;
+      padding: 5px 28px;
+      color: white;
+      border: none;
+      outline: none;
+      border-radius: 20px;
+      cursor: pointer;
+      width: 100%;
+      max-width: 130px;
+      margin-left: auto;
+      margin-top: 30px;
+   }
+
+   .change {
+      margin-top: 20px;
+      padding: 6px 20px;
+      background-color: #1FDF64;
+      color: white;
+      border: 0;
+      outline: 0;
+      border-radius: 20px;
+      max-width: 160px;
+      cursor: pointer;
+      text-align: center;
+
+
+   }
+
+   .block_text_image {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .title {
+         color: white;
+         font-size: $title;
+      }
+
+      .img {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         gap: 10px;
+
+         img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 50%;
+
+         }
+
+         .update {
+            background-color: #1FDF64;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+            border: none;
+            overflow: none;
+            padding: 5px 26px;
+         }
+      }
+   }
+
+   .block_form {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+
+      .login {
+         text-align: center;
+         color: gray;
+
+         a {
+            color: white;
+         }
+      }
+
+      .submit {
+         color: white;
+         background-color: #10B557;
+         max-width: 260px;
+         width: 100%;
+         padding: 4px;
+         cursor: pointer;
+         font-size: 20px;
+         border-radius: 25px;
+         margin: 20px auto;
+         transition: all 0.3s ease-in;
+
+         &:hover {
+            background-color: #19914f;
+         }
+      }
+
+
+      .block_image {
+         margin-top: 30px;
+
+         .buttom_download {
+            display: flex;
+            padding: 4px;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            background-color: #10B557;
+            border-radius: 16px;
+            cursor: pointer;
+            justify-content: center;
+            max-width: 100px;
+            transition: all 0.3s ease-in;
+
+            &:hover {
+               background-color: #19914f;
+            }
+         }
+      }
+
+      .block {
+         display: flex;
+         flex-direction: column;
+
+         .dates {
+            display: flex;
+            gap: 10px;
+
+            input {
+               max-width: 100px
+            }
+
+            select {
+               appearance: none;
+               -webkit-appearance: none;
+               -moz-appearance: none;
+               background-color: #fff;
+               border: 1px solid #ccc;
+               border-radius: 4px;
+               padding: 8px 32px 8px 8px;
+               font-size: 16px;
+               font-family: Arial, sans-serif;
+               position: relative;
+            }
+
+            select::after {
+               content: "\25BC";
+               font-size: 16px;
+               color: #000;
+               position: absolute;
+               top: 50%;
+               right: 10px;
+               transform: translateY(-50%);
+            }
+
+            /* Цвет фона элемента select при наведении курсора */
+            select:hover {
+               background-color: #f5f5f5;
+            }
+
+            /* Цвет фона элемента select при активации (после клика) */
+            select:active {
+               background-color: #eee;
+            }
+
+            /* Цвет фона элемента select, когда он находится в состоянии фокуса */
+            select:focus {
+               outline: none;
+            }
+
+            /* Стили для опций */
+            option {
+               background-color: #fff;
+               color: #000;
+               font-size: 16px;
+               font-family: Arial, sans-serif;
+            }
+
+            option:hover,
+            option:focus {
+               background-color: #f5f5f5;
+            }
+
+         }
+
+         .enter_value {
+            font-size: $fill_text;
+            color: white;
+
+            margin: 14px 0;
+         }
+
+         input {
+            outline: none;
+            border: 0;
+            padding: 10px;
+            border-radius: 3px;
+         }
+      }
+   }
+
+
+}

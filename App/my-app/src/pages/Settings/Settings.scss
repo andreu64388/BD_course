@@ -1,0 +1,22 @@
+@import '../../style/index.scss';
+
+.settings {
+   .title {
+      font-size: $title;
+      color: white;
+      margin-top: 30px;
+   }
+
+   .block_setting {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      .block {
+         display: flex;
+         color: white;
+         gap: 30px;
+      }
+   }
+}

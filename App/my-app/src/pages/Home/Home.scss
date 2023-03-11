@@ -1,0 +1,34 @@
+@import '../../style/index.scss';
+
+.center {
+   .homes {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      .blocks_reccomemd {
+         .recoomecd_text {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            a {
+               color: gray;
+            }
+
+            .title {
+               margin: 10px 0;
+               color: white;
+               font-size: $title;
+            }
+         }
+
+         .blocks_card {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+         }
+      }
+   }
+}

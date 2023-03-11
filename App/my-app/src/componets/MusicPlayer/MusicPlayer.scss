@@ -1,0 +1,125 @@
+.music-player {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   margin-top: 10px;
+   color: white;
+   max-width: 340px;
+.block_lines {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50px;
+   }
+
+   .line {
+      width: 2px;
+      height: 10px;
+      margin: 0 5px;
+      background-color: #fff;
+   }
+
+   .line-1 {
+      animation: soundEffect 0.4s ease-in-out infinite;
+   }
+
+   .line-2 {
+      animation: soundEffect 0.6s ease-in-out infinite;
+   }
+
+   .line-3 {
+      animation: soundEffect 0.7s ease-in-out infinite;
+   }
+
+   @keyframes soundEffect {
+      0% {
+         transform: scale(1, 1);
+      }
+
+      50% {
+         transform: scale(1, 3);
+      }
+
+      100% {
+         transform: scale(1, 1);
+      }
+   }
+   &-controls {
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+
+      button {
+         font-size: 10px;
+         font-weight: bold;
+         border: none;
+         background-color: transparent;
+         cursor: pointer;
+         margin: 0 5px;
+         transition: transform 0.2s ease;
+
+         img {
+            width: 35px;
+         }
+
+         &:hover {
+            transform: scale(1.1);
+         }
+      }
+   }
+
+   &-progress {
+      border-radius: 20px;
+      width: 100%;
+      max-width: 320px;
+      height: 8px;
+      background-color: gray;
+      cursor: pointer;
+      position: relative;
+
+      &-bar {
+         border-radius: 20px;
+         height: 100%;
+         background-color: #1DB954;
+         width: 0;
+         transition: width 0.1s ease;
+
+         &::-webkit-progress-bar {
+            background-color: #eee;
+         }
+
+         &::-webkit-progress-value {
+            background-color: #1DB954;
+         }
+
+         &::-moz-progress-bar {
+            background-color: #1DB954;
+         }
+      }
+
+      &-circle {
+         width: 15px;
+         height: 15px;
+         background-color: white;
+         border-radius: 50%;
+         position: absolute;
+         top: -5px;
+         transform: translateX(-50%);
+         cursor: pointer;
+      }
+   }
+
+   &-time {
+
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+
+      font-size: 14px;
+      margin-top: 4px;
+
+
+   }
+}

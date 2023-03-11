@@ -1,0 +1,87 @@
+@import '../../style/index.scss';
+
+.dashboard {
+   color: white;
+   margin-top: 20px;
+
+   .title {
+      font-size: $title;
+   }
+
+   .about_table {
+      margin-top: 20px;
+
+      .see_button {
+         background-color: #2BC48A;
+         padding: 10px 20px;
+         border-radius: 20px;
+         cursor: pointer;
+         display: table;
+         margin-left: auto;
+         margin-top: 20px;
+         margin-bottom: 20px;
+      }
+
+      .block {
+
+         min-height: 60px;
+         background-color: white;
+         padding: 10px;
+         color: black;
+         display: flex;
+
+
+         .count {
+            font-weight: bold;
+         }
+
+         border-radius: 20px;
+         gap: 31px;
+         align-items: center;
+
+         .block_img {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            img {
+               width: 30px;
+            }
+         }
+      }
+   }
+
+   .dashboard_blocks {
+      margin-top: 20px;
+      display: flex;
+      gap: 30px;
+
+      align-items: center;
+
+      .block {
+         min-height: 60px;
+         background-color: white;
+         padding: 10px;
+         color: black;
+         display: flex;
+
+         .count {
+            font-weight: bold;
+         }
+
+         border-radius: 20px;
+         gap: 31px;
+         align-items: center;
+
+         .block_img {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            img {
+               width: 30px;
+            }
+         }
+      }
+   }
+}

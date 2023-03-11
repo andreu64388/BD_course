@@ -1,0 +1,219 @@
+.wrapper_all {
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 5px;
+}
+
+body {
+  background-color: #181818;
+}
+
+.wrapper {
+  margin-top: 80px;
+  margin-left: 200px;
+  margin-bottom: 100px;
+}
+
+* {
+  font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+}
+
+.app .content {
+  background-color: #3E4751;
+  border-radius: 20px;
+  padding: 20px;
+  width: 100%;
+  max-width: 600px;
+}
+.app .content .blocks {
+  display: flex;
+  gap: 20px;
+}
+.app .content .blocks .img {
+  flex: 1;
+  width: 50%;
+}
+.app .content .blocks .img img {
+  width: 100%;
+}
+.app .content .blocks .text {
+  flex: 1;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+.app .content .blocks .text .block_one {
+  margin-top: 30px;
+  color: white;
+}
+.app .content .blocks .text .block_one .title {
+  font-size: 24px;
+  margin-bottom: 40px;
+}
+.app .content .blocks .text .block_one a {
+  font-size: 20px;
+  margin-top: 20px;
+  padding: 10px 25px;
+  color: white;
+  background-color: #1FDF64;
+  border-radius: 20px;
+}
+
+.table-container {
+  width: 100%;
+  margin: 20px auto;
+}
+.table-container .modal_content_change {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  width: 100%;
+  color: white;
+  background-color: #2bc48a;
+  border-radius: 20px;
+}
+.table-container .modal_content_change .title {
+  margin: 10px 0;
+  font-size: 25px;
+  text-align: center;
+}
+.table-container .modal_content_change select {
+  max-width: 190px;
+  width: 100%;
+  margin-top: 4px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: #333;
+  font-size: 16px;
+  font-weight: bold;
+  height: 40px;
+  padding: 7px 10px;
+  transition: all 0.3s ease-in;
+}
+.table-container .modal_content_change select:focus {
+  border: none;
+  outline: none;
+}
+.table-container .modal_content_change select option {
+  background-color: white;
+  color: #333;
+  font-weight: bold;
+}
+.table-container .modal_content_change .blocks {
+  display: flex;
+  flex-direction: column;
+  background-color: #3e4751;
+}
+.table-container .modal_content_change .blocks .save {
+  padding: 10px 10px;
+  background: #2bc48a;
+  cursor: pointer;
+  text-align: center;
+}
+.table-container .modal_content_change .blocks .block {
+  display: flex;
+  flex-direction: column;
+  background-color: #3e4751;
+  gap: 3px;
+}
+.table-container .modal_content_change .blocks .block .images {
+  display: flex;
+  flex-direction: column;
+}
+.table-container .modal_content_change .blocks .block .images .images_main {
+  background-color: red;
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 140px;
+  height: 140px;
+  margin-top: 10px;
+}
+.table-container .modal_content_change .blocks .block .images button {
+  margin-left: 20px;
+  margin-top: 5px;
+  cursor: pointer;
+  background-color: red;
+  color: white;
+  border-radius: 10px;
+  max-width: 100px;
+  padding: 10px;
+}
+.table-container .modal_content_change .blocks .block .image {
+  padding: 5px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  color: white;
+  background-color: #2bc48a;
+}
+.table-container .modal_content_change .blocks .block .enter_value {
+  font-size: 18px;
+  color: white;
+}
+.table-container .modal_content_change .blocks .block input {
+  outline: none;
+  border: 0;
+  padding: 10px;
+  border-radius: 3px;
+}
+
+.table-header {
+  padding: 10px;
+  display: flex;
+  background-color: #2bc48a;
+  border-radius: 20px 20px 0 0;
+  color: #fff;
+}
+
+.table-cell {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+}
+.table-cell img {
+  width: 25px;
+  height: 25px;
+}
+.table-cell.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 15px;
+  background: none;
+}
+.table-cell.buttons button {
+  cursor: pointer;
+  background: none;
+}
+.table-cell.buttons button img {
+  width: 20px;
+}
+
+.table-body {
+  background-color: #fff;
+  color: black;
+  border-radius: 0 0 20px 20px;
+}
+
+.table-row {
+  display: flex;
+  align-items: center;
+}
+
+.table-row:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table-row .table-cell {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+}/*# sourceMappingURL=Genre.css.map */

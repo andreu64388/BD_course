@@ -1,0 +1,133 @@
+.wrapper_all {
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 5px;
+}
+
+body {
+  background-color: #181818;
+}
+
+.wrapper {
+  margin-top: 80px;
+  margin-left: 200px;
+  margin-bottom: 100px;
+}
+
+* {
+  font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+}
+
+.app .content {
+  background-color: #3E4751;
+  border-radius: 20px;
+  padding: 20px;
+  width: 100%;
+  max-width: 600px;
+}
+.app .content .blocks {
+  display: flex;
+  gap: 20px;
+}
+.app .content .blocks .img {
+  flex: 1;
+  width: 50%;
+}
+.app .content .blocks .img img {
+  width: 100%;
+}
+.app .content .blocks .text {
+  flex: 1;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+.app .content .blocks .text .block_one {
+  margin-top: 30px;
+  color: white;
+}
+.app .content .blocks .text .block_one .title {
+  font-size: 24px;
+  margin-bottom: 40px;
+}
+.app .content .blocks .text .block_one a {
+  font-size: 20px;
+  margin-top: 20px;
+  padding: 10px 25px;
+  color: white;
+  background-color: #1FDF64;
+  border-radius: 20px;
+}
+
+.dashboard {
+  color: white;
+  margin-top: 20px;
+}
+.dashboard .title {
+  font-size: 25px;
+}
+.dashboard .about_table {
+  margin-top: 20px;
+}
+.dashboard .about_table .see_button {
+  background-color: #2BC48A;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  display: table;
+  margin-left: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.dashboard .about_table .block {
+  min-height: 60px;
+  background-color: white;
+  padding: 10px;
+  color: black;
+  display: flex;
+  border-radius: 20px;
+  gap: 31px;
+  align-items: center;
+}
+.dashboard .about_table .block .count {
+  font-weight: bold;
+}
+.dashboard .about_table .block .block_img {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.dashboard .about_table .block .block_img img {
+  width: 30px;
+}
+.dashboard .dashboard_blocks {
+  margin-top: 20px;
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+.dashboard .dashboard_blocks .block {
+  min-height: 60px;
+  background-color: white;
+  padding: 10px;
+  color: black;
+  display: flex;
+  border-radius: 20px;
+  gap: 31px;
+  align-items: center;
+}
+.dashboard .dashboard_blocks .block .count {
+  font-weight: bold;
+}
+.dashboard .dashboard_blocks .block .block_img {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.dashboard .dashboard_blocks .block .block_img img {
+  width: 30px;
+}/*# sourceMappingURL=ADashboard.css.map */

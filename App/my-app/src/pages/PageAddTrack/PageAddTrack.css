@@ -1,0 +1,243 @@
+.wrapper_all {
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 5px;
+}
+
+body {
+  background-color: #181818;
+}
+
+.wrapper {
+  margin-top: 80px;
+  margin-left: 200px;
+  margin-bottom: 100px;
+}
+
+* {
+  font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+}
+
+.app .content {
+  background-color: #3E4751;
+  border-radius: 20px;
+  padding: 20px;
+  width: 100%;
+  max-width: 600px;
+}
+.app .content .blocks {
+  display: flex;
+  gap: 20px;
+}
+.app .content .blocks .img {
+  flex: 1;
+  width: 50%;
+}
+.app .content .blocks .img img {
+  width: 100%;
+}
+.app .content .blocks .text {
+  flex: 1;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+.app .content .blocks .text .block_one {
+  margin-top: 30px;
+  color: white;
+}
+.app .content .blocks .text .block_one .title {
+  font-size: 24px;
+  margin-bottom: 40px;
+}
+.app .content .blocks .text .block_one a {
+  font-size: 20px;
+  margin-top: 20px;
+  padding: 10px 25px;
+  color: white;
+  background-color: #1FDF64;
+  border-radius: 20px;
+}
+
+.modal_content {
+  background-color: #282828;
+  padding: 20px;
+  border-radius: 26px;
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.modal_content select {
+  width: 100%;
+  margin-top: 4px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: #333;
+  font-size: 16px;
+  font-weight: bold;
+  height: 40px;
+  padding: 7px 10px;
+  transition: all 0.3s ease-in;
+}
+.modal_content select:focus {
+  border: none;
+  outline: none;
+}
+.modal_content select option {
+  background-color: white;
+  color: #333;
+  font-weight: bold;
+}
+.modal_content .title {
+  text-align: center;
+  font-size: 25px;
+  color: white;
+}
+.modal_content .name {
+  color: white;
+}
+.modal_content input {
+  outline: none;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+}
+.modal_content .buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 20px;
+}
+.modal_content .buttons button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: white;
+  padding: 5px 20px;
+  border-radius: 10px;
+}
+.modal_content .buttons .cansel {
+  background-color: #FF0000;
+}
+.modal_content .buttons .submit {
+  background-color: #10B557;
+}
+.modal_content .block {
+  padding: 20px;
+  border: 1px solid white;
+  display: flex;
+  justify-content: space-between;
+  max-height: 130px;
+  overflow: auto;
+  align-items: flex-start;
+}
+.modal_content .block .audio_main {
+  max-width: 190px;
+}
+.modal_content .block .images {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.modal_content .block .images img {
+  width: 100px;
+  height: 100px;
+}
+.modal_content .block button {
+  background-color: #10B557;
+  color: white;
+  padding: 5px 24px;
+  border-radius: 10px;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+}
+
+.pageaddtrack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.pageaddtrack .block_button {
+  margin-top: 10px;
+}
+.pageaddtrack .block_button .button_add_music {
+  margin: 0 auto;
+  padding: 5px 10px;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-radius: 25px;
+  width: auto;
+  cursor: pointer;
+  max-width: 190px;
+  justify-content: center;
+  background-color: black;
+}
+
+label {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  background-color: #10B557;
+  color: white;
+  max-width: 100px;
+  text-align: center;
+  border-radius: 10px;
+  transition: 500ms ease;
+  border: 1px solid #10B557;
+  padding: 5px !important;
+}
+label:hover {
+  background-color: white;
+  color: #10B557;
+  border: 1px solid #10B557;
+}
+
+#audiolabel {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+  background-color: red;
+  right: 0;
+}
+
+#photolabel {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+  background-color: red;
+  right: 0;
+}
+
+.input {
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.input input {
+  width: 100%;
+  outline: none;
+  font-size: 20px;
+  border: 1px solid black;
+  transition: all 0.2s ease;
+}
+.input input:focus {
+  border: 1px solid white;
+  transform: scale(1.01);
+  box-shadow: 0 0 10px #aa0000;
+}/*# sourceMappingURL=PageAddTrack.css.map */

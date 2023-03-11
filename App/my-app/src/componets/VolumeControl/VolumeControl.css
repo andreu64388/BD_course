@@ -1,0 +1,20 @@
+.volume-control {
+  width: 100%;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.volume-control__track {
+  position: relative;
+  height: 100%;
+}
+.volume-control__track-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #333;
+  border-radius: 10px;
+  transition: width 0.2s ease-in-out;
+}/*# sourceMappingURL=VolumeControl.css.map */

@@ -17,12 +17,16 @@ a {
   position: absolute;
   left: 50%;
   color: white;
+  padding: 0;
   cursor: pointer;
   color: white;
   font-size: 30px;
   font-weight: bold;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+.navbar_user .up_nav .logo img {
+  width: 210px;
 }
 .navbar_user .up_nav .nav_profile {
   margin-right: 20px;
@@ -144,12 +148,13 @@ a {
   flex-direction: column;
 }
 .navbar_user .navbar .logo {
-  margin-top: 20px;
   color: white;
   font-size: 30px;
   font-weight: bold;
-  padding: 10px;
-  margin: 5px;
+  margin: 20px 5px;
+}
+.navbar_user .navbar .logo img {
+  width: 210px;
 }
 .navbar_user .navbar ul {
   padding: 10px;

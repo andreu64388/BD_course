@@ -1,30 +1,23 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './MusicPlayer.css';
 import { useAppDispatch } from '../../redux/store';
-import { StopPlay } from '../../redux/Song/CreateSong';
+import { Next, Prev, StopPlay } from '../../redux/Song/CreateSong';
+import { trace } from 'console';
+import { useAppSelector } from './../../redux/store';
 
 interface Props {
-   tracks: string[];
+   track?: any;
+
 }
 
-const MusicPlayer: React.FC<Props> = ({ tracks }) => {
-   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+
+const MusicPlayer: React.FC<Props> = ({ track }) => {
+   const { currentSong, index }: any = useAppSelector(state => state.song)
    const [isPlaying, setIsPlaying] = useState(false);
    const [currentTime, setCurrentTime] = useState(0);
-
    const dispatch = useAppDispatch();
    const audioRef: any = useRef<HTMLAudioElement | null>(null);
 
-   useEffect(() => {
-      const audio = audioRef.current;
-      if (!audio) return;
-
-      // Установка трека и воспроизведение
-      audio.src = tracks[currentTrackIndex];
-      audio.load();
-      setIsPlaying(true);
-      audio.play();
-   }, [currentTrackIndex]);
 
    const formatTime = (time: number): string => {
       const minutes = Math.floor(time / 60);
@@ -32,6 +25,17 @@ const MusicPlayer: React.FC<Props> = ({ tracks }) => {
       return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
    };
 
+
+   useEffect(() => {
+      const audio = audioRef.current;
+      if (!audio) return;
+
+      // Установка трека и воспроизведение
+
+      audio.load();
+      setIsPlaying(true);
+      audio.play();
+   }, [index]);
    const playPauseTrack = () => {
       const audio = audioRef.current;
       if (!audio) return;
@@ -48,16 +52,16 @@ const MusicPlayer: React.FC<Props> = ({ tracks }) => {
    };
 
    const playNextTrack = () => {
-      const newIndex = currentTrackIndex === tracks.length - 1 ? 0 : currentTrackIndex + 1;
-      setCurrentTrackIndex(newIndex);
-      setIsPlaying(false);
+
+
+      dispatch(Next())
+      setIsPlaying(true);
       setCurrentTime(0);
    };
 
    const playPrevTrack = () => {
-      const newIndex = currentTrackIndex === 0 ? tracks.length - 1 : currentTrackIndex - 1;
-      setCurrentTrackIndex(newIndex);
-      setIsPlaying(false);
+      dispatch(Prev())
+      setIsPlaying(true);
       setCurrentTime(0);
    };
 
@@ -101,7 +105,7 @@ const MusicPlayer: React.FC<Props> = ({ tracks }) => {
          </div>
          <audio
             ref={audioRef}
-            src={tracks[currentTrackIndex]}
+            src={currentSong?.track_content}
             onEnded={playNextTrack}
             onTimeUpdate={handleTimeUpdate}
 

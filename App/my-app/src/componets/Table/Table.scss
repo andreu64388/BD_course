@@ -126,6 +126,9 @@
 }
 
 .table-cell {
+
+   width: 100%;
+   word-break: break-all;
    flex: 1;
    padding: 10px;
    text-align: center;

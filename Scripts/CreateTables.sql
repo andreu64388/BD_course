@@ -76,6 +76,6 @@ CREATE TABLE Library_user (
     CONSTRAINT fk_library_track_user FOREIGN KEY (user_id) REFERENCES Users (user_id),
     CONSTRAINT fk_library_track_track FOREIGN KEY (track_id) REFERENCES Track (track_id)
 );
-
+--------------------- Table Artist ----------------------
 
 

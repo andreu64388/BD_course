@@ -1,0 +1,24 @@
+.circle-loading {
+   position: relative;
+   width: 40px;
+   height: 40px;
+}
+
+.spinner {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   width: 40px;
+   height: 40px;
+   margin: -20px 0 0 -20px;
+   border: 3px solid rgba(0, 0, 0, 0.1);
+   border-left-color: gray;
+   border-radius: 50%;
+   animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+   to {
+      transform: rotate(360deg);
+   }
+}

@@ -1,8 +1,10 @@
+@charset "UTF-8";
 .wrapper_all {
   max-width: 1000px;
   margin: 0 auto;
   width: 100%;
   padding: 0 5px;
+  background-color: #181818;
 }
 
 body {
@@ -13,10 +15,11 @@ body {
   margin-top: 80px;
   margin-left: 200px;
   margin-bottom: 100px;
+  font-family: "Popins", sans-serif;
 }
 
 * {
-  font-family: "Roboto", sans-serif;
+  font-family: "Popisnd", sans-serif;
   box-sizing: border-box;
 }
 
@@ -25,6 +28,7 @@ body {
   border-radius: 20px;
   padding: 20px;
   width: 100%;
+  z-index: 1000;
   max-width: 600px;
 }
 .app .content .blocks {
@@ -67,6 +71,48 @@ body {
   display: flex;
   flex-direction: column;
 }
+.wrapper .modal_estimate {
+  padding: 10px;
+  background-color: #2bc48a;
+  border-radius: 20px;
+  gap: 10px;
+}
+.wrapper .modal_estimate button {
+  display: block;
+  background-color: #10B557;
+  color: white;
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+  margin: 20px auto;
+}
+.wrapper .modal_estimate .title {
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  margin: 10px 0;
+}
+.wrapper .modal_estimate .blocks {
+  display: flex;
+  gap: 10px;
+}
+.wrapper .modal_estimate .blocks .star {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-size: contain;
+  cursor: pointer;
+  vertical-align: middle;
+}
+.wrapper .modal_estimate .blocks .star + .star {
+  margin-left: 10px;
+}
+.wrapper .modal_estimate .blocks input[type=radio] {
+  display: none;
+}
+.wrapper .modal_estimate .blocks input[type=radio]:checked + .star:before {
+  content: "★";
+}
 .wrapper .musics {
   margin: 0 auto;
   margin-bottom: 20px;
@@ -78,6 +124,14 @@ body {
   display: flex;
   gap: 20px;
   padding: 20px 0;
+  justify-content: space-between;
+}
+.wrapper .players .estimate {
+  background-color: #1fdf64;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  padding: 0px 20px;
 }
 .wrapper .players .heart {
   width: 25px;

@@ -31,7 +31,7 @@ const CardSong: FC<ICardSong> = ({ item }) => {
    const { isTrack }: any = useAppSelector(state => state.song);
    function handlePlayClick(event: any) {
       event.preventDefault();
-      if (isAuth) {
+      if (!isAuth) {
          dispatch(ShowModal())
          return
       }
@@ -41,24 +41,29 @@ const CardSong: FC<ICardSong> = ({ item }) => {
 
    }
    return (
-      <Link to={item.link_track}>
-         <div className='card_song' key={item.id_track}>
-            <img src={process.env.PUBLIC_URL + item.img} />
+      <Link to={`/user/track/:${item?.track_id}`}>
+         <div className='card_song' key={item?.id_track}>
+            <img src={item?.track_image} />
             <div className="text_block">
                <p className="title_song">
-                  {item.title}
+                  {item?.track_title}
                </p>
                <p className="artist_song">
-                  {item?.artist?.map((el: any, index: number) => {
+                  <Link to={`/user/executor/:${item?.user_id   }`}>
+                     <span style={{ color: "gray" }}>
+                        {item.user_name}
+                     </span>
+                  </Link>
+                  {/* {item?.artist?.map((el: any, index: number) => {
                      return (
                         <>
-                           <Link to={el.link}>{el.artist}</Link>
+                           <Link to={`/user/executor/:${}`}>{el.artist}</Link>
                            <span style={{ color: "gray" }}>
                               {index === item.artist?.length - 1 ? "" : ", "}
                            </span>
                         </>
                      );
-                  })}
+                  })} */}
                </p>
             </div>
             <div className="music_player" onClick={handlePlayClick}>

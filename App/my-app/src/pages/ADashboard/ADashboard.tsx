@@ -1,11 +1,42 @@
 import React from 'react';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import "./ADashboard.css"
 import Table from './../../componets/Table/Table';
 import { Link } from 'react-router-dom';
 import Genre from '../../componets/Genre/Genre';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { useEffect } from 'react';
+import { GetTracks, GetUsers, GetGenres } from './../../redux/Admin/CreateAdmin';
 const AdminDashboard: FC = () => {
+   const dispatch = useAppDispatch();
+   const { tracks, users, genres }: any = useAppSelector(state => state.admin)
+   const [tracksA, setTracksA] = useState<any[]>([]);
+   const [usersA, setUsersA] = useState<any[]>([]);
+   const [genresA, setGenresA] = useState<any[]>([]);
+   useEffect(() => {
+      dispatch(GetTracks())
+      dispatch(GetUsers())
+      dispatch(GetGenres())
+   }, [])
 
+   useEffect(() => {
+      if (tracks) {
+         setTracksA(tracks)
+      }
+   }, [tracks])
+
+   useEffect(() => {
+      if (users) {
+         console.log(users.slice(0, 5))
+         setUsersA(users)
+      }
+   }, [users])
+
+   useEffect(() => {
+      if (genres) {
+         setGenresA(genres)
+      }
+   }, [genres])
    const value = [
       {
          name: 'INSTASAMLA',
@@ -43,7 +74,7 @@ const AdminDashboard: FC = () => {
          password: "et"
       }
    ]
-   const headers = ["id", "name"]
+   const headers = ["genre_id", "genre_name"]
    const date = [
       {
          id: "te",
@@ -70,7 +101,7 @@ const AdminDashboard: FC = () => {
                         <p>Users</p>
                      </div>
                      <div className="count">
-                        320
+                        {usersA?.length}
                      </div>
                   </div>
                   <div className="block">
@@ -79,7 +110,7 @@ const AdminDashboard: FC = () => {
                         <p>Songs</p>
                      </div>
                      <div className="count">
-                        320
+                        {tracksA?.length}
                      </div>
                   </div>
                   <div className="block">
@@ -88,7 +119,7 @@ const AdminDashboard: FC = () => {
                         <p>Genres</p>
                      </div>
                      <div className="count">
-                        320
+                        {genresA?.length}
                      </div>
                   </div>
                </div>
@@ -99,7 +130,7 @@ const AdminDashboard: FC = () => {
                         <p>Users</p>
                      </div>
                   </div>
-                  <Table data={value} />
+                  <Table data={usersA.slice(0, 5)} />
                   <Link to={"/admin/users"} className="see_button">
                      Veiw all
                   </Link>
@@ -109,7 +140,7 @@ const AdminDashboard: FC = () => {
                         <p>Song</p>
                      </div>
                   </div>
-                  <Table data={value} />
+                  <Table data_songs={tracksA?.slice(0, 5)} />
 
                   <Link to={"/admin/songs"} className="see_button">
                      Veiw all
@@ -120,7 +151,7 @@ const AdminDashboard: FC = () => {
                         <p>Genres</p>
                      </div>
                   </div>
-                  <Genre headers={headers} data={date} />
+                  <Genre headers={headers} data={genresA} />
                </div>
             </div>
          </div>

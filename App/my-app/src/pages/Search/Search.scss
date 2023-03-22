@@ -8,10 +8,22 @@
    .response {
       margin-bottom: 30px;
 
+      .loading {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         margin-top: 30px;
+         width: 100%;
+
+      }
+
       .response_with_playlist_and_songs {
          gap: 20px;
+
          display: flex;
          flex-wrap: wrap;
+
+
 
          .songs {
             flex: 1;
@@ -59,7 +71,7 @@
 
       .ifnotsearch {
          margin: 0 auto;
-        
+
          display: flex;
          gap: 30px;
 

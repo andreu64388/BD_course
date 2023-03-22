@@ -1,0 +1,48 @@
+.card_songs {
+   margin-top: 20px;
+   display: flex;
+   flex-direction: column;
+   gap: 40px;
+
+   .cards {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+   }
+}
+
+.card_song_loading {
+   position: relative;
+   width: 100%;
+   height: 80px;
+   background-color: #f2f2f2;
+   overflow: hidden;
+   position: relative;
+   background-color: #222;
+   height: 290px;
+   max-width: 190px;
+   width: 100%;
+   border-radius: 10px;
+
+}
+
+.card_song_loading::before {
+   content: "";
+   position: absolute;
+   bottom: 0;
+   left: -30%;
+   width: 90%;
+   height: 100%;
+   background: linear-gradient(to right, transparent 10%, gray 70%, gray 90%);
+   animation: wave 1.7s linear infinite;
+}
+
+@keyframes wave {
+   0% {
+      transform: translateX(0);
+   }
+
+   100% {
+      transform: translateX(100%);
+   }
+}

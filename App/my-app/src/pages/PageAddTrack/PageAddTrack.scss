@@ -95,9 +95,10 @@
       overflow: auto;
       align-items: flex-start;
 
-    .audio_main{
-      max-width: 190px;
-    }
+      .audio_main {
+         max-width: 190px;
+      }
+
       .images {
          display: flex;
          flex-direction: column;
@@ -127,6 +128,13 @@
 
 
 .pageaddtrack {
+   .loading_ {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+
+   }
 
    display: flex;
    flex-direction: column;

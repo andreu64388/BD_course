@@ -2,11 +2,30 @@ import React from 'react';
 import { FC, ChangeEvent } from 'react';
 import "./Password.css"
 import { useState } from 'react';
+import { useAppDispatch } from '../../redux/store';
+import { useAppSelector } from './../../redux/store';
+import { UpdateUserPassword } from './../../redux/User/CreateUser';
 
 const Password: FC = () => {
    const [oldPassword, setOldPassword] = useState<string>('');
    const [newPassword, setNewPassword] = useState<string>('');
    const [newPassword2, setNewPassword2] = useState<string>('');
+
+   const dispatch = useAppDispatch();
+
+   const { user }: any = useAppSelector(state => state.user)
+   const ChangePassword = async () => {
+      if (newPassword != newPassword2) {
+         return;
+      }
+      const data = {
+         user_id: user?.user_id,
+         user_password: newPassword,
+
+      }
+      await dispatch(UpdateUserPassword(data));
+   }
+
    return (
       <div className='wrapper'>
          <div className="wrapper_all">
@@ -49,7 +68,7 @@ const Password: FC = () => {
                         onChange={(e: ChangeEvent<HTMLInputElement>) => setNewPassword2(e.target.value)}
                         placeholder='Andrey...' />
                   </div>
-                  <button className="save">
+                  <button className="save" onClick={ChangePassword}>
                      Save
                   </button>
                </div>

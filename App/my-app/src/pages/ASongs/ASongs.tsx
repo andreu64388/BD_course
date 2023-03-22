@@ -4,6 +4,10 @@ import Table from './../../componets/Table/Table';
 import "./Songs.css"
 import Modal from './../../componets/Modal/Modal';
 import { useState } from 'react';
+import { useAppDispatch } from '../../redux/store';
+import { useAppSelector } from './../../redux/store';
+import { useEffect } from 'react';
+import { GetTracks } from './../../redux/Admin/CreateAdmin';
 const value = [
    {
       img: process.env.PUBLIC_URL + "/icons/dashuser.svg",
@@ -38,6 +42,19 @@ const AdminSongs: FC = () => {
    const [genre, setGenre] = useState<string>("");
    const [image, setImage] = useState<string | any>("");
    const [audio, setAudio] = useState<string | any>("");
+   const dispatch = useAppDispatch();
+   const { tracks }: any = useAppSelector(state => state.admin)
+   const [tracksA, setTracksA] = useState<any[]>([]);
+   const [value, setValue] = useState<string>("");
+   useEffect(() => {
+      dispatch(GetTracks())
+   }, [])
+
+   useEffect(() => {
+      if (tracks) {
+         setTracksA(tracks)
+      }
+   }, [tracks])
    const changeModalState = (state: boolean) => {
       setModal(state)
    }
@@ -55,8 +72,16 @@ const AdminSongs: FC = () => {
                         <p>Songs</p>
                      </div>
                      <div className="count">
-                        320
+                        {tracksA?.length}
                      </div>
+                  </div>
+                  <div className="input_search">
+                     <img src={process.env.PUBLIC_URL + "/icons/search.svg"} alt="" />
+                     <input value={value}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => setValue(e.target.value)} />
+                     <img className='clear'
+                        src={process.env.PUBLIC_URL + "/icons/cansel.svg"}
+                        alt="clear" onClick={() => setValue("")} />
                   </div>
                   <div className="add_user" onClick={() => setModal(true)}>
                      Add song
@@ -64,7 +89,11 @@ const AdminSongs: FC = () => {
 
                </div>
                <div className="about_table">
-                  <Table data_songs={value} />
+                  <Table data_songs={tracksA.filter((item: any) => {
+                     const regex = new RegExp(value, "gi");
+                     return regex.test(item?.genre_name) || regex.test(item.track_title) || regex.test(item?.track_id)
+                        || regex.test(item.user_id)
+                  })} />
 
                </div>
             </div>

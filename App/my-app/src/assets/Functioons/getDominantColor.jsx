@@ -1,4 +1,4 @@
-function getDominantColor(image) {
+async function getDominantColor(image) {
   function distance(a, b) {
     const [r1, g1, b1] = a;
     const [r2, g2, b2] = b;

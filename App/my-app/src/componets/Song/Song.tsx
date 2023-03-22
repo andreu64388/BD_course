@@ -6,11 +6,24 @@ import { useRef } from 'react';
 import Modal from './../Modal/Modal';
 import { useAppDispatch, useAppSelector } from './../../redux/store';
 import { ShowModal } from '../../redux/User/CreateUser';
+import { AddTrackInLibrary, AddTrackInPlaylist, DeleteTrack, DeleteTrackInLibrary, DeleteTrackInPlaylist, PlayMusic } from '../../redux/Song/CreateSong';
+import { GetPlaylistsUserId, UpdateTrack } from './../../redux/Song/CreateSong';
+
 interface ISong {
    isAdd?: boolean,
+   isAddDelete?: boolean,
+   item?: any,
+   songs_array?: any,
+   index?: number,
+   active?: boolean,
+   style?: any,
+   AddPlaylist?(data: any): void,
+   DeletePlaylist?(data: any): void,
+   playlist_id?: number | string,
 }
-const Song: FC<ISong> = ({ isAdd }) => {
-   const { isAuth }: any = useAppSelector(state => state.user);
+const Song: FC<ISong> = ({ isAdd, item, songs_array, index, active, style, isAddDelete, playlist_id }) => {
+   const { isAuth, user }: any = useAppSelector(state => state.user);
+   const { library, playlists_users, genres }: any = useAppSelector(state => state.song)
    const [menu, setMenu] = useState<boolean>(false);
    const [liked, setLiked] = useState<boolean>(false);
    const [add, setAdd] = useState<boolean>(true);
@@ -18,22 +31,97 @@ const Song: FC<ISong> = ({ isAdd }) => {
    const [plus, setPlus] = useState<boolean>(false);
    const [genre, setGenre] = useState<string>("");
    const [name, setName] = useState<string>("");
-   const [isPlay, setPlay] = useState<boolean>(false)
+   const [image, setImage] = useState<string | any>("");
+   const [isPlay, setPlay] = useState<boolean>()
+   const [items, setItems] = useState<any>([])
+   const [genres_arr, setGenres_arr] = useState<any[]>([]);
+   const [your_track, setYourTrack] = useState<boolean>(false)
    const songRef = useRef<HTMLDivElement>(null);
    const downNavRef = useRef<HTMLDivElement>(null);
    const dotRef = useRef<HTMLImageElement>(null);
 
-   const dispatch = useAppDispatch();
-   const handleLikeClick = () => {
-      setLiked(!liked);
-   };
 
+   useEffect(() => {
+      isPlay ? setPlay(true) : setPlay(false)
+   }, [active])
+
+   useEffect(() => {
+      if (library) {
+         if (library.find((obj: any) => Number(obj.track_id) === Number(item.track_id))) {
+            setLiked(true)
+         } else {
+            setLiked(false)
+         }
+      }
+   }, [library, liked])
+
+   useEffect(() => {
+      if (genres) {
+         setGenres_arr(genres);
+      }
+   }, [genres])
+   useEffect(() => {
+      dispatch(GetPlaylistsUserId(user?.user_id))
+      Number(user?.user_id) == Number(item?.user_id) ? setYourTrack(true) : setYourTrack(false)
+   }, [user])
+
+   const dispatch = useAppDispatch();
+
+   const changeModalState = (state: boolean) => {
+      setModal(state);
+   };
    const handleDotClick = () => {
       setMenu(!menu);
       setAdd(true)
    };
    const ChangeModal = (state: boolean) => {
       setModal(state)
+      if (state) {
+
+         const index = genres_arr.findIndex((genre) => genre.genre_name === item?.genre_name) + 1;
+
+         setGenre(index.toString())
+         setName(item?.track_title)
+
+      }
+   }
+   const DeleteTracks = (track_id: any) => {
+      const data = {
+         track_id: track_id,
+         user_id: user?.user_id
+      }
+      dispatch(DeleteTrack(data))
+   }
+   const AddInPlayList = (song_id: string, id?: string) => {
+
+      if (playlist_id) {
+         const data = {
+            playlist_id: playlist_id,
+            song_id: song_id
+         }
+         dispatch(AddTrackInPlaylist(data))
+      }
+      else {
+         const data = {
+            playlist_id: id,
+            song_id: song_id
+         }
+
+         dispatch(AddTrackInPlaylist(data))
+      }
+   }
+
+   const DeleteTrackInPlaylists = (song_id: string) => {
+
+      if (playlist_id) {
+         const data = {
+            playlist_id: playlist_id,
+            song_id: song_id
+         }
+
+         dispatch(DeleteTrackInPlaylist(data));
+
+      }
    }
 
    const handleClick = (event: any) => {
@@ -50,50 +138,104 @@ const Song: FC<ISong> = ({ isAdd }) => {
       }
    };
 
+   const AddLibrary = (song_id: string) => {
+      const data = {
+         song_id: song_id,
+         user_id: user?.user_id
+      }
+      dispatch(AddTrackInLibrary(data))
+      setLiked(true)
+   }
+
+   const DeleteLibrary = (song_id: string) => {
+
+      const data = {
+         song_id: song_id,
+         user_id: user?.user_id
+      }
+      dispatch(DeleteTrackInLibrary(data))
+
+   }
+
+   const UpdateTrackFunc = (track_id: any) => {
+
+      const data = new FormData();
+      data.append('user_id', user?.user_id);
+      data.append("track_title", name);
+      data.append("genre_id", genre);
+      data.append("track_id", track_id);
+      if (image) {
+         data.append("track_image", image);
+      }
+      else {
+         data.append("track_image", '');
+      }
+      const form = {
+         user_id: data.get("user_id"),
+         track_title: data.get("track_title"),
+         track_image: data.get("track_image"),
+         genre_id: data.get("genre_id"),
+         track_id: data.get("track_id")
+      }
+      console.log(form)
+      dispatch(UpdateTrack(form))
+      setModal(false)
+   }
+
    useEffect(() => {
       document.addEventListener("click", handleClick);
       return () => {
          document.removeEventListener("click", handleClick);
       };
    }, []);
-   const PlayMusic = () => {
-      if (isAuth) {
+   const PlayMusics = (item: any) => {
+
+      const data = {
+         index: index,
+         songs_array: songs_array
+      }
+      dispatch(PlayMusic(data))
+
+      if (!isAuth) {
+
          dispatch(ShowModal())
          return
       }
-      setPlay(!isPlay)
+
    }
    return (
-      <div ref={songRef} className="song">
-
-         <img className="play" src={!isPlay ? process.env.PUBLIC_URL + "/icons/play.svg" : process.env.PUBLIC_URL + "/icons/stop_song.svg"} onClick={() => PlayMusic()} />
+      <div ref={songRef} className="song" style={style && { order: style }}>
+         <img className="play" src={!active ? process.env.PUBLIC_URL + "/icons/play.svg" : process.env.PUBLIC_URL + "/icons/stop_song.svg"} onClick={() => PlayMusics(item)} />
          <div className="description">
             <Link
-               to={"/user/executor/:executor_id"}
+               to={`/user/executor/:${item?.user_id}`}
                className="name_author outside"
             >
-               INSTASAMLff
+               {item?.user_name}
             </Link>
             <Link
-               to={"/user/track/:track_id"}
+               to={`/user/track/:${item?.track_id}`}
                className="name_song outside"
             >
-               INSTASAMLA
+               {item?.track_title}
             </Link>
          </div>
          {
             !isAdd ? (
                <div className="action">
+                  {
+                     !liked ? (
+                        <img src={process.env.PUBLIC_URL + "/icons/heart.svg"}
+                           onClick={() => AddLibrary(item?.track_id)}
+                        />) : (
+                        <img src={process.env.PUBLIC_URL + "/icons/full.svg"}
+                           onClick={() => DeleteLibrary(item?.track_id)}
 
-                  <img
-                     src={
-                        !liked
-                           ? process.env.PUBLIC_URL + "/icons/heart.svg"
-                           : "/icons/full.svg"
-                     }
-                     alt="like"
-                     onClick={handleLikeClick}
-                  />
+                        />
+
+                     )
+
+                  }
                   <img
                      ref={dotRef}
                      className="dot"
@@ -101,74 +243,129 @@ const Song: FC<ISong> = ({ isAdd }) => {
                      alt="menu"
                      onClick={handleDotClick}
                   />
-                  {menu && (
+                  {menu && playlists_users?.length != 0 && (
+
                      <div ref={downNavRef} className="menu">
-                        <div className="btn" onClick={() => setAdd(!add)}>Add in playlist
-                           {
-                              !add && (<div className="add_list">
-                                 <ul>
-                                    <li>
-                                       a
-                                    </li>
-                                    <li>
-                                       dfsa
-                                    </li>
-                                 </ul>
-                              </div>)
-                           }
-                        </div>
-                        <div className="btn"
-                           onClick={() => ChangeModal(true)}
-                        >Edit</div>
-                        <div className="btn">Delete</div>
+                        {playlists_users?.length != 0 && (
+                           <>
+                              <div className="btn" onClick={() => setAdd(!add)}>Add in playlist
+                                 {
+                                    !add && (<div className="add_list">
+                                       <ul>
+                                          {
+                                             playlists_users?.map((el: any, index: number) => {
+                                                return (
+                                                   <li key={index} onClick={() => AddInPlayList(item?.track_id, el?.playlist_id)}>
+                                                      {el?.title}
+                                                   </li>
+                                                )
+                                             }
+                                             )
+                                          }
+                                       </ul>
+                                    </div>)
+                                 }
+                              </div>
+                           </>
+                        )}
+
+
+                        {
+                           your_track && (
+                              <> <div className="btn"
+                                 onClick={() => ChangeModal(true)}
+                              >Edit</div>
+                                 <div className="btn" onClick={() => DeleteTracks(item?.track_id)}>Delete</div></>
+                           )
+                        }
                      </div>
                   )}
                </div>
             )
                : (
                   <div className="action">
-                     <p className='plus' onClick={() => setPlus(!plus)} >
-                        {plus ? "-" : "+"}
-                     </p>
+                     {
+                        isAddDelete ? (
+                           <p className='plus' style={{
+                              width: "100%", height: "100%"
+                           }}  >
+                              <button onClick={() => AddInPlayList(item?.track_id)}>Add</button>
+                           </p>
+                        ) : (
+                           <p className='plus' style={{
+                              width: "100%", height: "100%"
+                           }}  >
+                              <button
+                                 onClick={() => DeleteTrackInPlaylists(item?.track_id)}
+                              >Del</button>
+                           </p>
+                        )
+                     }
+
                   </div>
                )
          }
          {
             modal && (
-               <Modal ChangeModal={ChangeModal}>
-                  <div className="modal_content_change">
-                     <h1 className="title">
-                        Change song
-                     </h1>
-                     <div className="blocks">
-                        <div className="block">
-                           <h2 className="enter_value">
-                              Name
-                           </h2>
+               <Modal ChangeModal={changeModalState}>
+                  <div className="modal_content">
+                     <h1 className="title">Update track</h1>
+                     <h2 className="name">Name</h2>
+                     <input
+                        type="text"
+                        value={name}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                           setName(e.target.value)
+                        }
+                     />
+                     <div className="block">
+                        <div className="images">
+                           {
+                              image ?
+                                 <img src={URL.createObjectURL(image)} alt="" />
+                                 :
+                                 <img src={item?.track_image} alt="" />
+                           }
+                           <button onClick={() => setImage(null)}>Cansel</button>
+                        </div>
+                        <>
+                           <label htmlFor="photolabel">
+                              <span>Image</span>
+                              <img
+                                 src={process.env.PUBLIC_URL + "/icons/download.svg"}
+                                 alt=""
+                              />
+                           </label>
                            <input
-                              type="text"
-                              value={name}
-                              onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
-                              placeholder='Andrey...' />
-                        </div>
-                        <div className="block">
-                           <h2 className="enter_value">
-                              Genre
-                           </h2>
-                           <select value={genre}
-                              onChange={(e: ChangeEvent<HTMLSelectElement>) => setGenre(e.target.value)}>
-                              <option value="test">Rock</option>
-                           </select>
-                        </div>
-                        <div className="block">
-                           <h2 className="enter_value">
-                              Image
-                           </h2>
-                           <button className='image'>Image</button>
-                        </div>
-                        <div className="save">
-                           Save
-                        </div>
+                              type="file"
+                              id={"photolabel"}
+                              accept=".jpg, .jpeg, .png"
+                              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                 setImage(e.target.files![0])
+                              }
+                           />
+                        </>
+                     </div>
+                     <div className="select">
+                        <h2 className="name">Genre</h2>
+                        <select
+                           className="select"
+                           value={genre}
+                           onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                              setGenre(e.target.value)
+                           }
+                        >
+                           {genres_arr?.map((item: any, index: number) => (
+                              <option key={item?.genre_id} value={item?.genre_id}>
+                                 {item?.genre_name}
+                              </option>
+                           ))
+                           }
+                        </select>
+                     </div>
+                     <div className="buttons">
+
+                        <button className="submit" onClick={() => UpdateTrackFunc(item?.track_id)}>Submit</button>
                      </div>
                   </div>
                </Modal>

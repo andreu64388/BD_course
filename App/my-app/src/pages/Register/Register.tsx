@@ -1,8 +1,12 @@
 import React from 'react';
-import { FC, ChangeEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { FC, ChangeEvent, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import "./Register.css"
+import { toByteArray } from 'base64-js';
 import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { RegisterUser } from './../../redux/User/CreateUser';
+import Loading from './../../componets/Loading/Loading';
 const months: string[] = [
    "January",
    "February",
@@ -19,13 +23,101 @@ const months: string[] = [
 ];
 
 const Register: FC = () => {
+   const { token, admin, loading, message }: any = useAppSelector(state => state.user);
    const [name, setName] = useState<string>('')
    const [password, setPassword] = useState<string>('')
    const [email, setEmail] = useState<string>('')
    const [day, setDay] = useState<string>('')
    const [month, setMonth] = useState<string>('')
    const [year, setYear] = useState<string>('')
-   const [image, setImage] = useState<string | any>('')
+   const [image, setImage] = useState<File | any>(null);
+   const [imageByte, setImageByte] = useState<any>(null);
+   const [messages, setMessages] = useState<string>('')
+   const navigate = useNavigate();
+   const dispatch = useAppDispatch();
+
+
+
+
+   useEffect(() => {
+      if (token) {
+
+         if (admin) {
+            return navigate("/admin/dashboard");
+         }
+         return navigate("/");
+      }
+
+   }, [token]);
+
+   useEffect(() => {
+      alert("Tesst");
+   }
+      , [message]);
+
+
+
+
+
+   const Register = async () => {
+      if (name.trim().length == 0) {
+         setMessages('Name is required')
+      }
+      else if (password.trim().length == 0) {
+         setMessages('Password is required')
+         if (password.length < 5) {
+            setMessages("Password want to have at least 5 characters")
+         }
+      }
+      else if (email.trim().length == 0) {
+         setMessages('Email is required')
+      }
+      else if (day.trim().length == 0) {
+         setMessages('Day is required')
+      }
+      else if (month.trim().length == 0) {
+         setMessages('Month is required')
+      }
+      else if (year.trim().length == 0) {
+         setMessages('Year is required')
+      }
+      else if (image == null) {
+         setMessages('Image is required')
+      }
+      else {
+
+         const monthId = months.indexOf(month) + 1;
+
+         const formData = new FormData();
+
+         formData.append("name", name);
+         formData.append("user_email", email);
+         formData.append("user_password", password);
+         formData.append("user_date_of_birth", `${day}-${monthId}-${year}`);
+         formData.append("user_role_id", "1");
+         formData.append("user_image", image);
+
+         const form = {
+            user_name: formData.get("name"),
+            user_email: formData.get("user_email"),
+            user_password: formData.get("user_password"),
+            user_date_of_birth: formData.get("user_date_of_birth"),
+            user_role_id: formData.get("user_role_id"),
+            user_img: formData.get("user_image"),
+         }
+         console.log(form)
+         await dispatch(RegisterUser(form));
+
+      }
+
+
+   }
+
+   const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files![0];
+      setImage(file);
+   };
+
    return (
       <div className="wrapper_all">
          <div className='regiser'>
@@ -98,7 +190,7 @@ const Register: FC = () => {
                   </label>
                      <input type="file" id={"photolabel"}
                         accept=".jpg, .jpeg, .png"
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => setImage(e.target.files![0])}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => handleImageChange(e)}
                      />
                   </>) : (
                      <div className='images'>
@@ -107,8 +199,11 @@ const Register: FC = () => {
                      </div>
                   )}
                </div>
-               <button className="submit">
-                  Register
+               <div className="message">
+                  {message}
+               </div>
+               <button className="submit" onClick={Register}>
+                  Register {!loading && <Loading />}
                </button>
                <div className="login">
                   <span>Do you account? </span>

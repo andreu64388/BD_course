@@ -1,4 +1,12 @@
 @import '../../style/index.scss';
+$items: (
+   "#7358FF",
+   '#1E3264',
+   '#E8115B',
+   '#148A08',
+   '#BC5900',
+   '#8D67AB'
+);
 
 .library {
    margin-top: 0px;
@@ -224,7 +232,7 @@
 
 
             a {
-
+               $item-count: length($items);
                cursor: pointer;
 
                .block_event {
@@ -232,13 +240,16 @@
                   height: 200px;
                   border-radius: 42px;
 
+
                   h1 {
                      padding: 30px;
                      color: white;
                      font-size: 24px;
+                     word-wrap: break-word;
                   }
 
                   background-color: #7358FF;
+
                }
             }
          }

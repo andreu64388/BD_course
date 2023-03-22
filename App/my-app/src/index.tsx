@@ -11,7 +11,6 @@ import Profile from "./pages/Profile/Profile";
 import Track from "./pages/Track/Track";
 import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import reportWebVitals from "./reportWebVitals";
 import Executor from "./pages/Executor/Executor";
 import Playlist from "./pages/Playlist/Playlist";
 import EditProfile from "./pages/EditProfile/EditProfile";
@@ -107,7 +106,4 @@ const router = createBrowserRouter([
 ]);
 root.render(
   <RouterProvider router={router} />
-
 );
-
-reportWebVitals();

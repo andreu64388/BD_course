@@ -1,18 +1,69 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FC, ChangeEvent } from "react";
 import Song from "../../componets/Song/Song";
 import "./PageAddTrack.css";
 import { useState } from "react";
 import Modal from "./../../componets/Modal/Modal";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
+import { AddTrack } from "../../redux/Song/CreateSong";
+import { GetTrackinLibrary, GetSongs } from './../../redux/Song/CreateSong';
+import Loading from './../../componets/Loading/Loading';
 const PageAddTrack: FC = () => {
+
+   const { user }: any = useAppSelector(state => state.user);
+   const { genres, songs, index }: any = useAppSelector(state => state.song);
    const [modal, setModal] = useState<boolean>(false);
    const [name, setName] = useState<string>("");
    const [genre, setGenre] = useState<string>("");
    const [image, setImage] = useState<string | any>("");
+   const [genres_arr, setGenres_arr] = useState<any[]>([]);
    const [audio, setAudio] = useState<string | any>("");
+   const [songs_array, setSongs_array] = useState<any[]>([]);
+   const [loading, setLoading] = useState(false);
+   const dispatch = useAppDispatch();
+
+   useEffect(() => {
+      setLoading(true);
+      dispatch(GetSongs(user?.user_id)).then(() => setLoading(false))
+   }, [user])
    const changeModalState = (state: boolean) => {
       setModal(state);
    };
+   useEffect(() => { dispatch(GetTrackinLibrary(user?.user_id)) }, [user])
+   useEffect(() => {
+      if (genres) {
+         setGenres_arr(genres);
+      }
+   }, [genres])
+
+   useEffect(() => {
+      if (songs) {
+         setSongs_array(songs);
+      }
+   }, [songs])
+
+
+
+   const AddTrackFunc = () => {
+      const data = new FormData();
+      data.append('user_id', user?.user_id);
+      data.append("track_title", name);
+      data.append("track_image", image);
+      data.append("track_content", audio);
+      data.append("genre_id", genre);
+      const form = {
+         user_id: data.get("user_id"),
+         track_title: data.get("track_title"),
+         track_image: data.get("track_image"),
+         track_content: data.get("track_content"),
+         genre_id: data.get("genre_id"),
+      }
+      console.log(form);
+      dispatch(AddTrack(form));
+      setModal(false)
+   }
+
+
    return (
       <div className="wrapper">
          <div className="wrapper_all">
@@ -68,7 +119,6 @@ const PageAddTrack: FC = () => {
                            </div>
                         ) : (
                            <>
-                              {" "}
                               <label htmlFor="audiolabel">
                                  <span>Music</span>
                                  <img
@@ -96,12 +146,17 @@ const PageAddTrack: FC = () => {
                               setGenre(e.target.value)
                            }
                         >
-                           <option value="Test">Test</option>
+                           {genres_arr?.map((item: any, index: number) => (
+                              <option key={item?.genre_id} value={item?.genre_id}>
+                                 {item?.genre_name}
+                              </option>
+                           ))
+                           }
                         </select>
                      </div>
                      <div className="buttons">
                         <button className="cansel">Cansel</button>
-                        <button className="submit">Submit</button>
+                        <button className="submit" onClick={AddTrackFunc}>Submit</button>
                      </div>
                   </div>
                </Modal>
@@ -110,11 +165,33 @@ const PageAddTrack: FC = () => {
                <div className="block_button">
                   <div className="button_add_music" onClick={() => setModal(true)}>
                      <span>Add track</span>
-                     <img src={process.env.PUBLIC_URL + "/icons/plus.svg   "} alt="" />
+                     <img src={process.env.PUBLIC_URL + "/icons/plus.svg"} alt="" />
                   </div>
                </div>
                <div className="songs">
-                  <Song />
+
+                  {
+                     loading ? (
+                        <div className="loading_">
+                           <Loading />
+                        </div>
+                     ) :
+                        (
+
+                           Array.isArray(songs_array) && songs_array.map?.((item: any, ind: number) => (
+                              <Song
+                                 active={index === ind ? true : false}
+                                 item={item}
+                                 index={ind}
+                                 songs_array={songs_array}
+                                 key={item?.track_id}
+                              />
+
+                           ))
+                        )}
+
+
+
                </div>
             </div>
          </div>

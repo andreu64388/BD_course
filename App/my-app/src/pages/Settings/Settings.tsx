@@ -1,6 +1,8 @@
 import React from 'react';
 import { FC } from 'react';
 import "./Settings.css"
+import CardSongLoading from './../../componets/CardSongLoading/CardSongLoading';
+import Loading from './../../componets/Loading/Loading';
 
 const Settings: FC = () => {
    return (
@@ -22,6 +24,8 @@ const Settings: FC = () => {
 
                </div>
             </div>
+            <CardSongLoading />
+            <Loading />
          </div>
       </div>
    );

@@ -6,13 +6,15 @@ a {
    position: relative;
    background-color: #191919;
    height: 300px;
-   max-width: 190px;
+   max-width: 180px;
+   padding: 3px;
+   width: 100%;
    width: 100%;
    border-radius: 10px;
    background-color: #191919;
    display: flex;
    flex-direction: column;
-
+   word-break: break-word;
    transition: all 0.4s ease-in-out;
    overflow: hidden;
 

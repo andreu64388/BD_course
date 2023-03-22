@@ -1,3 +1,11 @@
+.wrapper_all {
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 5px;
+  background-color: #181818;
+}
+
 body {
   background-color: #181818;
 }
@@ -6,10 +14,11 @@ body {
   margin-top: 80px;
   margin-left: 200px;
   margin-bottom: 100px;
+  font-family: "Popins", sans-serif;
 }
 
 * {
-  font-family: "Roboto", sans-serif;
+  font-family: "Popisnd", sans-serif;
   box-sizing: border-box;
 }
 
@@ -18,6 +27,7 @@ body {
   border-radius: 20px;
   padding: 20px;
   width: 100%;
+  z-index: 1000;
   max-width: 600px;
 }
 .app .content .blocks {
@@ -56,18 +66,45 @@ body {
   border-radius: 20px;
 }
 
-.wrapper_all {
-  max-width: 1000px;
-  margin: 0 auto;
-  width: 100%;
-  padding: 0 5px;
-  background-color: red;
-}
-
 .center .homes {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+.center .homes .top_tracks .title {
+  margin: 20px 0;
+  font-size: 25px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+}
+.center .homes .top_tracks .raiting {
+  display: flex;
+  width: 100%;
+  color: white;
+  align-items: center;
+}
+.center .homes .top_tracks .raiting .space {
+  margin-right: 5px;
+  width: 13px;
+  color: gold;
+}
+.center .homes .top_tracks .raiting .rate {
+  margin-left: 5px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: green;
+  color: white;
+  text-align: center;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.center .homes .top_tracks .raiting .song {
+  margin: 4px 0;
+  width: 100%;
 }
 .center .homes .blocks_reccomemd .recoomecd_text {
   display: flex;

@@ -4,6 +4,36 @@
    color: white;
    margin-top: 20px;
 
+   .input_search {
+      display: flex;
+      margin: 10px auto;
+
+      justify-content: space-between;
+      background-color: white;
+      max-width: 360px;
+      width: 100%;
+      border-radius: 20px;
+      padding: 15px;
+
+      input {
+         outline: none;
+         border: 0;
+         width: 80%;
+
+      }
+
+      .clear {
+         cursor: pointer;
+      }
+
+
+      img {
+
+         width: 20px;
+         height: 20px;
+      }
+   }
+
    .title {
       font-size: $title;
    }

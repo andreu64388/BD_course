@@ -3,6 +3,7 @@
   margin: 0 auto;
   width: 100%;
   padding: 0 5px;
+  background-color: #181818;
 }
 
 body {
@@ -13,10 +14,11 @@ body {
   margin-top: 80px;
   margin-left: 200px;
   margin-bottom: 100px;
+  font-family: "Popins", sans-serif;
 }
 
 * {
-  font-family: "Roboto", sans-serif;
+  font-family: "Popisnd", sans-serif;
   box-sizing: border-box;
 }
 
@@ -25,6 +27,7 @@ body {
   border-radius: 20px;
   padding: 20px;
   width: 100%;
+  z-index: 1000;
   max-width: 600px;
 }
 .app .content .blocks {
@@ -66,6 +69,28 @@ body {
 .users {
   color: white;
   margin-top: 20px;
+}
+.users .input_search {
+  display: flex;
+  margin: 10px auto;
+  justify-content: space-between;
+  background-color: white;
+  max-width: 360px;
+  width: 100%;
+  border-radius: 20px;
+  padding: 15px;
+}
+.users .input_search input {
+  outline: none;
+  border: 0;
+  width: 80%;
+}
+.users .input_search .clear {
+  cursor: pointer;
+}
+.users .input_search img {
+  width: 20px;
+  height: 20px;
 }
 .users .title {
   font-size: 25px;

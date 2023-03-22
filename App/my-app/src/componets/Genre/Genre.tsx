@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Genre.css";
 
 interface GenreProps {
@@ -12,6 +12,9 @@ const Genre: React.FC<GenreProps> = ({ headers, data, onEdit, onDelete }) => {
    const [editIndex, setEditIndex] = useState<number | null>(null);
    const [values, setValues] = useState<any[]>(data);
 
+   useEffect(() => {
+      setValues(data)
+   }, [data])
    const handleEdit = (index: number) => {
       setEditIndex(index);
    };
@@ -47,7 +50,7 @@ const Genre: React.FC<GenreProps> = ({ headers, data, onEdit, onDelete }) => {
    return (
       <div className="table-container">
          <div className="table-header">
-            {headers.map((header, index) => (
+            {headers?.map((header, index) => (
                <div key={index} className="table-cell">
                   {header}
                </div>
@@ -57,7 +60,7 @@ const Genre: React.FC<GenreProps> = ({ headers, data, onEdit, onDelete }) => {
          <div className="table-body">
             {values.map((row, index) => (
                <div key={index} className="table-row">
-                  {headers.map((header, colIndex) => (
+                  {headers?.map((header, colIndex) => (
                      <div key={colIndex} className="table-cell">
                         {editIndex === index ? (
                            <input type="text" value={row[header]} onChange={(event) => handleChange(event, index, header)} />

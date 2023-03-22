@@ -14,18 +14,20 @@ body {
   margin-top: 80px;
   margin-left: 200px;
   margin-bottom: 100px;
+  font-family: "Popins", sans-serif;
 }
 
 * {
-  font-family: "Roboto", sans-serif;
+  font-family: "Popisnd", sans-serif;
   box-sizing: border-box;
 }
 
 .app .content {
-  background-color: #3e4751;
+  background-color: #3E4751;
   border-radius: 20px;
   padding: 20px;
   width: 100%;
+  z-index: 1000;
   max-width: 600px;
 }
 .app .content .blocks {
@@ -60,6 +62,6 @@ body {
   margin-top: 20px;
   padding: 10px 25px;
   color: white;
-  background-color: #1fdf64;
+  background-color: #1FDF64;
   border-radius: 20px;
-} /*# sourceMappingURL=index.css.map */
+}/*# sourceMappingURL=index.css.map */

@@ -3,6 +3,9 @@ import './Table.css';
 import { useEffect, ChangeEvent } from 'react';
 import Modal from '../Modal/Modal';
 import { useState } from 'react';
+import { useAppDispatch } from '../../redux/store';
+import { DeleteUser } from '../../redux/Admin/CreateAdmin';
+import { DeleteTrack } from './../../redux/Admin/CreateAdmin';
 
 
 interface TableProps {
@@ -12,22 +15,24 @@ interface TableProps {
 }
 
 const Table: React.FC<TableProps> = ({ data, maxPage, data_songs }) => {
-   const first: string[] = ['Img', 'Name', 'Date', 'id_user', "Genre", 'Action'];
-   const two: string[] = ['Name', 'Email', 'Password', 'Date', 'Action'];
+   const first: string[] = ['id_track', 'Img', 'Name', 'Date',"id_user" ,"Genre", 'Action'];
+   const two: string[] = ['id_user', 'Name', 'Email', 'Role', 'Date', 'Action'];
    const [datas, setDatas] = React.useState<any>(data);
    const [upDatas, setUpDatas] = React.useState<any>(first);
    const [modal, setModal] = React.useState<boolean>(false);
    const [isUser, setUser] = React.useState<boolean>(false);
    const [image, setImage] = useState<string | any>("");
-
+   const [role, setRole] = useState<string>("");
    const [name, setName] = React.useState<string>("");
    const [email, setEmail] = React.useState<string>("");
    const [password, setPassword] = React.useState<string>("");
    const [genre, setGenre] = React.useState<string>("");
    const [img, setImg] = React.useState<string>("");
+   const dispatch = useAppDispatch();
    const ChangeModal = (state: boolean) => {
       setModal(state)
    }
+
    useEffect(() => {
       if (!data) {
          setUpDatas(first);
@@ -52,28 +57,35 @@ const Table: React.FC<TableProps> = ({ data, maxPage, data_songs }) => {
             setDatas(data);
          }
       }
-   }, [])
+   }, [data, data_songs])
    const Edit = (id: string, el: any, state: boolean) => {
       setUser(!state)
       setModal(true);
       if (state) {
-         setName(el.name);
-         setEmail(el.email);
-         setPassword(el.password);
-         setGenre(el.genre);
+
+         setName(el?.user_name);
+         setEmail(el?.user_email);
+         setPassword(el?.password);
+         alert("Ted")
          setImg(el.img);
       }
       else {
-         setName('');
-         setEmail('');
-         setPassword('');
-         setGenre('');
-         setImg('');
+         alert(id)
+         setName(el?.user_name);
+         setEmail(el?.user_email);
+         setPassword(el?.password);
+         setRole(el?.role_name);
       }
 
    }
-   const Delete = (id: string) => {
+   const DeleteUsers = (id: string) => {
       alert(id)
+      dispatch(DeleteUser(id))
+
+   }
+   const DeleteTracks = (id: string) => {
+      alert(id)
+      dispatch(DeleteTrack(id))
    }
    return (
       <div className="table-container">
@@ -85,37 +97,41 @@ const Table: React.FC<TableProps> = ({ data, maxPage, data_songs }) => {
          </div>
          <div className="table-body">
             {data ? (<>
-               {datas?.map((row: any, index: any) => (
-                  <div className="table-row" key={index}>
-                     <div className="table-cell">{row.name}</div>
-                     <div className="table-cell">{row.email}</div>
-                     <div className="table-cell">{row.password}</div>
-                     <div className="table-cell">{row.date}</div>
+               {datas?.map((row: any, index: any) => {
+                  return (<div className="table-row" key={index}>
+                     <div className="table-cell">{row?.user_id}</div>
+                     <div className="table-cell">{row?.user_name}</div>
+                     <div className="table-cell">{row?.user_email}</div>
+                     <div className="table-cell">{row?.role_name}</div>
+                     <div className="table-cell">{row?.user_date_of_birth.slice(0, 10)}</div>
                      <div className="table-cell buttons">
-                        <button onClick={() => Edit(row.id, row, false)}>
+                        <button onClick={() => Edit(row?.user_id, row, false)}>
                            <img src={process.env.PUBLIC_URL + "/icons/pencil.svg"} alt="" />
                         </button>
-                        <button onClick={() => Delete(row.id)}>
+                        <button onClick={() => DeleteUsers(row?.user_id)}>
                            <img src={process.env.PUBLIC_URL + "/icons/rubish.svg"} alt="" />
                         </button>
                      </div>
-                  </div>
-               ))}
+                  </div>)
+               }
+
+               )}
             </>) : (<>
                {datas?.map((row: any, index: any) => (
                   <div className="table-row" key={index}>
+                     <div className="table-cell">{row?.track_id}</div>
                      <div className="table-cell">
-                        <img src={row.img} alt="" />
+                        <img src={row?.track_image} alt="" />
                      </div>
-                     <div className="table-cell">{row.name}</div>
-                     <div className="table-cell">{row.date}</div>
-                     <div className="table-cell">{row.id_user}</div>
-                     <div className="table-cell">{row.genre}</div>
+                     <div className="table-cell">{row?.track_title}</div>
+                     <div className="table-cell">{row?.track_date.slice(0, 10)}</div>
+                     <div className="table-cell">{row?.user_id}</div>
+                     <div className="table-cell">{row?.genre_name}</div>
                      <div className="table-cell buttons">
-                        <button onClick={() => Edit(row.id, row, true)}>
+                        <button onClick={() => Edit(row?.track_id, row, true)}>
                            <img src={process.env.PUBLIC_URL + "/icons/pencil.svg"} alt="" />
                         </button>
-                        <button onClick={() => Delete(row.id)}>
+                        <button onClick={() => DeleteTracks(row?.track_id)}>
                            <img src={process.env.PUBLIC_URL + "/icons/rubish.svg"} alt="" />
                         </button>
                      </div>
@@ -148,22 +164,14 @@ const Table: React.FC<TableProps> = ({ data, maxPage, data_songs }) => {
                         onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                         placeholder='Andrey...' />
                   </div>
-                  <div className="block">
-                     <h2 className="enter_value">
-                        Password
-                     </h2>
-                     <input
-                        type="text"
-                        value={password}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-                        placeholder='Andrey...' />
-                  </div>
+
                   <div className="block">
                      <h2 className="enter_value">
                         Role
                      </h2>
-                     <select>
-                        <option>Test</option>
+                     <select value={role} onChange={(e) => setRole(e.target.value)}>
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
                      </select>
                   </div>
                   <div className="save">

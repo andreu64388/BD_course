@@ -4,6 +4,9 @@ import Table from './../../componets/Table/Table';
 import { Link } from 'react-router-dom';
 import "./Users.css"
 import Modal from './../../componets/Modal/Modal';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { useEffect } from 'react';
+import { GetUsers } from '../../redux/Admin/CreateAdmin';
 const value = [
    {
       name: 'INSTASAMLA',
@@ -44,12 +47,25 @@ const value = [
 
 
 const AdminUsers: FC = () => {
+   const dispatch = useAppDispatch();
+   const { users }: any = useAppSelector(state => state.admin)
    const [modal, setModal] = useState<boolean>(false);
    const [name, setName] = useState<string>("");
    const [genre, setGenre] = useState<string>("");
+   const [usersA, setUsersA] = useState<any[]>([]);
    const [image, setImage] = useState<string | any>("");
    const [password, setPassword] = useState<string>("");
    const [email, setEmail] = useState<string>("");
+   const [value, setValue] = useState<string>("");
+   useEffect(() => {
+      dispatch(GetUsers())
+   }, [])
+   useEffect(() => {
+      if (users) {
+         setUsersA(users)
+      }
+   }, [users])
+
 
    const changeModalState = (state: boolean) => {
       setModal(state)
@@ -68,18 +84,28 @@ const AdminUsers: FC = () => {
                         <p>Users</p>
                      </div>
                      <div className="count">
-                        320
+                        {usersA?.length}
                      </div>
+                  </div>
+                  <div className="input_search">
+                     <img src={process.env.PUBLIC_URL + "/icons/search.svg"} alt="" />
+                     <input value={value}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => setValue(e.target.value)} />
+                     <img className='clear'
+                        src={process.env.PUBLIC_URL + "/icons/cansel.svg"}
+                        alt="clear" onClick={() => setValue("")} />
                   </div>
                   <div className="add_user" onClick={() => setModal(true)}>
                      Add user
                   </div>
-
                </div>
                <div className="about_table">
-
-                  <Table data={value} />
-
+                  <Table data={usersA?.filter((item: any) => {
+                     const regex = new RegExp(value, "gi");
+                     return regex.test(item.user_name) || regex.test(item.user_email)
+                        || regex.test(item.user_id) ||
+                        regex.test(item.role_name);
+                  })} />
                </div>
             </div>
             {modal && <Modal ChangeModal={changeModalState} >

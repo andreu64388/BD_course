@@ -6,6 +6,50 @@
       flex-direction: column;
       gap: 20px;
 
+      .top_tracks {
+         .title {
+            margin: 20px 0;
+            font-size: 25px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+         }
+
+         .raiting {
+            display: flex;
+            width: 100%;
+            color: white;
+            align-items: center;
+
+            .space {
+               margin-right: 5px;
+               width: 13px;
+               color: gold;
+            }
+
+            .rate {
+               margin-left: 5px;
+               width: 40px;
+               height: 40px;
+               border-radius: 50%;
+               background-color: green;
+               color: white;
+               text-align: center;
+               font-size: 12px;
+               display: flex;
+               align-items: center;
+               justify-content: center;
+
+            }
+
+            .song {
+
+               margin: 4px 0;
+               width: 100%;
+            }
+         }
+      }
+
       .blocks_reccomemd {
          .recoomecd_text {
             display: flex;

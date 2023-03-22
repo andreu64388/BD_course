@@ -4,10 +4,20 @@
 
 -------------------- Get search tracks --------------------
 CREATE OR REPLACE FUNCTION SearchTrackByTitleOrUserName(query_text VARCHAR)
-RETURNS TABLE(track_id INTEGER, track_title VARCHAR, track_date DATE, user_id INTEGER, user_name VARCHAR, genre_name VARCHAR, track_image BYTEA, track_content BYTEA, avg_rating NUMERIC) AS $$
+RETURNS TABLE(track_id INTEGER, 
+			  track_title VARCHAR, 
+			  track_date DATE, 
+			  user_id INTEGER,
+			  user_name VARCHAR,
+			  genre_name VARCHAR, 
+			  track_image BYTEA, 
+			  track_content BYTEA,
+			  avg_rating NUMERIC) AS $$
 BEGIN
     RETURN QUERY
-    SELECT t.track_id, t.track_title, t.track_date, t.user_id, u.user_name, g.genre_name, t.track_image, t.track_content, average_rating(t.track_id) AS avg_rating
+    SELECT t.track_id, t.track_title, t.track_date, t.user_id,
+	u.user_name, g.genre_name, t.track_image, t.track_content,
+	average_rating(t.track_id) AS avg_rating
     FROM Track t
     JOIN Users u ON t.user_id = u.user_id
     JOIN Genre g ON t.genre_id = g.genre_id
@@ -15,16 +25,26 @@ BEGIN
     OR u.user_name ILIKE '%' || query_text || '%';
 END;
 $$ LANGUAGE plpgsql;
-
+select * from  SearchTrackByTitleOrUserName('i')
+select * from track
 -------------------- Get search tracks by title --------------------
+SELECT * FROM GetPlaylistByTitle('te');
+select * from playlist
 CREATE OR REPLACE FUNCTION GetPlaylistByTitle(title_query TEXT)
-RETURNS TABLE(playlist_id INTEGER, user_id INTEGER, title TEXT)
+RETURNS TABLE(playlist_id INTEGER, user_id INTEGER, title VARCHAR(255))
 AS $$
 BEGIN
-    RETURN QUERY SELECT playlist_id, user_id, title FROM Playlist WHERE title ILIKE '%' || title_query|| '%';
+    RETURN QUERY 
+    SELECT Playlist.playlist_id, Playlist.user_id, Playlist.title 
+    FROM Playlist 
+    WHERE Playlist.title ILIKE '%' || title_query|| '%' 
+    AND EXISTS (
+        SELECT 1 FROM playlist_tracks WHERE playlist_tracks.playlist_id = Playlist.playlist_id
+    );
 END;
 $$ LANGUAGE plpgsql;
-SELECT * FROM GetPlaylistByTitle('relaxing');
+
+
 
 
 -------------------- Get search tracks by genres --------------------

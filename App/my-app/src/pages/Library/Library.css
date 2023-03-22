@@ -4,6 +4,7 @@
   margin: 0 auto;
   width: 100%;
   padding: 0 5px;
+  background-color: #181818;
 }
 
 body {
@@ -14,10 +15,11 @@ body {
   margin-top: 80px;
   margin-left: 200px;
   margin-bottom: 100px;
+  font-family: "Popins", sans-serif;
 }
 
 * {
-  font-family: "Roboto", sans-serif;
+  font-family: "Popisnd", sans-serif;
   box-sizing: border-box;
 }
 
@@ -26,6 +28,7 @@ body {
   border-radius: 20px;
   padding: 20px;
   width: 100%;
+  z-index: 1000;
   max-width: 600px;
 }
 .app .content .blocks {
@@ -255,6 +258,7 @@ body {
   padding: 30px;
   color: white;
   font-size: 24px;
+  word-wrap: break-word;
 }
 .library .my_list .playlist .add {
   display: block;

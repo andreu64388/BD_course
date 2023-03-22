@@ -1,10 +1,10 @@
 import React from 'react';
 import { FC } from 'react';
-
+import "./Loadimg.css";
 const Loading: FC = () => {
    return (
-      <div >
-
+      <div className="circle-loading">
+         <div className="spinner"></div>
       </div>
    );
 }

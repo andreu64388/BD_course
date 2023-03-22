@@ -1,8 +1,26 @@
 import React from 'react';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import "./Profile.css"
 import { Link } from 'react-router-dom';
+import { useAppSelector } from './../../redux/store';
+
 const Profile: FC = () => {
+
+   const [image, setImage] = useState<any>('')
+   const [date, setDate] = useState<string>('')
+   const { user }: any = useAppSelector(state => state.user);
+
+   useEffect(() => {
+
+      var d = new Date(user?.user_date_of_birth);
+      if (user) {
+         var day: any = d.getUTCDate() + 1;
+         let month = d.getUTCMonth() + 1;
+         var year = d.getUTCFullYear();
+         setDate(`${day.toString()}-${month}-${year}`)
+      }
+   }, [user])
+
    return (
       <div className='wrapper'>
          <div className="wrapper_all">
@@ -11,7 +29,7 @@ const Profile: FC = () => {
                   <h1 className="title">
                      Profile
                   </h1>
-                  <img src={process.env.PUBLIC_URL + "/icons/in.svg"} alt="" />
+                  <img src={user?.user_img} />
                </div>
                <div className="block_info_full">
                   <div className="block_text">
@@ -20,7 +38,7 @@ const Profile: FC = () => {
                      </p>
 
                      <div className="value">
-                        Andrey
+                        {user?.user_name}
                      </div>
                      <div className="line"></div>
                   </div>
@@ -29,7 +47,7 @@ const Profile: FC = () => {
                         Gmail
                      </p>
                      <div className="value">
-                        Andrey.ahve.gmaol
+                        {user?.user_email}
                      </div>
                      <div className="line"></div>
                   </div>
@@ -38,7 +56,9 @@ const Profile: FC = () => {
                         Date of birthday
                      </p>
                      <div className="value">
-                        15.10.2003
+                        {
+                           date
+                        }
                      </div>
                      <div className="line"></div>
                   </div>

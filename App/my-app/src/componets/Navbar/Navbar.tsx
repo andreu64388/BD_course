@@ -3,7 +3,8 @@ import { Link, NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { FC } from "react";
 import "./Navbar.css";
-import { useAppSelector } from './../../redux/store';
+import { useAppDispatch, useAppSelector } from './../../redux/store';
+import { Logout } from "../../redux/User/CreateUser";
 
 const items1 = [
    {
@@ -86,11 +87,12 @@ const Navbar: FC = () => {
    const [elements, setElements] = useState<any[]>();
    const [isOpen, setIsOpen] = useState<boolean>(false);
 
-
-   const { isAuth, admin }: any = useAppSelector(state => state.user);
+   const dispacth = useAppDispatch();
+   const { isAuth, admin, user }: any = useAppSelector(state => state.user);
    useEffect(() => {
       if (admin && isAuth) {
          setElements(admins);
+
       }
       else {
          if (isProfile || isPass || isEdit) {
@@ -100,7 +102,16 @@ const Navbar: FC = () => {
             setElements(items1);
          }
       }
+      setIsOpen(false);
    }, [location])
+   useEffect(() => {
+
+      if (admin) {
+         alert("admin")
+         setElements(admins)
+      }
+
+   }, [admin])
 
    useEffect(() => {
       function handleClickOutside(event: any) {
@@ -120,6 +131,12 @@ const Navbar: FC = () => {
          document.removeEventListener("click", handleClickOutside);
       };
    }, []);
+
+
+
+   const LogoutUser = () => {
+      dispacth(Logout());
+   }
    return (
       <>
          {!isRegister && !isLogin ? (
@@ -128,9 +145,10 @@ const Navbar: FC = () => {
                   <div className="logo">
                      {
                         !admin ? (<Link to={"/"}>
-                           Logo</Link>) : (<Link to={"/admin/dashboard"}
-                              style={{ fontSize: "25px" }}
-                           >Admin panel </Link>)
+                           <img src={process.env.PUBLIC_URL + "/icons/logoG.svg"} alt="" />
+                        </Link>) : (<Link to={"/admin/dashboard"}
+                           style={{ fontSize: "25px" }}
+                        >Admin panel </Link>)
                      }
                   </div>
                   <ul>
@@ -167,7 +185,7 @@ const Navbar: FC = () => {
                            />
                         </div>
                         <div className="name" onClick={() => setIsOpen(!isOpen)}>
-                           <span>Andrey</span>
+                           <span>{user?.user_name}</span>
                            <img
                               className={isOpen ? "polygon open" : "polygon"}
                               src={process.env.PUBLIC_URL + "/icons/Polygon.svg"}
@@ -196,7 +214,7 @@ const Navbar: FC = () => {
 
 
                               <li>
-                                 <Link to={"/user/login"}>Exit</Link>
+                                 <Link onClick={LogoutUser} to={"/user/login"}>Exit</Link>
                               </li>
                            </ul>
                         </nav>
@@ -208,7 +226,7 @@ const Navbar: FC = () => {
             (<div className="navbar_user">
                <nav className="up_nav">
                   <Link to={"/"} className="logo">
-                     Logo
+                     <img src={process.env.PUBLIC_URL + "/icons/logoG.svg"} alt="" />
                   </Link>
                </nav>
             </div>)}

@@ -1,11 +1,40 @@
 import React from 'react';
-import { FC, useState, ChangeEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { FC, useState, ChangeEvent, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import "./Login.css"
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { LoginUser } from '../../redux/User/CreateUser';
 const Login: FC = () => {
+   const { token, admin }: any = useAppSelector(state => state.user);
+
    const [email, setEmail] = useState<string>('');
    const [password, setPassword] = useState<string>('');
+   const navigate = useNavigate();
+   const dispatch = useAppDispatch();
 
+
+   useEffect(() => {
+
+      if (token) {
+
+         if (admin) {
+            return navigate("/admin/dashboard");
+         }
+         return navigate("/");
+
+      }
+
+
+   }, [token]);
+
+   const Login = () => {
+      const data = {
+         user_email: email,
+         user_password: password
+      }
+      dispatch(LoginUser(data))
+
+   }
    return (
       <div className="wrapper_all">
          <div className='login_main'>
@@ -34,7 +63,7 @@ const Login: FC = () => {
                      placeholder='Andrey...' />
                </div>
 
-               <button className="submit">
+               <button className="submit" onClick={Login}>
                   Login
                </button>
 

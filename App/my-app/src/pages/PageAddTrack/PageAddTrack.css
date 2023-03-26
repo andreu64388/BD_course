@@ -134,6 +134,48 @@ body {
 .modal_content .buttons .submit {
   background-color: #10B557;
 }
+.modal_content .songs_result {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-height: 90px;
+  overflow: auto;
+}
+.modal_content .songs_result::-webkit-scrollbar {
+  width: 10px;
+}
+.modal_content .songs_result::-webkit-scrollbar-track {
+  background: #1e1e1e;
+}
+.modal_content .songs_result::-webkit-scrollbar-thumb {
+  background: #d4d4d4;
+  border-radius: 10px;
+}
+.modal_content .input_search {
+  display: flex;
+  align-items: center;
+  margin: 10px auto;
+  margin: 0px;
+  justify-content: space-between;
+  background-color: white;
+  max-width: 360px;
+  width: 100%;
+  border-radius: 20px;
+  padding: 5px 10px;
+}
+.modal_content .input_search input {
+  outline: none;
+  border: 0;
+  width: 80%;
+}
+.modal_content .input_search .clear {
+  cursor: pointer;
+}
+.modal_content .input_search img {
+  width: 20px;
+  height: 20px;
+}
 .modal_content .block {
   padding: 20px;
   border: 1px solid white;
@@ -169,6 +211,32 @@ body {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+.pageaddtrack .auth {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+.pageaddtrack .auth h1 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+.pageaddtrack .auth a {
+  font-size: 1.1rem;
+  text-decoration: none;
+  color: white;
+  background-color: green;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+.pageaddtrack .auth a:hover {
+  background-color: green;
 }
 .pageaddtrack .loading_ {
   display: flex;

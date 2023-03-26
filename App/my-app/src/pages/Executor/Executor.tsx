@@ -5,23 +5,25 @@ import "./Executor.css"
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { getArtist } from './../../redux/Song/CreateSong';
+
+
+
 const Executor: FC = () => {
-
-
    const { artist, user_tracks, index }: any = useAppSelector(state => state.song)
    const { executor_id } = useParams();
+
    const dispatch = useAppDispatch();
+
    useEffect(() => {
       dispatch(getArtist(executor_id?.slice(1)));
    }, [executor_id])
+
    return (
       <div className='wrapper'>
          <div className="executor">
             <h1 className="title">
-
                {artist?.user_name}
             </h1>
-
             <div className="about_track" style={{ backgroundImage: `url(${artist?.user_img})` }}>
             </div>
             <div className="wrapper_all">
@@ -43,7 +45,6 @@ const Executor: FC = () => {
                </div>
             </div>
          </div>
-
       </div >
    );
 }

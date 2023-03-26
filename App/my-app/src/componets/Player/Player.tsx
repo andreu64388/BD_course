@@ -5,8 +5,8 @@ import "./Player.css"
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import SoundEffect from './../SoundEffect/SoundEffect';
-import { ClosePlay, DeleteTrackInLibrary, HideMusic, ShowMusic } from '../../redux/Song/CreateSong';
-import { AddTrackInLibrary } from './../../redux/Song/CreateSong';
+import { ClosePlay, HideMusic, ShowMusic } from '../../redux/Song/CreateSong';
+import { AddTrackInLibrary, DeleteTrackInLibrary } from './../../redux/Library/CreateLibrary';
 
 
 interface IPlayer {
@@ -14,43 +14,40 @@ interface IPlayer {
    player?: boolean;
 }
 
-const Player: FC<IPlayer> = ({ ClosePlayer, player }) => {
+const Player: FC<IPlayer> = () => {
    const { user }: any = useAppSelector(state => state.user);
-   const { isShow, play_musics, currentSong, library }: any = useAppSelector(state => state.song)
-   const [tracks, setTracks] = useState<any>(play_musics);
-   const [track, setTrack] = useState<any>();
+   const { library }: any = useAppSelector(state => state.library)
+   const { isShow, currentSong }: any = useAppSelector(state => state.song)
+
    const [liked, setLiked] = useState<boolean>(false);
    const [close, setClose] = useState<boolean>(false);
 
-
    useEffect(() => {
       if (library) {
-         if (library.find((obj: any) => Number(obj.track_id) === Number(currentSong?.track_id))) {
+         if (library?.find((obj: any) => Number(obj.track_id) === Number(currentSong?.track_id))) {
             setLiked(true)
          } else {
             setLiked(false)
          }
       }
-   }, [library, currentSong, liked])
-
-
+   }, [library, liked])
 
    const dispatch = useAppDispatch();
+
    const Hide = () => {
       setClose(true)
       dispatch(HideMusic())
    }
+
    const Close = () => {
       dispatch(ClosePlay());
       setClose(false)
    }
+
    const Show = () => {
       dispatch(ShowMusic())
    }
-   const handleLikeClick = (e: any) => {
-      e.preventDefault();
-      setLiked(!liked);
-   };
+
    const AddLibrary = (e: any, song_id: string) => {
       e.preventDefault();
       const data = {
@@ -58,8 +55,6 @@ const Player: FC<IPlayer> = ({ ClosePlayer, player }) => {
          user_id: user?.user_id
       }
       dispatch(AddTrackInLibrary(data))
-
-
    }
 
    const DeleteLibrary = (e: any, song_id: string) => {
@@ -69,7 +64,6 @@ const Player: FC<IPlayer> = ({ ClosePlayer, player }) => {
          user_id: user?.user_id
       }
       dispatch(DeleteTrackInLibrary(data))
-
    }
    return (
       <div className={!isShow ? 'player hide' : 'player'
@@ -104,9 +98,7 @@ const Player: FC<IPlayer> = ({ ClosePlayer, player }) => {
                   <h1 className="name_track">
                      {currentSong?.track_title}
                   </h1>
-                  <Link to={`/user/executor/:${currentSong?.user_id}`}>
-                     {currentSong?.user_name}
-                  </Link>
+
                </div>
                {
                   !liked ? (
@@ -117,9 +109,7 @@ const Player: FC<IPlayer> = ({ ClosePlayer, player }) => {
                         onClick={(e) => DeleteLibrary(e, currentSong?.track_id)}
 
                      />
-
                   )
-
                }
             </Link>
             <div className="player_block">

@@ -4,6 +4,7 @@
   margin: 0 auto;
   width: 100%;
   padding: 0 5px;
+  background-color: #181818;
 }
 
 body {
@@ -14,10 +15,11 @@ body {
   margin-top: 80px;
   margin-left: 200px;
   margin-bottom: 100px;
+  font-family: "Popins", sans-serif;
 }
 
 * {
-  font-family: "Roboto", sans-serif;
+  font-family: "Popisnd", sans-serif;
   box-sizing: border-box;
 }
 
@@ -26,6 +28,7 @@ body {
   border-radius: 20px;
   padding: 20px;
   width: 100%;
+  z-index: 1000;
   max-width: 600px;
 }
 .app .content .blocks {
@@ -182,6 +185,10 @@ body {
   align-items: center;
   gap: 14px;
 }
+.song .description .artist {
+  display: flex;
+  gap: 4px;
+}
 .song .play {
   cursor: pointer;
   width: 20px;
@@ -197,6 +204,12 @@ body {
   align-items: center;
   gap: 14px;
   position: relative;
+}
+.song .action button {
+  padding: 5px;
+  background-color: green;
+  color: white;
+  cursor: pointer;
 }
 .song .action .plus {
   cursor: pointer;

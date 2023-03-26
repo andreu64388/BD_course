@@ -2,6 +2,7 @@ import pool from "../database/db.js";
 import jwt from "jsonwebtoken";
 
 class UserController {
+  
   async Register(req, res) {
     try {
       const {

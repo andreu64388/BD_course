@@ -142,6 +142,12 @@
       display: flex;
       align-items: center;
       gap: 14px;
+
+
+      .artist {
+         display: flex;
+         gap: 4px;
+      }
    }
 
 
@@ -166,6 +172,13 @@
       align-items: center;
       gap: 14px;
       position: relative;
+
+      button {
+         padding: 5px;
+         background-color: green;
+         color: white;
+         cursor: pointer;
+      }
 
       .plus {
          cursor: pointer;

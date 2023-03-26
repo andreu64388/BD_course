@@ -1,0 +1,36 @@
+.user {
+   display: flex;
+   background-color: #191919;
+   padding: 10px 14px;
+   border-radius: 6px;
+   color: white;
+   transition: all 0.4s ease;
+   display: flex;
+   justify-content: space-between;
+
+   button {
+      padding: 5px;
+      background-color: green;
+      color: white;
+      cursor: pointer;
+   }
+
+   &:hover {
+      background-color: #282828;
+   }
+
+
+   .description {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+   }
+
+
+   align-items: center;
+
+
+
+
+
+}

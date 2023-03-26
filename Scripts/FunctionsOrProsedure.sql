@@ -2,6 +2,7 @@
 ----------------------------| CREATE |----------------------------
 ----------------------------——————————--------------------------*/
 
+
 -------------------- Register user --------------------
 CREATE OR REPLACE FUNCTION Register(
     in_user_name VARCHAR(255),
@@ -9,7 +10,7 @@ CREATE OR REPLACE FUNCTION Register(
     in_user_password TEXT,
     in_user_date_of_birth DATE,
     in_user_role_id INTEGER,
-    in_usere_img BYTEA 
+    in_user_img BYTEA 
 )
 RETURNS INTEGER
 LANGUAGE plpgsql
@@ -19,14 +20,15 @@ DECLARE
     user_id INTEGER;
 BEGIN
     INSERT INTO Users(user_name, user_email, user_password, user_date_of_birth, user_role_id, user_img)
-    VALUES (in_user_name, in_user_email, encrypted_password, in_user_date_of_birth, in_user_role_id, in_user_img);
+    VALUES (in_user_name, in_user_email, encrypted_password, in_user_date_of_birth, in_user_role_id, in_user_img)
     RETURNING Users.user_id INTO user_id;
-    select * from users
     RETURN user_id;
 END;
 $$;
 
-SELECT Register('admin', 'john.smith@example.com', 'admin', '1995-01-01', 2, '\x1234567890ABCDEF');
+
+SELECT Register('Andrey', 'admin1', 'admin', '1995-01-01', 1, '\x1234567890ABCDEF');
+select *from users
 
 --------------------- Login user---------------------
 CREATE OR REPLACE FUNCTION Login(in_user_email VARCHAR(255), in_user_password TEXT)
@@ -44,33 +46,52 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-SELECT Login('andrysa.shev.133@gmail.com', 'mypassword');
+SELECT Login('admin', 'admin');
 
-select * from users;
+select * from users
 
 
 -------------------- Add Track --------------------
-CREATE OR REPLACE PROCEDURE AddTrack(
+CREATE OR REPLACE FUNCTION AddTrack(
     in_track_title VARCHAR(255),
     in_track_date DATE,
-    in_user_id INTEGER,
     in_track_image BYTEA,
     in_track_content BYTEA,
     in_genre_id INTEGER
 )
+RETURNS INTEGER
 LANGUAGE plpgsql
 AS $$
+DECLARE
+    track_id INTEGER;
 BEGIN
-    INSERT INTO Track(track_title, track_date, user_id, track_image, track_content, genre_id)
-    VALUES (in_track_title, in_track_date, in_user_id, in_track_image, in_track_content, in_genre_id);
+    INSERT INTO Track(track_title, track_date, track_image, track_content, genre_id)
+    VALUES (in_track_title, in_track_date, in_track_image, in_track_content, in_genre_id)
+    RETURNING Track.track_id INTO track_id;
+   
+    RETURN track_id;
 END;
 $$;
 
-CALL AddTrack('Название трека', '2023-03-15', 1, NULL, 'содержимое трека', 1);
 
-select * from track
-delete from track
 
+select AddTrack('Название трека', '2023-03-15', NULL, 'содержимое трека', 1);
+CALL AddTrack('Название трека', '2023-03-15', NULL, 'содержимое трека', 1);
+call AddUserTrack(3,1)
+
+-------------------- Add Track user --------------------
+CREATE OR REPLACE PROCEDURE AddUserTrack(
+    in_user_id INTEGER,
+    in_track_id INTEGER
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    INSERT INTO User_Track(user_id, track_id)
+     VALUES (in_user_id, in_track_id);
+END;
+$$;
+select * from user_track
 -------------------- Add rating --------------------
 CREATE OR REPLACE PROCEDURE add_rating(
     in_user_id INTEGER,
@@ -120,7 +141,7 @@ BEGIN
 END;
 $$;
 select CreatePlaylist(43,'mu list')
-CALL createPlaylist(1, 'My Playlist');
+select createPlaylist(1, 'My Playlist');
 
 
 select * from Playlist;
@@ -138,7 +159,7 @@ BEGIN
 END;
 $$;
 
-CALL add_track_to_playlist(4,1);
+CALL add_track_to_playlist(2,1);
 
 select * from Playlist_tracks;
 
@@ -154,7 +175,7 @@ BEGIN
     
 END;
 $$;
-
+call  add_track_to_library(1,1)
 drop PROCEDURE add_track_to_library
 select * from Library_user;
 
@@ -164,13 +185,7 @@ select * from Library_user;
 ----------------------------——————————--------------------------*/
 
 -------------------- Update user --------------------
-
-CREATE OR REPLACE PROCEDURE update_user( 
-    in_user_id INTEGER,
-    in_user_name VARCHAR(255),
-    in_user_date_of_birth DATE,
-    in_user_img BYTEA ) 
-    LANGUAGE plpgsql AS $$
+CREATE OR REPLACE PROCEDURE update_user(in_user_id INTEGER, in_user_name VARCHAR(255), in_user_date_of_birth DATE, in_user_img BYTEA) LANGUAGE plpgsql AS $$
 BEGIN
     IF in_user_img IS NOT NULL THEN
         UPDATE Users
@@ -189,10 +204,8 @@ $$;
 
 
 -------------------- Update user password --------------------
-CREATE OR REPLACE PROCEDURE update_user_password( 
-    in_user_id INTEGER,
-    in_user_password TEXT ) 
-    LANGUAGE plpgsql AS $$
+
+CREATE OR REPLACE PROCEDURE update_user_password(in_user_id INTEGER, in_user_password TEXT) LANGUAGE plpgsql AS $$
 DECLARE
     encrypted_password TEXT := encrypt_password(in_user_password);
 BEGIN
@@ -203,78 +216,88 @@ BEGIN
 END;
 $$;
 
--------------------- Update track --------------------
 
+
+-------------------- Update track --------------------
 CREATE OR REPLACE PROCEDURE update_track(
   in_track_id INTEGER,
   in_track_title VARCHAR(255),
-  in_track_date DATE,
-  in_user_id INTEGER,
-  in_track_image BYTEA ,
+  in_track_image BYTEA,
   in_genre_id INTEGER
 ) LANGUAGE plpgsql AS $$
 BEGIN
  
-  IF in_track_image IS NULL  THEN
-   
+  IF in_track_title IS NOT NULL THEN
     UPDATE Track
     SET
-      track_title = in_track_title,
-      track_date = in_track_date,
-      user_id = in_user_id,
-      genre_id = in_genre_id
-    WHERE track_id = in_track_id;
-  ELSE
-    UPDATE Track
-    SET
-      track_title = in_track_title,
-      track_date = in_track_date,
-      user_id = in_user_id,
-      genre_id = in_genre_id,
-      track_image =in_track_image
-    WHERE track_id = in_track_id;
+      track_title = in_track_title
+    WHERE Track.track_id = in_track_id;
   END IF;
+
+  IF in_track_image IS NOT NULL THEN
+    UPDATE Track
+    SET
+      track_image = in_track_image
+    WHERE Track.track_id = in_track_id;
+  END IF;
+
+  IF in_genre_id IS NOT NULL THEN
+    UPDATE Track
+    SET
+      genre_id = in_genre_id
+    WHERE Track.track_id = in_track_id;
+  END IF;
+  
 END;
 $$;
-select * from track
-CALL update_track(19, 'New Title', '2022-03-19', 46, 'rew', NULL, 3);
 
+select * from track where track_id = 2
+CALL update_track(2, NULL,NULL,NULL);
 
-
-
+-------------------- Update track title --------------------
+CREATE OR REPLACE PROCEDURE update_track_title(
+  in_track_id INTEGER,
+  in_track_title VARCHAR(255))
+ LANGUAGE plpgsql AS $$
+BEGIN
+    UPDATE Track
+    SET
+      track_title = in_track_title
+    WHERE Track.track_id = in_track_id;
+END;
+$$;
+call update_track_title(4,'tst')
+select * from track WHERE track.track_id =4
+select user_id,title from playlist where playlist_id = 4
 select *
 from track CALL update_track(4, 'New Title', '2022-01-01', 1, NULL, 'new content', 3);
 
--------------------- Update playlist --------------------
-
-CREATE OR REPLACE PROCEDURE update_playlist( in_playlist_id INTEGER, in_user_id INTEGER, in_title VARCHAR(255)) LANGUAGE plpgsql AS $$
+-------------------- Update playlist title --------------------
+CREATE OR REPLACE PROCEDURE update_playlist(in_playlist_id INTEGER, in_title VARCHAR(255)) LANGUAGE plpgsql AS $$
 BEGIN
-    UPDATE Playlist SET title = in_title WHERE playlist_id = in_playlist_id AND user_id = in_user_id;
+    UPDATE Playlist SET title = in_title WHERE playlist_id = in_playlist_id;
 END;
 $$;
 
-
-select *
-from playlist;
-
-
+select * from playlist
 /*--------------------------——————————----------------------------
 ----------------------------| DELETE |----------------------------
 ----------------------------——————————--------------------------*/
 
 -------------------- Delete user --------------------
-call delete_user(8)
-CREATE OR REPLACE PROCEDURE delete_user( in_user_id INTEGER) LANGUAGE plpgsql AS $$
+select * from 
+track 
+
+delete from track 
+call delete_user(6)
+
+CREATE OR REPLACE PROCEDURE delete_user(in_user_id INTEGER) LANGUAGE plpgsql AS $$
 BEGIN
 
+
     DELETE FROM Rating WHERE user_id = in_user_id;
-
-    DELETE FROM Track WHERE user_id = in_user_id;
-
-
     DELETE FROM Library_user WHERE user_id = in_user_id;
-
-
+    delete  from user_track where user_id = in_user_id;
     DELETE FROM Playlist_tracks WHERE playlist_id IN (SELECT playlist_id FROM Playlist WHERE user_id = in_user_id);
     DELETE FROM Playlist WHERE user_id = in_user_id;
 
@@ -282,7 +305,9 @@ BEGIN
 END;
 $$;
 
-CALL delete_user(123);
+
+select *
+from users CALL delete_user(5);
 
 -------------------- Delete track --------------------
 CREATE OR REPLACE PROCEDURE delete_track( in_track_id INTEGER) LANGUAGE plpgsql AS $$
@@ -292,7 +317,7 @@ BEGIN
     DELETE FROM Rating WHERE track_id = in_track_id;
 
     DELETE FROM playlist_tracks WHERE track_id = in_track_id;
-
+       delete  from user_track where track_id = in_track_id;
     DELETE FROM Track WHERE track_id = in_track_id;
 
 END;
@@ -300,7 +325,6 @@ $$;
 call delete_track(12)
 SELECT * from track
 
-SELECT * FROM GetTracks() WHERE user_id = 44
 -------------------- Delete track from playlist --------------------
 CREATE OR REPLACE PROCEDURE remove_track_from_playlist
 ( in_playlist_id INTEGER, in_track_id INTEGER) 
@@ -329,7 +353,7 @@ BEGIN
     WHERE user_id = user_id_param AND track_id = track_id_param;
 END;
 $$ LANGUAGE plpgsql;
--------------------------------------
+--------------------------------------------
 CREATE OR REPLACE FUNCTION AddTracksToPlaylistHome(
     in_genre_name VARCHAR(255),
     in_user_id INTEGER,

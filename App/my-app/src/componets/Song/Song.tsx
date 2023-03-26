@@ -6,8 +6,11 @@ import { useRef } from 'react';
 import Modal from './../Modal/Modal';
 import { useAppDispatch, useAppSelector } from './../../redux/store';
 import { ShowModal } from '../../redux/User/CreateUser';
-import { AddTrackInLibrary, AddTrackInPlaylist, DeleteTrack, DeleteTrackInLibrary, DeleteTrackInPlaylist, PlayMusic } from '../../redux/Song/CreateSong';
-import { GetPlaylistsUserId, UpdateTrack } from './../../redux/Song/CreateSong';
+import { DeleteTrack, PlayMusic } from '../../redux/Song/CreateSong';
+import { UpdateTrack, } from './../../redux/Song/CreateSong';
+import { AddTrackInPlaylist, DeleteTrackInPlaylist, GetPlaylistsUserId } from './../../redux/Playlist/CreatePlaylist';
+import { AddTrackInLibrary, DeleteTrackInLibrary, GetTrackinLibrary } from './../../redux/Library/CreateLibrary';
+
 
 interface ISong {
    isAdd?: boolean,
@@ -21,9 +24,14 @@ interface ISong {
    DeletePlaylist?(data: any): void,
    playlist_id?: number | string,
 }
+
+
 const Song: FC<ISong> = ({ isAdd, item, songs_array, index, active, style, isAddDelete, playlist_id }) => {
    const { isAuth, user }: any = useAppSelector(state => state.user);
-   const { library, playlists_users, genres }: any = useAppSelector(state => state.song)
+   const { genres }: any = useAppSelector(state => state.song)
+   const { library }: any = useAppSelector(state => state.library)
+   const { playlists_users }: any = useAppSelector(state => state.playlist)
+
    const [menu, setMenu] = useState<boolean>(false);
    const [liked, setLiked] = useState<boolean>(false);
    const [add, setAdd] = useState<boolean>(true);
@@ -36,6 +44,7 @@ const Song: FC<ISong> = ({ isAdd, item, songs_array, index, active, style, isAdd
    const [items, setItems] = useState<any>([])
    const [genres_arr, setGenres_arr] = useState<any[]>([]);
    const [your_track, setYourTrack] = useState<boolean>(false)
+
    const songRef = useRef<HTMLDivElement>(null);
    const downNavRef = useRef<HTMLDivElement>(null);
    const dotRef = useRef<HTMLImageElement>(null);
@@ -53,16 +62,22 @@ const Song: FC<ISong> = ({ isAdd, item, songs_array, index, active, style, isAdd
             setLiked(false)
          }
       }
-   }, [library, liked])
+   }, [library, item])
 
    useEffect(() => {
       if (genres) {
          setGenres_arr(genres);
       }
+
    }, [genres])
    useEffect(() => {
+      dispatch(GetTrackinLibrary(user?.user_id))
       dispatch(GetPlaylistsUserId(user?.user_id))
-      Number(user?.user_id) == Number(item?.user_id) ? setYourTrack(true) : setYourTrack(false)
+      if (item?.users.find((obj: any) => Number(obj.user_id) === Number(user?.user_id))) {
+         setYourTrack(true)
+      }
+      else { setYourTrack(false) }
+
    }, [user])
 
    const dispatch = useAppDispatch();
@@ -71,8 +86,14 @@ const Song: FC<ISong> = ({ isAdd, item, songs_array, index, active, style, isAdd
       setModal(state);
    };
    const handleDotClick = () => {
+      if (!isAuth) {
+         dispatch(ShowModal())
+         return
+      }
       setMenu(!menu);
+
       setAdd(true)
+
    };
    const ChangeModal = (state: boolean) => {
       setModal(state)
@@ -92,6 +113,7 @@ const Song: FC<ISong> = ({ isAdd, item, songs_array, index, active, style, isAdd
       }
       dispatch(DeleteTrack(data))
    }
+
    const AddInPlayList = (song_id: string, id?: string) => {
 
       if (playlist_id) {
@@ -118,9 +140,7 @@ const Song: FC<ISong> = ({ isAdd, item, songs_array, index, active, style, isAdd
             playlist_id: playlist_id,
             song_id: song_id
          }
-
          dispatch(DeleteTrackInPlaylist(data));
-
       }
    }
 
@@ -139,16 +159,18 @@ const Song: FC<ISong> = ({ isAdd, item, songs_array, index, active, style, isAdd
    };
 
    const AddLibrary = (song_id: string) => {
+      if (!isAuth) {
+         dispatch(ShowModal())
+         return
+      }
       const data = {
          song_id: song_id,
          user_id: user?.user_id
       }
       dispatch(AddTrackInLibrary(data))
-      setLiked(true)
    }
 
    const DeleteLibrary = (song_id: string) => {
-
       const data = {
          song_id: song_id,
          user_id: user?.user_id
@@ -161,15 +183,11 @@ const Song: FC<ISong> = ({ isAdd, item, songs_array, index, active, style, isAdd
 
       const data = new FormData();
       data.append('user_id', user?.user_id);
-      data.append("track_title", name);
-      data.append("genre_id", genre);
+      item?.track_title === name || name.length === 0 ? data.append('track_title', item?.track_title) : data.append('track_title', name);
+      item?.genre_name === genre ? data.append('genre_name', item?.genre_name) : data.append('genre_name', genre);
+      image ? data.append("track_image", image) : data.append("track_image", "");
       data.append("track_id", track_id);
-      if (image) {
-         data.append("track_image", image);
-      }
-      else {
-         data.append("track_image", '');
-      }
+
       const form = {
          user_id: data.get("user_id"),
          track_title: data.get("track_title"),
@@ -177,7 +195,7 @@ const Song: FC<ISong> = ({ isAdd, item, songs_array, index, active, style, isAdd
          genre_id: data.get("genre_id"),
          track_id: data.get("track_id")
       }
-      console.log(form)
+
       dispatch(UpdateTrack(form))
       setModal(false)
    }
@@ -191,13 +209,12 @@ const Song: FC<ISong> = ({ isAdd, item, songs_array, index, active, style, isAdd
    const PlayMusics = (item: any) => {
 
       const data = {
-         index: index,
+         current_song: item,
          songs_array: songs_array
       }
       dispatch(PlayMusic(data))
 
       if (!isAuth) {
-
          dispatch(ShowModal())
          return
       }
@@ -206,13 +223,22 @@ const Song: FC<ISong> = ({ isAdd, item, songs_array, index, active, style, isAdd
    return (
       <div ref={songRef} className="song" style={style && { order: style }}>
          <img className="play" src={!active ? process.env.PUBLIC_URL + "/icons/play.svg" : process.env.PUBLIC_URL + "/icons/stop_song.svg"} onClick={() => PlayMusics(item)} />
-         <div className="description">
-            <Link
-               to={`/user/executor/:${item?.user_id}`}
-               className="name_author outside"
-            >
-               {item?.user_name}
-            </Link>
+         <div className="description" >
+            <div className="artist">
+               {item?.users?.map((el: any, index: number) => {
+
+                  return (
+
+                     <>
+                        <Link to={`/user/executor/:${el.user_id}`} style={{ color: "grey" }}>{el?.user_name}</Link>
+                        <span style={{ color: "gray" }}>
+                           {index === item.users?.length - 1 ? "" : ","}
+                        </span>
+                     </>
+                  );
+               })}
+            </div>
+
             <Link
                to={`/user/track/:${item?.track_id}`}
                className="name_song outside"
@@ -243,10 +269,10 @@ const Song: FC<ISong> = ({ isAdd, item, songs_array, index, active, style, isAdd
                      alt="menu"
                      onClick={handleDotClick}
                   />
-                  {menu && playlists_users?.length != 0 && (
+                  {menu && (
 
                      <div ref={downNavRef} className="menu">
-                        {playlists_users?.length != 0 && (
+                        {playlists_users?.length != 0 ? (
                            <>
                               <div className="btn" onClick={() => setAdd(!add)}>Add in playlist
                                  {
@@ -267,6 +293,8 @@ const Song: FC<ISong> = ({ isAdd, item, songs_array, index, active, style, isAdd
                                  }
                               </div>
                            </>
+                        ) : (
+                           <div style={{ textAlign: "center" }}>Not playlist</div>
                         )}
 
 
@@ -295,7 +323,7 @@ const Song: FC<ISong> = ({ isAdd, item, songs_array, index, active, style, isAdd
                            <p className='plus' style={{
                               width: "100%", height: "100%"
                            }}  >
-                              <button
+                              <button style={{ background: "red" }}
                                  onClick={() => DeleteTrackInPlaylists(item?.track_id)}
                               >Del</button>
                            </p>

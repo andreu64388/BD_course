@@ -8,44 +8,19 @@ import { useAppDispatch } from '../../redux/store';
 import { useAppSelector } from './../../redux/store';
 import { useEffect } from 'react';
 import { GetTracks } from './../../redux/Admin/CreateAdmin';
-const value = [
-   {
-      img: process.env.PUBLIC_URL + "/icons/dashuser.svg",
-      name: "INSTASAMLA",
-      date: "INSTASAMLA",
-      id_user: "el",
-      genre: "INSTASAMLA",
-      id_song: "el",
-   }, {
-      img: process.env.PUBLIC_URL + "/icons/in.svg",
-      name: "INSTASAMLA",
-      date: "INSTASAMLA",
-      id_user: "el",
-      genre: "INSTASAMLA",
-      id_song: "el",
-   }, {
-      img: process.env.PUBLIC_URL + "/icons/dashuser.svg",
-      name: "INSTASAMLA",
-      date: "INSTASAMLA",
-      id_user: "el",
-      genre: "INSTASAMLA",
-      id_song: "el",
-   }
-]
-
-
-
 
 const AdminSongs: FC = () => {
+
+   const { tracks }: any = useAppSelector(state => state.admin)
    const [modal, setModal] = useState<boolean>(false);
    const [name, setName] = useState<string>("");
    const [genre, setGenre] = useState<string>("");
    const [image, setImage] = useState<string | any>("");
    const [audio, setAudio] = useState<string | any>("");
-   const dispatch = useAppDispatch();
-   const { tracks }: any = useAppSelector(state => state.admin)
    const [tracksA, setTracksA] = useState<any[]>([]);
    const [value, setValue] = useState<string>("");
+   const dispatch = useAppDispatch();
+
    useEffect(() => {
       dispatch(GetTracks())
    }, [])
@@ -55,6 +30,7 @@ const AdminSongs: FC = () => {
          setTracksA(tracks)
       }
    }, [tracks])
+   
    const changeModalState = (state: boolean) => {
       setModal(state)
    }

@@ -33,7 +33,6 @@ const items1 = [
    },
 ];
 
-
 const items2 = [
    {
       id: 1,
@@ -55,6 +54,7 @@ const items2 = [
    },
 
 ];
+
 const admins = [
    {
       id: 1,
@@ -76,6 +76,7 @@ const admins = [
    },
 
 ];
+
 const Navbar: FC = () => {
    const location = useLocation();
    const isRegister = location.pathname === "/user/register";
@@ -89,29 +90,6 @@ const Navbar: FC = () => {
 
    const dispacth = useAppDispatch();
    const { isAuth, admin, user }: any = useAppSelector(state => state.user);
-   useEffect(() => {
-      if (admin && isAuth) {
-         setElements(admins);
-
-      }
-      else {
-         if (isProfile || isPass || isEdit) {
-            setElements(items2);
-         }
-         else {
-            setElements(items1);
-         }
-      }
-      setIsOpen(false);
-   }, [location])
-   useEffect(() => {
-
-      if (admin) {
-         alert("admin")
-         setElements(admins)
-      }
-
-   }, [admin])
 
    useEffect(() => {
       function handleClickOutside(event: any) {
@@ -133,6 +111,28 @@ const Navbar: FC = () => {
    }, []);
 
 
+   useEffect(() => {
+      if (admin && isAuth) {
+         setElements(admins);
+      }
+      else {
+         if (isProfile || isPass || isEdit) {
+            setElements(items2);
+         }
+         else {
+            setElements(items1);
+         }
+      }
+      setIsOpen(false);
+   }, [location])
+
+
+   useEffect(() => {
+      if (admin) {
+         alert("admin")
+         setElements(admins)
+      }
+   }, [admin])
 
    const LogoutUser = () => {
       dispacth(Logout());
@@ -161,7 +161,6 @@ const Navbar: FC = () => {
                            }
                         >
                            <li>
-
                               <img src={process.env.PUBLIC_URL + item.icon} alt={item.icon} />
                               <p>{item.title}</p>
 
@@ -230,7 +229,6 @@ const Navbar: FC = () => {
                   </Link>
                </nav>
             </div>)}
-
       </>
    );
 };

@@ -2,7 +2,6 @@
 -----------------------| CREATE TABLES |--------------------
 ------------------------————————————————-------------------*/
 
-
 --------------------- Table Role ----------------------
 CREATE TABLE Role (
     role_id SERIAL PRIMARY KEY,
@@ -27,20 +26,24 @@ CREATE TABLE Genre (
     genre_name VARCHAR(255) NOT NULL
 );
 
-
 --------------------- Table Track ----------------------
 CREATE TABLE Track (
     track_id SERIAL PRIMARY KEY,
     track_title VARCHAR(255) NOT NULL,
     track_date DATE NOT NULL,
-    user_id INTEGER NOT NULL,
     track_image BYTEA,
     track_content BYTEA NOT NULL,
     genre_id INTEGER NOT NULL,
-    CONSTRAINT fk_track_user FOREIGN KEY (user_id) REFERENCES Users (user_id),
     CONSTRAINT fk_track_genre FOREIGN KEY (genre_id) REFERENCES Genre (genre_id)
 );
-
+--------------------- Table User_track ----------------------
+CREATE TABLE User_Track (
+    user_id INTEGER NOT NULL,
+    track_id INTEGER NOT NULL,
+    PRIMARY KEY (user_id, track_id),
+    CONSTRAINT fk_user_track_user FOREIGN KEY (user_id) REFERENCES Users (user_id),
+    CONSTRAINT fk_user_track_track FOREIGN KEY (track_id) REFERENCES Track (track_id)
+);
 --------------------- Table Rating----------------------
 CREATE TABLE Rating (
     rating_id SERIAL PRIMARY KEY,
@@ -76,6 +79,4 @@ CREATE TABLE Library_user (
     CONSTRAINT fk_library_track_user FOREIGN KEY (user_id) REFERENCES Users (user_id),
     CONSTRAINT fk_library_track_track FOREIGN KEY (track_id) REFERENCES Track (track_id)
 );
---------------------- Table Artist ----------------------
-
-
+--------------------- End ----------------------

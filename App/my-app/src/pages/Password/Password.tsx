@@ -7,13 +7,15 @@ import { useAppSelector } from './../../redux/store';
 import { UpdateUserPassword } from './../../redux/User/CreateUser';
 
 const Password: FC = () => {
+
+   const { user }: any = useAppSelector(state => state.user) 
+
    const [oldPassword, setOldPassword] = useState<string>('');
    const [newPassword, setNewPassword] = useState<string>('');
    const [newPassword2, setNewPassword2] = useState<string>('');
 
    const dispatch = useAppDispatch();
 
-   const { user }: any = useAppSelector(state => state.user)
    const ChangePassword = async () => {
       if (newPassword != newPassword2) {
          return;
@@ -21,7 +23,6 @@ const Password: FC = () => {
       const data = {
          user_id: user?.user_id,
          user_password: newPassword,
-
       }
       await dispatch(UpdateUserPassword(data));
    }

@@ -8,47 +8,43 @@ import Song from './../../componets/Song/Song';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import { GetTracksInPlaylist, ResetPlaylist, DeletenPlaylist, GetAllTracks } from './../../redux/Song/CreateSong';
-const item =
-{
-   id_track: "1",
-   title: "Я отключаю телефон",
-   img: "/icons/Instasamka.svg",
-   artist: [
-      {
-         artist: "Test",
-         link: "/user/executor/:executor_id"
-      }
-   ],
-   link_track: "/user/track/:track_id",
-
-}
-
+import { SearchTracks } from './../../redux/Song/CreateSong';
+import { GetTracksInPlaylist, DeletenPlaylist, UpdatePlaylistTitle, ResetPlaylist } from './../../redux/Playlist/CreatePlaylist';
 
 
 const Playlist: FC = () => {
-   const { tracks_in_playlist, songs, title_playlist, user_id_playlist, all_songs }: any = useAppSelector(state => state.song)
+
+   const { tracks_search }: any = useAppSelector(state => state.song)
    const { user }: any = useAppSelector(state => state.user)
+   const { tracks_in_playlist, title_playlist, user_id_playlist }: any = useAppSelector(state => state.playlist)
+
+
    const [edit, setEdit] = useState<boolean>(true)
    const [modal, setModal] = useState<boolean>(false)
    const [title, setTitle] = useState<string>(title_playlist);
    const [value, setValue] = useState<string>("");
+   const [tracks, setTracks] = useState<any>([])
    const [playlist, setPlaylist] = useState<any>([]);
-   const [arr, setArr] = useState<any>([]);
+
    const { playlist_id } = useParams();
+
    const dispatch = useAppDispatch();
    const navigate = useNavigate()
+
    useEffect(() => {
       dispatch(GetTracksInPlaylist(playlist_id))
-      dispatch(GetAllTracks())
       return () => {
          dispatch(ResetPlaylist())
       }
    }, [])
 
+   useEffect(() => {
+      if (value) {
+         dispatch(SearchTracks(value))
+      }
+   }, [value])
 
    useEffect(() => {
-
       if (Number(user_id_playlist) === Number(user?.user_id)) {
          setEdit(true)
       }
@@ -57,6 +53,9 @@ const Playlist: FC = () => {
       }
    }, [user, user_id_playlist])
 
+   useEffect(() => {
+      setTracks(tracks_search)
+   }, [tracks_search])
 
    useEffect(() => {
       if (tracks_in_playlist) {
@@ -70,23 +69,38 @@ const Playlist: FC = () => {
 
    }
 
-
-
    const Save = () => {
       setModal(false)
    }
+
    const DeletePlaylistFunc = () => {
       const data = {
          playlist_id: playlist_id,
          user_id: user?.user_id
       }
       dispatch(DeletenPlaylist(data))
+
       navigate("/user/library")
 
    }
+
    const ChangeTitle = () => {
-      alert(title)
+
+      if (title === title_playlist) {
+         setModal(false)
+         return
+      }
+      if (title.length > 0) {
+         const data = {
+            playlist_id: playlist_id,
+            title: title,
+         }
+         dispatch(UpdatePlaylistTitle(data))
+         setModal(false)
+      }
+
    }
+
    return (
       <div className='wrapper'>
          <div className="wrapper_all">
@@ -97,8 +111,8 @@ const Playlist: FC = () => {
                   </h1>
                   {
                      edit && (<div>
-                        <button onClick={DeletePlaylistFunc}>
-                           delete
+                        <button onClick={DeletePlaylistFunc} className='delete_btn'>
+                           Delete
                         </button>
                         <button onClick={() => setModal(true)}>
                            Edit
@@ -111,7 +125,6 @@ const Playlist: FC = () => {
                         <CardSong item={item} />
                      })
                   }
-
                   {playlist?.map((el: any, index: number) => {
                      return (
                         <CardSong item={el} />
@@ -135,11 +148,10 @@ const Playlist: FC = () => {
                                  value={title}
                                  onChange={(e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
                                  placeholder='Andrey...' />
-                              <button onClick={ChangeTitle}>
+                              <button className='save' onClick={ChangeTitle}>
                                  Save
                               </button>
                            </div>
-
                            <div className="block">
                               <h2 className="enter_value">
                                  Songs
@@ -162,13 +174,10 @@ const Playlist: FC = () => {
                               </div>
                               <div className="songs_result">
                                  {
-                                    all_songs?.length > 0 &&
-                                    all_songs
+                                    tracks_search?.length > 0 &&
+                                    tracks_search
                                        .filter((item: any) =>
-                                          !playlist.some((playlistItem: any) => playlistItem.track_id === item.track_id) &&
-                                          (item.track_title.toLowerCase().includes(value.toLowerCase().trim()) ||
-                                             item.user_name.toLowerCase().includes(value.toLowerCase().trim()))
-                                       )
+                                          !playlist.some((playlistItem: any) => playlistItem.track_id === item.track_id))
                                        .map((item: any, index: number) => {
                                           return <Song isAdd={true} item={item}
                                              isAddDelete={true}
@@ -177,8 +186,7 @@ const Playlist: FC = () => {
                                        })
                                  }
                               </div>
-                           </div><section></section>
-
+                           </div>
                            <div className="save" onClick={Save}>
                               Close
                            </div>

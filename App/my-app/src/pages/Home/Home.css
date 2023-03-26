@@ -66,6 +66,11 @@ body {
   border-radius: 20px;
 }
 
+.load {
+  margin-top: 100px;
+  margin-left: 210px;
+}
+
 .center .homes {
   display: flex;
   flex-direction: column;

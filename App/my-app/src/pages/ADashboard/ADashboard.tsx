@@ -8,11 +8,13 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { useEffect } from 'react';
 import { GetTracks, GetUsers, GetGenres } from './../../redux/Admin/CreateAdmin';
 const AdminDashboard: FC = () => {
+
    const dispatch = useAppDispatch();
    const { tracks, users, genres }: any = useAppSelector(state => state.admin)
    const [tracksA, setTracksA] = useState<any[]>([]);
    const [usersA, setUsersA] = useState<any[]>([]);
    const [genresA, setGenresA] = useState<any[]>([]);
+
    useEffect(() => {
       dispatch(GetTracks())
       dispatch(GetUsers())
@@ -37,56 +39,9 @@ const AdminDashboard: FC = () => {
          setGenresA(genres)
       }
    }, [genres])
-   const value = [
-      {
-         name: 'INSTASAMLA',
-         email: 'INSTASAMLA',
-         date: 'INSTASAMLA',
-         id: "el",
-         password: "et"
-      },
-      {
-         name: 'INSTASAMLA',
-         email: 'INSTASAMLA',
-         date: 'INSTASAMLA',
-         id: "el",
-         password: "et"
-      },
-      {
-         name: 'INSTASAMLA',
-         email: 'INSTASAMLA',
-         date: 'INSTASAMLA',
-         id: "el",
-         password: "et"
-      },
-      {
-         name: 'INSTASAMLA',
-         email: 'INSTASAMLA',
-         date: 'INSTASAMLA',
-         id: "el",
-         password: "et"
-      },
-      {
-         name: 'INSTASAMLA',
-         email: 'INSTASAMLA',
-         date: 'INSTASAMLA',
-         id: "el",
-         password: "et"
-      }
-   ]
-   const headers = ["genre_id", "genre_name"]
-   const date = [
-      {
-         id: "te",
-         name: "tr"
-      },
-      {
-         id: "2   e",
-         name: "tr"
-      }
-   ]
 
-   const uptable: string[] = ['Name', 'Email', 'password', 'date', 'Action'];
+   const headers = ["genre_id", "genre_name"]
+
    return (
       <div className='wrapper'>
          <div className="wrapper_all">

@@ -2,7 +2,6 @@
 /*---------------------————————————————---------------------
 -----------------------| INSERT TABLES |--------------------
 ------------------------————————————————-------------------*/
-
 INSERT INTO Role (role_name) VALUES ('user');
 INSERT INTO Role (role_name) VALUES ('admin');
 
@@ -26,6 +25,4 @@ INSERT INTO Genre (genre_name) VALUES
 ('Country'),
 ('Reggae');
 
-SELECT * FROM GENRE;
 
-SELECT * FROM ROLE

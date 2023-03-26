@@ -4,7 +4,6 @@
    .modal_content_change {
       max-height: 600px;
       overflow: auto;
-
       margin-top: 10px;
       display: flex;
       flex-direction: column;
@@ -45,6 +44,15 @@
 
             background-color: #3E4751;
             gap: 3px;
+
+            .save {
+               display: table;
+               padding: 10px 10px;
+               background: #2BC48A;
+               color: white;
+               cursor: pointer;
+               text-align: center;
+            }
 
             .songs_result {
                padding: 5px;
@@ -168,6 +176,7 @@
                margin: 5px 0;
 
             }
+
             input {
                outline: none;
                border: 0;
@@ -190,6 +199,11 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+
+      .delete_btn {
+         margin-right: 5px;
+         background-color: red;
+      }
 
       button {
          background-color: #10B557;

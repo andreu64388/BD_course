@@ -1,6 +1,7 @@
 import pool from "../database/db.js";
 
 class AdminController {
+
   async getUsers(req, res) {
     try {
       const query = await pool.query("SELECT * from GetUsers()");
@@ -19,20 +20,36 @@ class AdminController {
       });
     }
   }
+
   async getTracks(req, res) {
     try {
-      console.log("te");
       const tracks = await pool.query("select * from GetTracks()");
-      tracks.rows.forEach((song) => {
-        song.track_image = `http://localhost:3001/images/${song.track_image.toString(
+      const tracks_send = [];
+
+      for (const song of tracks.rows) {
+        song.track_image = `http://localhost:3001/images/${song?.track_image?.toString(
           "utf-8"
         )}`;
-        song.track_content = `http://localhost:3001/music/${song.track_content.toString(
+        song.track_content = `http://localhost:3001/music/${song?.track_content?.toString(
           "utf-8"
         )}`;
-      });
+        let author = await pool.query(
+          "select * from get_users_from_track($1)",
+          [Number(song?.track_id)]
+        );
+        tracks_send.push({
+          track_id: song.track_id,
+          track_title: song.track_title,
+          track_date: song.track_date,
+          genre_name: song.genre_name,
+          track_image: song.track_image,
+          track_content: song.track_content,
+          avg_rating: song.avg_rating,
+          users: author.rows,
+        });
+      }
       res.json({
-        tracks: tracks.rows,
+        tracks: tracks_send,
       });
     } catch (err) {
       res.json({
@@ -40,6 +57,7 @@ class AdminController {
       });
     }
   }
+
   async GetGenres(req, res) {
     try {
       const genres = await pool.query("SELECT * FROM genre");
@@ -52,6 +70,7 @@ class AdminController {
       });
     }
   }
+
   async addUser(req, res) {
     try {
       const {
@@ -98,35 +117,53 @@ class AdminController {
       });
     }
   }
+
   async addTrack(req, res) {
     try {
-      const { user_id, track_title, genre_id } = req.body;
+      const { arr_user_id, track_title, genre_id, user_id } = req.body;
+      console.log(req.body);
       const track_image = req.files["track_image"][0].filename;
       const track_content = req.files["track_content"][0].filename;
+
       const currentDate = new Date();
-      const query = "call AddTrack ($1, $2, $3, $4, $5,$6)";
-      await pool.query(query, [
+      const query = "select AddTrack($1, $2, $3, $4, $5)";
+      const result = await pool.query(query, [
         track_title,
         currentDate,
-        user_id,
         track_image,
         track_content,
         genre_id,
       ]);
-      const songs = await pool.query("SELECT * FROM GetTracksUser($1)", [
-        Number(user_id),
-      ]);
-      songs.rows.forEach((song) => {
-        song.track_image = `http://localhost:3001/images/${song.track_image.toString(
+      console.log(result.rows[0].addtrack + "add");
+
+      const tracks = await pool.query("select * from GetTracks()");
+      const tracks_send = [];
+
+      for (const song of tracks.rows) {
+        song.track_image = `http://localhost:3001/images/${song?.track_image?.toString(
           "utf-8"
         )}`;
-        song.track_content = `http://localhost:3001/music/${song.track_content.toString(
+        song.track_content = `http://localhost:3001/music/${song?.track_content?.toString(
           "utf-8"
         )}`;
-      });
+        let author = await pool.query(
+          "select * from get_users_from_track($1)",
+          [Number(song?.track_id)]
+        );
+        tracks_send.push({
+          track_id: song.track_id,
+          track_title: song.track_title,
+          track_date: song.track_date,
+          genre_name: song.genre_name,
+          track_image: song.track_image,
+          track_content: song.track_content,
+          avg_rating: song.avg_rating,
+          users: author.rows,
+        });
+      }
 
       res.json({
-        tracks: songs.rows,
+        tracks: tracks_send,
       });
     } catch (err) {
       res.json({
@@ -134,6 +171,7 @@ class AdminController {
       });
     }
   }
+  
   async deleteUser(req, res) {
     try {
       const { user_id } = req.params;
@@ -156,6 +194,7 @@ class AdminController {
       });
     }
   }
+
   async deleteTrack(req, res) {
     try {
       const { track_id } = req.params;
@@ -164,16 +203,32 @@ class AdminController {
       await pool.query(query, [Number(track_id)]);
 
       const tracks = await pool.query("select * from GetTracks()");
-      tracks.rows.forEach((song) => {
-        song.track_image = `http://localhost:3001/images/${song.track_image.toString(
+      const tracks_send = [];
+
+      for (const song of tracks.rows) {
+        song.track_image = `http://localhost:3001/images/${song?.track_image?.toString(
           "utf-8"
         )}`;
-        song.track_content = `http://localhost:3001/music/${song.track_content.toString(
+        song.track_content = `http://localhost:3001/music/${song?.track_content?.toString(
           "utf-8"
         )}`;
-      });
+        let author = await pool.query(
+          "select * from get_users_from_track($1)",
+          [Number(song?.track_id)]
+        );
+        tracks_send.push({
+          track_id: song.track_id,
+          track_title: song.track_title,
+          track_date: song.track_date,
+          genre_name: song.genre_name,
+          track_image: song.track_image,
+          track_content: song.track_content,
+          avg_rating: song.avg_rating,
+          users: author.rows,
+        });
+      }
       res.json({
-        tracks: tracks.rows,
+        tracks: tracks_send,
       });
     } catch (err) {
       res.json({
@@ -181,6 +236,7 @@ class AdminController {
       });
     }
   }
+
   async updateUser(req, res) {
     try {
     } catch (err) {
@@ -189,6 +245,7 @@ class AdminController {
       });
     }
   }
+  
   async updateTrack(req, res) {
     try {
       const { track_id, track_title, genre_id, user_id } = req.body;

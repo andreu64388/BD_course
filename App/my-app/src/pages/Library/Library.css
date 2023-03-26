@@ -71,6 +71,32 @@ body {
   margin-top: 0px;
   margin-bottom: 20px;
 }
+.library .auth {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+.library .auth h1 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+.library .auth a {
+  font-size: 1.1rem;
+  text-decoration: none;
+  color: white;
+  background-color: green;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+.library .auth a:hover {
+  background-color: green;
+}
 .library .modal_content_change {
   max-height: 600px;
   overflow: auto;

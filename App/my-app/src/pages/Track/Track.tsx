@@ -2,7 +2,6 @@ import React from 'react';
 import { FC, useState } from 'react';
 import "./Track.css"
 import Song from '../../componets/Song/Song';
-
 import { useEffect } from 'react';
 import getDominantColor from './../../assets/Functioons/getDominantColor';
 import { useAppDispatch } from '../../redux/store';
@@ -11,36 +10,32 @@ import { ShowModal } from '../../redux/User/CreateUser';
 import Modal from '../../componets/Modal/Modal';
 import { useParams, Link } from 'react-router-dom';
 import { getTrack } from '../../redux/Song/CreateSong';
-import { useRef } from 'react';
 import { AddRaiting } from './../../redux/Song/CreateSong';
 
-const img = process.env.PUBLIC_URL + "/icons/in.svg"
 const Track: FC = () => {
 
-   const { track_id } = useParams();
-
-
    const { song_id, user_tracks, index, raiting }: any = useAppSelector(state => state.song);
-   const { isAuth, user }: any = useAppSelector(state => state.user);
+   const { isAuth, user, modal }: any = useAppSelector(state => state.user);
+
    const [backgroundColor, setBackgroundColor] = useState("");
    const [isPlay, setPlay] = useState<boolean>(false)
-   const [modal, setModal] = useState<boolean>(false)
+   const [modals, setModal] = useState<boolean>(false)
    const [estimate, setEstimate] = useState<boolean>(false)
    const [tar, setTar] = useState<any>(false)
    const [rating, setRating] = useState<number>(0);
    const [duration, setDuration] = useState<number | null | any>(null);
 
+   const dispatch = useAppDispatch();
+   const { track_id } = useParams();
 
    useEffect(() => {
       if (track_id) {
          dispatch(getTrack(track_id?.slice(1)))
       }
-
    }, [])
+
    useEffect(() => {
       dispatch(getTrack(track_id?.slice(1)))
-
-
       if (raiting?.find((obj: any) => Number(obj?.user_id) === Number(user?.user_id))) {
          setEstimate(false)
       }
@@ -57,6 +52,25 @@ const Track: FC = () => {
          setEstimate(true)
       }
    }, [raiting])
+
+   useEffect(() => {
+      console.log(user_tracks)
+      async function fetchDuration() {
+         const duration = await getDuration(song_id?.track_content);
+         setDuration(duration);
+      }
+      fetchDuration();
+   }, [song_id]);
+
+
+   const Estimate = () => {
+      if (!isAuth) {
+         dispatch(ShowModal())
+         return
+      }
+      setModal(!modals)
+
+   }
    const getDuration = async (audioUrl: string): Promise<string> => {
       let audio = new Audio(audioUrl);
       return new Promise((resolve, reject) => {
@@ -76,6 +90,7 @@ const Track: FC = () => {
          });
       });
    };
+
    const AddRaitingTrack = () => {
       const data = {
          user_id: user?.user_id,
@@ -85,22 +100,6 @@ const Track: FC = () => {
       dispatch(AddRaiting(data))
       setModal(false)
    }
-   useEffect(() => {
-      console.log(user_tracks)
-      async function fetchDuration() {
-         const duration = await getDuration(song_id?.track_content);
-         setDuration(duration);
-      }
-      fetchDuration();
-   }, [song_id]);
-
-
-   const formatTime = (time: number): string => {
-      const minutes = Math.floor(time / 60);
-      const seconds = Math.floor(time % 60);
-      return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-   };
-
 
    const handleRatingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       const newRating = parseInt(event.target.value);
@@ -111,15 +110,11 @@ const Track: FC = () => {
       setModal(state)
    }
 
-
-   const dispatch = useAppDispatch();
    const handleImageLoad = async (event: any) => {
       const image = event.target;
       const dominantColor = await getDominantColor(image);
       setBackgroundColor(dominantColor);
    }
-
-
 
    const PlayMusic = () => {
       if (!isAuth) {
@@ -128,12 +123,14 @@ const Track: FC = () => {
       }
       setPlay(!isPlay)
    }
+
    const sortedUserTracks = [...user_tracks];
    const trackIndex = sortedUserTracks.findIndex((item) => item.track_id === song_id?.track_id);
    if (trackIndex !== -1) {
       const trackToMove = sortedUserTracks.splice(trackIndex, 1)[0];
       sortedUserTracks.unshift(trackToMove);
    }
+
    return (
       <div className='wrapper'>
          <div className="track">
@@ -145,13 +142,16 @@ const Track: FC = () => {
                <div className="text">
                   <h1 className="name_track">
                      {song_id?.track_title}
-                     {/* Отключаю телефон */}
                   </h1>
                   <div className="full_info">
-                     <Link to={`/user/executor/:${song_id?.user_id}`}>
-                        <img src={song_id?.user_img} alt="" />
-                        <p> {song_id?.user_name}</p>
-                     </Link>
+                     {song_id?.users.map((el: any) => {
+                        return (
+                           <Link to={`/user/executor/:${el?.user_id}`}>
+                              <img src={el?.user_img} alt="" />
+                              <p> {el?.user_name}</p>
+                           </Link>
+                        )
+                     })}
                      <div className="duraction">
                         {duration}
                      </div>
@@ -161,12 +161,8 @@ const Track: FC = () => {
                      <div className="rating">
                         {Number(song_id?.avg_rating)?.toFixed(2)}
                      </div>
-
-
                   </div>
                </div>
-
-
             </div>
             <div className="wrapper_all">
                <div className="players">
@@ -175,20 +171,14 @@ const Track: FC = () => {
                         !isPlay ? process.env.PUBLIC_URL + "/icons/Player.svg" :
                            process.env.PUBLIC_URL + "/icons/stop1.svg"
                      } alt=""
-
                      />
-
-
                   </div>
                   {
-                     estimate && (<button className="estimate" onClick={() => setModal(!modal)}>
+                     estimate && (<button className="estimate" onClick={() => Estimate()}>
                         Estimates
                      </button>)
                   }
-
                </div>
-
-
                <div className="musics">
                   {sortedUserTracks?.map((item: any, ind: number) => (
                      <Song
@@ -196,16 +186,13 @@ const Track: FC = () => {
                         item={item}
                         index={ind}
                         songs_array={sortedUserTracks}
-                        key={item?.track_id}
+
                      />
                   ))}
-
-
-
                </div>
             </div>
             {
-               modal &&
+               modals &&
                (<Modal ChangeModal={ChangeModal}>
                   <div className="modal_estimate">
 
@@ -230,12 +217,9 @@ const Track: FC = () => {
                      <button onClick={AddRaitingTrack}>
                         Estimate
                      </button>
-
-
                   </div>
                </Modal>)
             }
-
          </div>
       </div >
    );

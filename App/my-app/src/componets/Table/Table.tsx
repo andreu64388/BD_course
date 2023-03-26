@@ -15,7 +15,7 @@ interface TableProps {
 }
 
 const Table: React.FC<TableProps> = ({ data, maxPage, data_songs }) => {
-   const first: string[] = ['id_track', 'Img', 'Name', 'Date',"id_user" ,"Genre", 'Action'];
+   const first: string[] = ['id_track', 'Img', 'Name', 'Date', "id_user", "Genre", 'Action'];
    const two: string[] = ['id_user', 'Name', 'Email', 'Role', 'Date', 'Action'];
    const [datas, setDatas] = React.useState<any>(data);
    const [upDatas, setUpDatas] = React.useState<any>(first);
@@ -58,6 +58,8 @@ const Table: React.FC<TableProps> = ({ data, maxPage, data_songs }) => {
          }
       }
    }, [data, data_songs])
+
+
    const Edit = (id: string, el: any, state: boolean) => {
       setUser(!state)
       setModal(true);
@@ -78,15 +80,18 @@ const Table: React.FC<TableProps> = ({ data, maxPage, data_songs }) => {
       }
 
    }
+
    const DeleteUsers = (id: string) => {
       alert(id)
       dispatch(DeleteUser(id))
 
    }
+
    const DeleteTracks = (id: string) => {
       alert(id)
       dispatch(DeleteTrack(id))
    }
+   
    return (
       <div className="table-container">
          <div className="table-header">
@@ -125,7 +130,8 @@ const Table: React.FC<TableProps> = ({ data, maxPage, data_songs }) => {
                      </div>
                      <div className="table-cell">{row?.track_title}</div>
                      <div className="table-cell">{row?.track_date.slice(0, 10)}</div>
-                     <div className="table-cell">{row?.user_id}</div>
+                     <div className="table-cell">{row?.users?.map((el: any) => <span>   {el?.user_id}</span>
+                     )}</div>
                      <div className="table-cell">{row?.genre_name}</div>
                      <div className="table-cell buttons">
                         <button onClick={() => Edit(row?.track_id, row, true)}>

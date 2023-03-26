@@ -137,7 +137,9 @@
 
 
          .track {
-
+            width: 100%;
+            justify-content: space-between;
+            max-width: 240px;
             padding: 5px 20px;
             display: flex;
             gap: 20px;

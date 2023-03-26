@@ -24,8 +24,6 @@ const Settings: FC = () => {
 
                </div>
             </div>
-            <CardSongLoading />
-            <Loading />
          </div>
       </div>
    );

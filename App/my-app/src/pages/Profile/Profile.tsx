@@ -6,12 +6,11 @@ import { useAppSelector } from './../../redux/store';
 
 const Profile: FC = () => {
 
-   const [image, setImage] = useState<any>('')
-   const [date, setDate] = useState<string>('')
    const { user }: any = useAppSelector(state => state.user);
 
-   useEffect(() => {
+   const [date, setDate] = useState<string>('')
 
+   useEffect(() => {
       var d = new Date(user?.user_date_of_birth);
       if (user) {
          var day: any = d.getUTCDate() + 1;
@@ -65,7 +64,6 @@ const Profile: FC = () => {
                   <Link to={"/user/edit"} className="change">
                      Change
                   </Link>
-
                </div>
             </div>
          </div>

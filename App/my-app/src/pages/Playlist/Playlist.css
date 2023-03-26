@@ -4,6 +4,7 @@
   margin: 0 auto;
   width: 100%;
   padding: 0 5px;
+  background-color: #181818;
 }
 
 body {
@@ -14,10 +15,11 @@ body {
   margin-top: 80px;
   margin-left: 200px;
   margin-bottom: 100px;
+  font-family: "Popins", sans-serif;
 }
 
 * {
-  font-family: "Roboto", sans-serif;
+  font-family: "Popisnd", sans-serif;
   box-sizing: border-box;
 }
 
@@ -26,6 +28,7 @@ body {
   border-radius: 20px;
   padding: 20px;
   width: 100%;
+  z-index: 1000;
   max-width: 600px;
 }
 .app .content .blocks {
@@ -105,6 +108,14 @@ body {
   /* Цвет фона элемента select при активации (после клика) */
   /* Цвет фона элемента select, когда он находится в состоянии фокуса */
   /* Стили для опций */
+}
+.playlist .modal_content_change .blocks .block .save {
+  display: table;
+  padding: 10px 10px;
+  background: #2BC48A;
+  color: white;
+  cursor: pointer;
+  text-align: center;
 }
 .playlist .modal_content_change .blocks .block .songs_result {
   padding: 5px;
@@ -219,6 +230,10 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.playlist .title_button .delete_btn {
+  margin-right: 5px;
+  background-color: red;
 }
 .playlist .title_button button {
   background-color: #10B557;

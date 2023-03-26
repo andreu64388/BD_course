@@ -1,14 +1,13 @@
 import React from 'react';
 import { FC } from 'react';
-import { useState } from 'react';
 import "./Modal.css"
+
 interface IModal {
-   stateModal?: boolean,
    ChangeModal: (modal: boolean) => void;
    children: React.ReactNode,
 
 }
-const Modal: FC<IModal> = ({ stateModal, ChangeModal, children }
+const Modal: FC<IModal> = ({ ChangeModal, children }
 ) => {
    return (
       <div className="modal">

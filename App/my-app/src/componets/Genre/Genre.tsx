@@ -15,6 +15,8 @@ const Genre: React.FC<GenreProps> = ({ headers, data, onEdit, onDelete }) => {
    useEffect(() => {
       setValues(data)
    }, [data])
+
+
    const handleEdit = (index: number) => {
       setEditIndex(index);
    };

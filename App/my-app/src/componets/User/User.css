@@ -1,0 +1,25 @@
+.user {
+  display: flex;
+  background-color: #191919;
+  padding: 10px 14px;
+  border-radius: 6px;
+  color: white;
+  transition: all 0.4s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.user button {
+  padding: 5px;
+  background-color: green;
+  color: white;
+  cursor: pointer;
+}
+.user:hover {
+  background-color: #282828;
+}
+.user .description {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}/*# sourceMappingURL=User.css.map */

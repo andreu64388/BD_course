@@ -2,16 +2,13 @@ import React, { useState, useRef, useEffect } from 'react';
 import './MusicPlayer.css';
 import { useAppDispatch } from '../../redux/store';
 import { Next, Prev, StopPlay } from '../../redux/Song/CreateSong';
-import { trace } from 'console';
 import { useAppSelector } from './../../redux/store';
 
 interface Props {
    track?: any;
-
 }
 
-
-const MusicPlayer: React.FC<Props> = ({ track }) => {
+const MusicPlayer: React.FC<Props> = () => {
    const { currentSong, index }: any = useAppSelector(state => state.song)
    const [isPlaying, setIsPlaying] = useState(false);
    const [currentTime, setCurrentTime] = useState(0);
@@ -30,8 +27,6 @@ const MusicPlayer: React.FC<Props> = ({ track }) => {
       const audio = audioRef.current;
       if (!audio) return;
 
-      // Установка трека и воспроизведение
-
       audio.load();
       setIsPlaying(true);
       audio.play();
@@ -39,11 +34,10 @@ const MusicPlayer: React.FC<Props> = ({ track }) => {
    const playPauseTrack = () => {
       const audio = audioRef.current;
       if (!audio) return;
+
       if (isPlaying) {
          setIsPlaying(false);
          audio.pause();
-
-
       } else {
          setIsPlaying(true);
          audio.play();
@@ -52,8 +46,6 @@ const MusicPlayer: React.FC<Props> = ({ track }) => {
    };
 
    const playNextTrack = () => {
-
-
       dispatch(Next())
       setIsPlaying(true);
       setCurrentTime(0);
@@ -108,13 +100,9 @@ const MusicPlayer: React.FC<Props> = ({ track }) => {
             src={currentSong?.track_content}
             onEnded={playNextTrack}
             onTimeUpdate={handleTimeUpdate}
-
          />
       </div>
    );
 };
-
-
-
 
 export default MusicPlayer;

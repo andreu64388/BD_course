@@ -1,53 +1,15 @@
 import React, { ChangeEvent } from 'react';
 import { FC, useState } from 'react';
 import Table from './../../componets/Table/Table';
-import { Link } from 'react-router-dom';
 import "./Users.css"
 import Modal from './../../componets/Modal/Modal';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { useEffect } from 'react';
 import { GetUsers } from '../../redux/Admin/CreateAdmin';
-const value = [
-   {
-      name: 'INSTASAMLA',
-      email: 'INSTASAMLA',
-      date: 'INSTASAMLA',
-      id: "el",
-      password: "et"
-   },
-   {
-      name: 'INSTASAMLA',
-      email: 'INSTASAMLA',
-      date: 'INSTASAMLA',
-      id: "el",
-      password: "et"
-   },
-   {
-      name: 'INSTASAMLA',
-      email: 'INSTASAMLA',
-      date: 'INSTASAMLA',
-      id: "el",
-      password: "et"
-   },
-   {
-      name: 'INSTASAMLA',
-      email: 'INSTASAMLA',
-      date: 'INSTASAMLA',
-      id: "el",
-      password: "et"
-   },
-   {
-      name: 'INSTASAMLA',
-      email: 'INSTASAMLA',
-      date: 'INSTASAMLA',
-      id: "el",
-      password: "et"
-   }
-]
 
 
 const AdminUsers: FC = () => {
-   const dispatch = useAppDispatch();
+
    const { users }: any = useAppSelector(state => state.admin)
    const [modal, setModal] = useState<boolean>(false);
    const [name, setName] = useState<string>("");
@@ -57,19 +19,22 @@ const AdminUsers: FC = () => {
    const [password, setPassword] = useState<string>("");
    const [email, setEmail] = useState<string>("");
    const [value, setValue] = useState<string>("");
+   const dispatch = useAppDispatch();
+
    useEffect(() => {
       dispatch(GetUsers())
    }, [])
+
    useEffect(() => {
       if (users) {
          setUsersA(users)
       }
    }, [users])
 
-
    const changeModalState = (state: boolean) => {
       setModal(state)
    }
+
    return (
       <div className='wrapper'>
          <div className="wrapper_all">
@@ -150,7 +115,6 @@ const AdminUsers: FC = () => {
                            <button onClick={() => setImage(null)}>Cansel</button>
                         </div>
                      )}
-
                   </div>
                   <div className="select">
                      <h2 className="name">

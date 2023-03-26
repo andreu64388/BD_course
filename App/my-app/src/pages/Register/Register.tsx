@@ -2,11 +2,11 @@ import React from 'react';
 import { FC, ChangeEvent, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import "./Register.css"
-import { toByteArray } from 'base64-js';
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { RegisterUser } from './../../redux/User/CreateUser';
 import Loading from './../../componets/Loading/Loading';
+
 const months: string[] = [
    "January",
    "February",
@@ -23,7 +23,9 @@ const months: string[] = [
 ];
 
 const Register: FC = () => {
+
    const { token, admin, loading, message }: any = useAppSelector(state => state.user);
+
    const [name, setName] = useState<string>('')
    const [password, setPassword] = useState<string>('')
    const [email, setEmail] = useState<string>('')
@@ -31,33 +33,19 @@ const Register: FC = () => {
    const [month, setMonth] = useState<string>('')
    const [year, setYear] = useState<string>('')
    const [image, setImage] = useState<File | any>(null);
-   const [imageByte, setImageByte] = useState<any>(null);
    const [messages, setMessages] = useState<string>('')
+
    const navigate = useNavigate();
    const dispatch = useAppDispatch();
 
-
-
-
    useEffect(() => {
       if (token) {
-
          if (admin) {
             return navigate("/admin/dashboard");
          }
          return navigate("/");
       }
-
    }, [token]);
-
-   useEffect(() => {
-      alert("Tesst");
-   }
-      , [message]);
-
-
-
-
 
    const Register = async () => {
       if (name.trim().length == 0) {
@@ -87,7 +75,6 @@ const Register: FC = () => {
       else {
 
          const monthId = months.indexOf(month) + 1;
-
          const formData = new FormData();
 
          formData.append("name", name);
@@ -105,12 +92,8 @@ const Register: FC = () => {
             user_role_id: formData.get("user_role_id"),
             user_img: formData.get("user_image"),
          }
-         console.log(form)
          await dispatch(RegisterUser(form));
-
       }
-
-
    }
 
    const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -203,7 +186,7 @@ const Register: FC = () => {
                   {message}
                </div>
                <button className="submit" onClick={Register}>
-                  Register {!loading && <Loading />}
+                  Register
                </button>
                <div className="login">
                   <span>Do you account? </span>

@@ -1,0 +1,50 @@
+.dashboards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.dashboard-circle {
+  position: relative;
+}
+
+.dashboard-text {
+  font-size: 40px;
+  font-weight: bold;
+  fill: #333;
+}
+
+.dashboard-value {
+  font-size: 80px;
+  font-weight: bold;
+  fill: #ffcc00;
+  animation: fillLine 5s forwards ease-out;
+}
+
+.dashboard-max {
+  font-size: 40px;
+  font-weight: bold;
+  fill: #333;
+}
+
+.dashboard-background {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 0;
+}
+
+.dashboard-progress {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  transform: rotate(-90deg);
+  animation: fillLine 5s forwards ease-out;
+}
+
+@keyframes fillLine {
+  0% {
+    stroke-dashoffset: 400;
+  }
+  100% {
+    stroke-dashoffset: calc(400 - var(--value) / var(--max) * 400);
+  }
+}/*# sourceMappingURL=Dashboard.css.map */

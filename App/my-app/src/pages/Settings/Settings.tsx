@@ -3,6 +3,7 @@ import { FC } from 'react';
 import "./Settings.css"
 import CardSongLoading from './../../componets/CardSongLoading/CardSongLoading';
 import Loading from './../../componets/Loading/Loading';
+import Dashboard from './../../componets/Board/Dashboard';
 
 const Settings: FC = () => {
    return (
@@ -21,7 +22,7 @@ const Settings: FC = () => {
                         <option value="dima">Dark</option>
                      </select>
                   </div>
-
+                  <Dashboard max={100} value={10} />
                </div>
             </div>
          </div>

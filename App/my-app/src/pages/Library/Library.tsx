@@ -111,7 +111,7 @@ const Library: FC = () => {
                                  }).reverse().map((item: any, index: number) => {
                                     return (
                                        <Song
-                                          item={item}
+                                          item={item} songs_array={librarys}
                                        />
                                     );
                                  })}

@@ -21,6 +21,14 @@ a {
 .card_song:hover {
   background-color: #282828;
 }
+.card_song:hover .music_player.how {
+  animation: none;
+}
+.card_song .music_player.how {
+  animation: none;
+  opacity: 1;
+  top: 160px;
+}
 .card_song:hover .music_player {
   animation: showMusicPlayer 0.4s ease-in-out forwards;
 }

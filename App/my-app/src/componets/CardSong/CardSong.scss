@@ -22,6 +22,19 @@ a {
       background-color: #282828;
    }
 
+
+
+   &:hover .music_player.how {
+      animation: none
+   }
+
+   .music_player.how {
+     
+      animation: none;
+      opacity: 1;
+      top: 160px;
+   }
+
    &:hover .music_player {
       animation: showMusicPlayer 0.4s ease-in-out forwards;
    }
@@ -42,10 +55,12 @@ a {
       cursor: pointer;
       transition: all 0.4s ease-in-out;
 
+
       img {
          object-fit: contain;
          width: 20px;
          height: 20px;
+
          transform: rotate(0deg);
       }
    }

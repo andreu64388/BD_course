@@ -221,14 +221,30 @@ export const songSlice: any = createSlice({
    initialState,
    reducers: {
       PlayMusic(state, action) {
-         state.isPlay = true;
-         state.isTrack = !state.isTrack;
-         state.play_musics = action.payload.songs_array;
-         state.index = action.payload.index;
-         state.isShow = true;
-         state.currentSong = state.play_musics[state.index];
+         if (state.currentSong == action.payload.track) {
+            state.isPlay = !state.isPlay;
+            state.isPlay = !state.isTrack;
+         }
+         else {
+            state.isPlay = true;
+            state.isTrack = true;
+            state.play_musics = action.payload.songs_array;
+            state.currentSong = action.payload.track;
+            state.track_id = action.payload.track.track_id;
+            state.isShow = true;
+            state.index = action.payload.songs_array.findIndex(
+               (song: any) => song.track_id === action.payload.track.track_id
+            );
+         }
+
       },
       StopPlay(state) {
+         state.isTrack = false;
+         state.isPlay = false;
+
+      },
+      PlayPause(state) {
+         state.isPlay = !state.isPlay;
          state.isTrack = !state.isTrack;
       },
       ClosePlay(state) {
@@ -248,22 +264,29 @@ export const songSlice: any = createSlice({
          state.song = action.payload;
       },
       Prev(state) {
-         if (state.index < 0) {
-            state.index = state.index - 1;
-            state.currentSong = state.play_musics[state.index];
+         if (state.index > 0) {
+            state.index--;
+         } else {
+            state.index = state.play_musics.length - 1;
          }
+         state.currentSong = state.play_musics[state.index];
+         state.track_id = state.play_musics[state.index]?.track_id;
+         state.isPlay = true;
+         state.isTrack = true;
+
 
       },
       Next(state) {
 
-         if (state.index >= state.play_musics.length - 1) {
+         if (state.index < state.play_musics.length - 1) {
+            state.index++;
+         } else {
             state.index = 0;
          }
-         else {
-            state.index = state.index + 1;
-         }
          state.currentSong = state.play_musics[state.index];
-
+         state.track_id = state.play_musics[state.index]?.track_id;
+         state.isPlay = true;
+         state.isTrack = true;
       },
 
    }
@@ -351,5 +374,5 @@ export const songSlice: any = createSlice({
    }
 });
 
-export const { setPlayMusics, setCurrentSong, clearCurrentSong, nextSong, prevSong, Prev, Next, PlayMusic, StopPlay, ClosePlay, HideMusic, ShowMusic, SetMusic } = songSlice.actions;
+export const { PlayPause, setPlayMusics, setCurrentSong, clearCurrentSong, nextSong, prevSong, Prev, Next, PlayMusic, StopPlay, ClosePlay, HideMusic, ShowMusic, SetMusic } = songSlice.actions;
 export default songSlice.reducer;

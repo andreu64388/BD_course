@@ -6,7 +6,7 @@ import { useRef } from 'react';
 import Modal from './../Modal/Modal';
 import { useAppDispatch, useAppSelector } from './../../redux/store';
 import { ShowModal } from '../../redux/User/CreateUser';
-import { DeleteTrack, PlayMusic } from '../../redux/Song/CreateSong';
+import { DeleteTrack, PlayMusic, PlayPause, StopPlay } from '../../redux/Song/CreateSong';
 import { UpdateTrack, } from './../../redux/Song/CreateSong';
 import { AddTrackInPlaylist, DeleteTrackInPlaylist, GetPlaylistsUserId } from './../../redux/Playlist/CreatePlaylist';
 import { AddTrackInLibrary, DeleteTrackInLibrary, GetTrackinLibrary } from './../../redux/Library/CreateLibrary';
@@ -28,7 +28,7 @@ interface ISong {
 
 const Song: FC<ISong> = ({ isAdd, item, songs_array, index, active, style, isAddDelete, playlist_id }) => {
    const { isAuth, user }: any = useAppSelector(state => state.user);
-   const { genres }: any = useAppSelector(state => state.song)
+   const { genres, track_id, isPlay }: any = useAppSelector(state => state.song)
    const { library }: any = useAppSelector(state => state.library)
    const { playlists_users }: any = useAppSelector(state => state.playlist)
 
@@ -40,7 +40,7 @@ const Song: FC<ISong> = ({ isAdd, item, songs_array, index, active, style, isAdd
    const [genre, setGenre] = useState<string>("");
    const [name, setName] = useState<string>("");
    const [image, setImage] = useState<string | any>("");
-   const [isPlay, setPlay] = useState<boolean>()
+   const [isPlayer, setPlay] = useState<boolean>()
    const [items, setItems] = useState<any>([])
    const [genres_arr, setGenres_arr] = useState<any[]>([]);
    const [your_track, setYourTrack] = useState<boolean>(false)
@@ -51,8 +51,9 @@ const Song: FC<ISong> = ({ isAdd, item, songs_array, index, active, style, isAdd
 
 
    useEffect(() => {
-      isPlay ? setPlay(true) : setPlay(false)
-   }, [active])
+      setPlay(isPlay)
+   }, [isPlay])
+
 
    useEffect(() => {
       if (library) {
@@ -68,8 +69,15 @@ const Song: FC<ISong> = ({ isAdd, item, songs_array, index, active, style, isAdd
       if (genres) {
          setGenres_arr(genres);
       }
-
    }, [genres])
+
+
+   useEffect(() => {
+      item?.track_id == track_id ? setPlay(true) : setPlay(false)
+   }, [track_id])
+
+
+
    useEffect(() => {
       dispatch(GetTrackinLibrary(user?.user_id))
       dispatch(GetPlaylistsUserId(user?.user_id))
@@ -98,12 +106,9 @@ const Song: FC<ISong> = ({ isAdd, item, songs_array, index, active, style, isAdd
    const ChangeModal = (state: boolean) => {
       setModal(state)
       if (state) {
-
          const index = genres_arr.findIndex((genre) => genre.genre_name === item?.genre_name) + 1;
-
          setGenre(index.toString())
          setName(item?.track_title)
-
       }
    }
    const DeleteTracks = (track_id: any) => {
@@ -208,11 +213,17 @@ const Song: FC<ISong> = ({ isAdd, item, songs_array, index, active, style, isAdd
    }, []);
    const PlayMusics = (item: any) => {
 
-      const data = {
-         current_song: item,
-         songs_array: songs_array
+      if (item?.track_id === track_id) {
+         dispatch(PlayPause())
       }
-      dispatch(PlayMusic(data))
+      else {
+         const data = {
+            track: item,
+            songs_array: songs_array
+         }
+         dispatch(PlayMusic(data))
+      }
+
 
       if (!isAuth) {
          dispatch(ShowModal())
@@ -220,9 +231,42 @@ const Song: FC<ISong> = ({ isAdd, item, songs_array, index, active, style, isAdd
       }
 
    }
+
+   const stopSong = () => {
+      dispatch(StopPlay());
+   };
+
+   const pauseSong = () => {
+      dispatch(PlayPause());
+   };
+
+   const playSong = (item: any) => {
+      const data = {
+         track: item,
+         songs_array: songs_array
+      }
+      dispatch(PlayMusic(data))
+
+   };
+
+
    return (
       <div ref={songRef} className="song" style={style && { order: style }}>
-         <img className="play" src={!active ? process.env.PUBLIC_URL + "/icons/play.svg" : process.env.PUBLIC_URL + "/icons/stop_song.svg"} onClick={() => PlayMusics(item)} />
+         <img
+            className="play"
+            src={
+               !isPlay || track_id !== item?.track_id
+                  ? process.env.PUBLIC_URL + '/icons/play.svg'
+                  : process.env.PUBLIC_URL + '/icons/stop_song.svg'
+            }
+            onClick={() =>
+               track_id === item?.track_id
+                  ? isPlay
+                     ? pauseSong()
+                     : playSong(item)
+                  : playSong(item)
+            }
+         />
          <div className="description" >
             <div className="artist">
                {item?.users?.map((el: any, index: number) => {

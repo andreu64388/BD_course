@@ -10,7 +10,6 @@ import Song from '../../componets/Song/Song';
 import { GetRecommendPlaylist } from './../../redux/Playlist/CreatePlaylist';
 import { GetTrackinLibrary } from '../../redux/Library/CreateLibrary';
 import CardSongLoading from '../../componets/CardSongLoading/CardSongLoading';
-import Loading from './../../componets/Loading/Loading';
 
 const Home: FC = () => {
    const { top_tracks }: any = useAppSelector(state => state.song)
@@ -81,7 +80,7 @@ const Home: FC = () => {
                               {
                                  item?.tracks?.slice(0, 5).map((el: any, index: number) => {
                                     return (
-                                       <CardSong item={el} key={index} />
+                                       <CardSong item={el} key={index} songs_array={item?.tracks} />
                                     )
                                  })
                               }
@@ -96,7 +95,7 @@ const Home: FC = () => {
                            return (
                               <div className='raiting'>
                                  <p className='space'>{index + 1}</p>
-                                 <Song item={el} key={index} />
+                                 <Song item={el} key={index} songs_array={topTracks} />
                                  <p className='rate'>{Number(el?.avg_rating)?.toFixed(2)}</p>
                               </div>
                            )
@@ -112,7 +111,7 @@ const Home: FC = () => {
                                  new_track_arr?.slice(0, 5).map((el: any, index: number) => {
                                     return (
                                        <div className='raiting'>
-                                          <CardSong item={el} key={index} />
+                                          <CardSong item={el} key={index} songs_array={new_track_arr} />
                                        </div>
                                     )
                                  })

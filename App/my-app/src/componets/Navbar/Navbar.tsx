@@ -5,6 +5,7 @@ import { FC } from "react";
 import "./Navbar.css";
 import { useAppDispatch, useAppSelector } from './../../redux/store';
 import { Logout } from "../../redux/User/CreateUser";
+import { ClosePlay } from "../../redux/Song/CreateSong";
 
 const items1 = [
    {
@@ -136,6 +137,7 @@ const Navbar: FC = () => {
 
    const LogoutUser = () => {
       dispacth(Logout());
+      dispacth(ClosePlay())
    }
    return (
       <>

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './MusicPlayer.css';
 import { useAppDispatch } from '../../redux/store';
-import { Next, Prev, StopPlay } from '../../redux/Song/CreateSong';
+import { Next, PlayPause, Prev, StopPlay } from '../../redux/Song/CreateSong';
 import { useAppSelector } from './../../redux/store';
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 }
 
 const MusicPlayer: React.FC<Props> = () => {
-   const { currentSong, index }: any = useAppSelector(state => state.song)
+   const { currentSong, isPlay, isTrack }: any = useAppSelector(state => state.song)
    const [isPlaying, setIsPlaying] = useState(false);
    const [currentTime, setCurrentTime] = useState(0);
    const dispatch = useAppDispatch();
@@ -26,34 +26,41 @@ const MusicPlayer: React.FC<Props> = () => {
    useEffect(() => {
       const audio = audioRef.current;
       if (!audio) return;
-
       audio.load();
-      setIsPlaying(true);
       audio.play();
-   }, [index]);
-   const playPauseTrack = () => {
+   }, [currentSong]);
+
+
+
+   useEffect(() => {
       const audio = audioRef.current;
       if (!audio) return;
 
-      if (isPlaying) {
-         setIsPlaying(false);
+      if (!isPlay) {
          audio.pause();
       } else {
-         setIsPlaying(true);
          audio.play();
       }
-      dispatch(StopPlay())
+      setIsPlaying(isPlay);
+
+   }, [isPlay])
+
+   const playPauseTrack = () => {
+
+      dispatch(PlayPause());
+
    };
+
 
    const playNextTrack = () => {
       dispatch(Next())
-      setIsPlaying(true);
+      setIsPlaying(isPlay);
       setCurrentTime(0);
    };
 
    const playPrevTrack = () => {
       dispatch(Prev())
-      setIsPlaying(true);
+      setIsPlaying(isPlay);
       setCurrentTime(0);
    };
 

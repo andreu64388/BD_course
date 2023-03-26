@@ -122,12 +122,12 @@ const Playlist: FC = () => {
                <div className="blocks_card">
                   {
                      playlist?.map((item: any, index: number) => {
-                        <CardSong item={item} />
+                        <CardSong item={item} songs_array={playlist} />
                      })
                   }
                   {playlist?.map((el: any, index: number) => {
                      return (
-                        <CardSong item={el} />
+                        <CardSong item={el} songs_array={playlist} />
                      )
                   })
                   }

@@ -5,16 +5,19 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from './../../redux/store';
 import { ShowModal } from '../../redux/User/CreateUser';
 import { useState } from 'react';
-import { PlayMusic } from '../../redux/Song/CreateSong';
+import { PlayMusic, PlayPause } from '../../redux/Song/CreateSong';
 interface ICardSong {
    item: any;
+   songs_array?: any,
 }
 
-const CardSong: FC<ICardSong> = ({ item }) => {
-   const [isPlay, setPlay] = useState<boolean>(false)
-   const dispatch = useAppDispatch();
+const CardSong: FC<ICardSong> = ({ item, songs_array }) => {
    const { isAuth }: any = useAppSelector(state => state.user);
-   const { isTrack }: any = useAppSelector(state => state.song);
+   const { isTrack, track_id, isPlay }: any = useAppSelector(state => state.song);
+
+
+
+   const dispatch = useAppDispatch();
 
    function handlePlayClick(event: any) {
       event.preventDefault();
@@ -22,10 +25,24 @@ const CardSong: FC<ICardSong> = ({ item }) => {
          dispatch(ShowModal())
          return
       }
-      setPlay(isTrack)
+
       dispatch(PlayMusic())
    }
 
+
+
+   const pauseSong = () => {
+      dispatch(PlayPause());
+   };
+
+   const playSong = (item: any) => {
+      const data = {
+         track: item,
+         songs_array: songs_array
+      }
+      dispatch(PlayMusic(data))
+
+   };
    return (
       <Link to={`/user/track/:${item?.track_id}`}>
          <div className='card_song' key={item?.id_track}>
@@ -48,11 +65,29 @@ const CardSong: FC<ICardSong> = ({ item }) => {
                   })}
                </p>
             </div>
-            <div className="music_player" onClick={handlePlayClick}>
-               <img src={
-                  !isPlay ? process.env.PUBLIC_URL + "/icons/Player.svg" :
-                     process.env.PUBLIC_URL + "/icons/stop1.svg"
-               } alt=""
+            <div className={(track_id === item?.track_id && isPlay) ? "music_player how" : "music_player"}
+               onClick={(e) => {
+                  e.preventDefault()
+                  track_id === item?.track_id
+                     ? isPlay
+                        ? pauseSong()
+                        : playSong(item)
+                     : playSong(item)
+
+
+               }
+
+               }>
+               <img
+
+
+
+                  src={
+                     !isPlay || track_id !== item?.track_id
+                        ? process.env.PUBLIC_URL + "/icons/Player.svg"
+                        : process.env.PUBLIC_URL + "/icons/stop1.svg"
+                  }
+
                />
             </div>
          </div>

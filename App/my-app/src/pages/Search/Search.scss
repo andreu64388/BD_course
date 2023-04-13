@@ -131,3 +131,31 @@
       }
    }
 }
+
+@media (max-width:760px) {
+   .search .response .ifnotsearch {
+      margin: 0 auto;
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+   }
+
+   .search .response .response_with_playlist_and_songs {
+      gap: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      display: flex;
+      flex-direction: column;
+   }
+
+   .search .response .response_with_playlist_and_songs .songs {
+
+      width: 100%;
+   }
+
+   .search .response .response_with_playlist_and_songs .playlist {
+      width: 100%;
+      justify-content: center;
+   }
+}

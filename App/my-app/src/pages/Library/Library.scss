@@ -341,3 +341,13 @@ $items: (
       }
    }
 }
+
+@media screen and (max-width: 450px) {
+   .library .my_list .playlist .ifnotsearch {
+      margin: 0 auto;
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      flex-wrap: wrap;
+   }
+}

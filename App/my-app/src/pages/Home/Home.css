@@ -66,6 +66,21 @@ body {
   border-radius: 20px;
 }
 
+@media (max-width: 760px) {
+  .wrapper {
+    margin-top: 80px;
+    margin-left: 0px !important;
+    margin-bottom: 100px;
+    font-family: "Popins", sans-serif;
+    padding: 0 10px;
+  }
+  .wrapper_all {
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+    background-color: #181818;
+  }
+}
 .load {
   margin-top: 100px;
   margin-left: 210px;
@@ -128,4 +143,27 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+@media (max-width: 1140px) {
+  .center .homes .blocks_reccomemd .blocks_card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+  }
+  .center .homes .blocks_reccomemd .blocks_card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+  }
+}
+@media (max-width: 496px) {
+  .center .homes .top_tracks .raiting .rate {
+    display: none;
+  }
+  .center .homes .top_tracks .raiting .space {
+    display: none;
+  }
 }/*# sourceMappingURL=Home.css.map */

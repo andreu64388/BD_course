@@ -67,6 +67,21 @@ body {
   border-radius: 20px;
 }
 
+@media (max-width: 760px) {
+  .wrapper {
+    margin-top: 80px;
+    margin-left: 0px !important;
+    margin-bottom: 100px;
+    font-family: "Popins", sans-serif;
+    padding: 0 10px;
+  }
+  .wrapper_all {
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+    background-color: #181818;
+  }
+}
 .song {
   display: flex;
   background-color: #191919;
@@ -293,4 +308,24 @@ body {
 .song .action img {
   width: 20px;
   cursor: pointer;
+}
+
+@media (max-width: 650px) {
+  .song .action .dot {
+    display: none;
+  }
+  .song .description {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 11px;
+    word-wrap: break-all;
+  }
+  .center .homes .top_tracks .raiting .song {
+    word-wrap: break-all;
+  }
+  .song .description .artist {
+    display: flex;
+    gap: 0px;
+  }
 }/*# sourceMappingURL=Song.css.map */

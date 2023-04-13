@@ -10,6 +10,7 @@ import Song from '../../componets/Song/Song';
 import { GetRecommendPlaylist } from './../../redux/Playlist/CreatePlaylist';
 import { GetTrackinLibrary } from '../../redux/Library/CreateLibrary';
 import CardSongLoading from '../../componets/CardSongLoading/CardSongLoading';
+import Slider from './../../componets/Slider/Slider';
 
 const Home: FC = () => {
    const { top_tracks }: any = useAppSelector(state => state.song)
@@ -20,8 +21,65 @@ const Home: FC = () => {
    const [topTracks, setTopTracks] = useState<any[]>([]);
    const [new_track_arr, setNew_track_arr] = useState<any[]>([]);
    const [isLoading, setIsLoading] = useState(true);
+   const [visibleTracks, setVisibleTracks] = useState(5);
 
    const dispatch = useAppDispatch();
+
+
+   useEffect(() => {
+      const screenWidth = window.innerWidth;
+
+      if (screenWidth >= 1200) {
+         setVisibleTracks(5);
+
+      } else if (screenWidth >= 1139 && screenWidth < 1200) {
+         setVisibleTracks(4);
+
+      } else if (screenWidth >= 768 && screenWidth < 1139) {
+         setVisibleTracks(3);
+
+      } else if (screenWidth >= 590 && screenWidth < 768) {
+         setVisibleTracks(2);
+
+      } else if (screenWidth >= 420 && screenWidth < 590) {
+         setVisibleTracks(1);
+
+      }
+
+   }, []);
+
+
+   useEffect(() => {
+      const handleResize = () => {
+         const screenWidth = window.innerWidth;
+         if (screenWidth >= 1200) {
+            setVisibleTracks(5);
+
+         } else if (screenWidth >= 1139 && screenWidth < 1200) {
+            setVisibleTracks(4);
+
+         } else if (screenWidth >= 768 && screenWidth < 1139) {
+            setVisibleTracks(3);
+
+         } else if (screenWidth >= 590 && screenWidth < 768) {
+            setVisibleTracks(2);
+
+         } else if (screenWidth >= 420 && screenWidth < 590) {
+            setVisibleTracks(1);
+
+         }
+
+      };
+
+      handleResize(); // вызываем функцию-обработчик при монтировании компонента
+
+      window.addEventListener("resize", handleResize); // подписываемся на событие resize
+
+      return () => {
+         window.removeEventListener("resize", handleResize); // отписываемся от события resize при размонтировании компонента
+      };
+   }, []);
+
 
    useEffect(() => {
       const fetchData = async () => {
@@ -77,14 +135,16 @@ const Home: FC = () => {
                            </div>
 
                            <div className="blocks_card">
+
                               {
-                                 item?.tracks?.slice(0, 5).map((el: any, index: number) => {
+                                 item?.tracks?.slice(0, visibleTracks).map((el: any, index: number) => {
                                     return (
                                        <CardSong item={el} key={index} songs_array={item?.tracks} />
                                     )
                                  })
                               }
                            </div>
+                           {/* <Slider items={item?.tracks} /> */}
                         </div>)
                      })
                   }
@@ -108,11 +168,11 @@ const Home: FC = () => {
                         <div className="blocks_reccomemd">
                            <div className="blocks_card">
                               {
-                                 new_track_arr?.slice(0, 5).map((el: any, index: number) => {
+                                 new_track_arr?.slice(0, visibleTracks).map((el: any, index: number) => {
                                     return (
-                                       <div className='raiting'>
-                                          <CardSong item={el} key={index} songs_array={new_track_arr} />
-                                       </div>
+
+                                       <CardSong item={el} key={index} songs_array={new_track_arr} />
+
                                     )
                                  })
                               }

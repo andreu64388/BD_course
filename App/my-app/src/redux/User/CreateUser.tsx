@@ -34,9 +34,8 @@ export const RegisterUser = createAsyncThunk(
 
             onUploadProgress: onUploudsProgress,
          };
-         console.log(formData);
          const { data } = await axios.post("/user/register", formData, config);
-         console.log(data);
+
          if (data.token) {
             window.localStorage.setItem("token", data.token);
          }
@@ -160,7 +159,7 @@ export const userSlice: any = createSlice({
          state.modal = true;
       }
 
-   }//spline polygon() mesh(сетка разные )
+   }  //spline polygon() mesh(сетка разные )
    ,
    extraReducers: (builder) => {
       builder.addCase(RegisterUser.pending, (state: any, action: any) => {

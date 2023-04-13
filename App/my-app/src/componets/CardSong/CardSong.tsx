@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from './../../redux/store';
 import { ShowModal } from '../../redux/User/CreateUser';
 import { useState } from 'react';
 import { PlayMusic, PlayPause } from '../../redux/Song/CreateSong';
+import ImageLoading from './../ImageLoading/ImageLoading';
 interface ICardSong {
    item: any;
    songs_array?: any,
@@ -46,7 +47,8 @@ const CardSong: FC<ICardSong> = ({ item, songs_array }) => {
    return (
       <Link to={`/user/track/:${item?.track_id}`}>
          <div className='card_song' key={item?.id_track}>
-            <img src={item?.track_image} />
+            {/* <img src={item?.track_image} /> */}
+            <ImageLoading img={item?.track_image} />
             <div className="text_block">
                <p className="title_song">
                   {item?.track_title}
@@ -74,13 +76,10 @@ const CardSong: FC<ICardSong> = ({ item, songs_array }) => {
                         : playSong(item)
                      : playSong(item)
 
-
                }
 
                }>
                <img
-
-
 
                   src={
                      !isPlay || track_id !== item?.track_id

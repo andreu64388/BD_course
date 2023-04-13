@@ -1,0 +1,36 @@
+.slider {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.slider .slider-content {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+.slider .slider-content .card-song-wrapper {
+  height: 300px;
+  max-width: 180px;
+  padding: 3px;
+  width: 100%;
+}
+.slider .slider-controls {
+  display: flex;
+  gap: 5px;
+  margin: 10px 0;
+}
+.slider .slider-controls .slider-prev,
+.slider .slider-controls .slider-next {
+  font-size: 18px;
+  background-color: green;
+  border-radius: 50%;
+  color: white;
+  padding: 5px;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+}
+.slider .slider-controls .slider-prev:hover,
+.slider .slider-controls .slider-next:hover {
+  background-color: #999;
+}/*# sourceMappingURL=Slider.css.map */

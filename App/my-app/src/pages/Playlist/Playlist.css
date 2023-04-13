@@ -67,6 +67,21 @@ body {
   border-radius: 20px;
 }
 
+@media (max-width: 760px) {
+  .wrapper {
+    margin-top: 80px;
+    margin-left: 0px !important;
+    margin-bottom: 100px;
+    font-family: "Popins", sans-serif;
+    padding: 0 10px;
+  }
+  .wrapper_all {
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+    background-color: #181818;
+  }
+}
 .playlist .modal_content_change {
   max-height: 600px;
   overflow: auto;
@@ -246,4 +261,14 @@ body {
   margin: 10px 0;
   color: white;
   font-size: 25px;
+}
+
+@media (max-width: 760px) {
+  .playlist .blocks_card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }/*# sourceMappingURL=Playlist.css.map */

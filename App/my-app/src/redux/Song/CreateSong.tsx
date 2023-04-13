@@ -2,7 +2,31 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../axios/axios";
 
 
-const initialState = {
+
+
+interface ISongState {
+   isPlay: boolean
+   play_musics: any[],
+   track_id: number | null,
+   currentSong: any,
+   isTrack: boolean | null,
+   loading: boolean,
+   isShow: boolean,
+   genres: any[],
+   songs: any, // your tracks
+   song: any,
+   index: any,
+   song_id: any,
+   user_tracks: any,
+   artist: any,
+   rating: any,
+   search_tracks: any,
+   search_playlists: any,
+   top_tracks: any,
+   users_search: any,
+   tracks_search: any,
+}
+const initialState: ISongState = {
    isPlay: false,
    play_musics: [],
    track_id: -1,
@@ -10,7 +34,7 @@ const initialState = {
    isTrack: false,
    loading: false,
    isShow: false,
-   genres: [],//
+   genres: [],
    songs: [], // your tracks
    song: null,
    index: -1,
@@ -227,7 +251,9 @@ export const songSlice: any = createSlice({
          }
          else {
             state.isPlay = true;
-            state.isTrack = true;
+            state.isTrack = true; console.log("it")
+            console.log(action.payload.songs_array)
+
             state.play_musics = action.payload.songs_array;
             state.currentSong = action.payload.track;
             state.track_id = action.payload.track.track_id;
@@ -269,6 +295,7 @@ export const songSlice: any = createSlice({
          } else {
             state.index = state.play_musics.length - 1;
          }
+         console.log(state.play_musics)
          state.currentSong = state.play_musics[state.index];
          state.track_id = state.play_musics[state.index]?.track_id;
          state.isPlay = true;

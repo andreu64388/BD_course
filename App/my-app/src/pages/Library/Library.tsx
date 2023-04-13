@@ -55,7 +55,7 @@ const Library: FC = () => {
    useEffect(() => {
       if (library) {
          setLibrarys(library)
-         console.log(library + "тут")
+
       }
    }, [library])
 
@@ -129,7 +129,7 @@ const Library: FC = () => {
                               </button>
                               <div className="ifnotsearch">
                                  {playlist && Array?.isArray(playlist) && playlist?.filter((el: any) => {
-                                    const regex = new RegExp(value, "gi");
+                                     const regex = new RegExp(value, "gi");
                                     return regex.test(el.title);
                                  }).map((el: any, index: any) => {
 

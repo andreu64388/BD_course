@@ -288,3 +288,26 @@
 
 
 }
+
+@media (max-width:650px) {
+   .song .action .dot {
+      display: none;
+   }
+
+   .song .description {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 11px;
+      word-wrap: break-all;
+   }
+
+   .center .homes .top_tracks .raiting .song {
+      word-wrap: break-all;
+   }
+
+   .song .description .artist {
+      display: flex;
+      gap: 0px;
+   }
+}

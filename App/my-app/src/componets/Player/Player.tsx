@@ -9,12 +9,8 @@ import { ClosePlay, HideMusic, ShowMusic } from '../../redux/Song/CreateSong';
 import { AddTrackInLibrary, DeleteTrackInLibrary } from './../../redux/Library/CreateLibrary';
 
 
-interface IPlayer {
-   ClosePlayer(el: boolean): any;
-   player?: boolean;
-}
 
-const Player: FC<IPlayer> = () => {
+const Player: FC= () => {
    const { user }: any = useAppSelector(state => state.user);
    const { library }: any = useAppSelector(state => state.library)
    const { isShow, currentSong }: any = useAppSelector(state => state.song)
@@ -30,7 +26,7 @@ const Player: FC<IPlayer> = () => {
             setLiked(false)
          }
       }
-   }, [library, liked])
+   }, [library, liked, currentSong])
 
    const dispatch = useAppDispatch();
 

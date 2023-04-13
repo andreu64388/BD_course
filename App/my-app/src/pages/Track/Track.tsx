@@ -172,6 +172,7 @@ const Track: FC = () => {
                            process.env.PUBLIC_URL + "/icons/stop1.svg"
                      } alt=""
                      />
+
                   </div>
                   {
                      estimate && (<button className="estimate" onClick={() => Estimate()}>
@@ -182,9 +183,9 @@ const Track: FC = () => {
                <div className="musics">
                   {sortedUserTracks?.map((item: any, ind: number) => (
                      <Song
-                        active={index === ind ? true : false}
+
                         item={item}
-                        index={ind}
+
                         songs_array={sortedUserTracks}
 
                      />

@@ -191,4 +191,65 @@ a {
 }
 .navbar_user .navbar ul li:hover {
   color: white;
+}
+
+@media (max-width: 760px) {
+  .navbar_user .navbar {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    top: unset;
+    height: 80px;
+    padding: 5px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .navbar_user .navbar .logo {
+    display: none;
+  }
+  .navbar_user .navbar ul {
+    margin-top: 0;
+    gap: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  .navbar_user .navbar ul a {
+    text-align: center;
+    list-style: none;
+    text-decoration: none;
+  }
+  .navbar_user .navbar ul a:nth-child(4) {
+    margin-top: 0px;
+  }
+  .navbar_user .navbar ul li {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease-in-out;
+  }
+  .navbar_user .navbar ul li img {
+    width: 20px;
+    height: 20px;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
+  .navbar_user .navbar ul li p {
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .navbar_user .navbar ul li:hover {
+    color: white;
+  }
+}
+@media (max-width: 550px) {
+  .navbar_user .up_nav .nav_profile .name span {
+    display: none;
+  }
 }/*# sourceMappingURL=Navbar.css.map */

@@ -3,6 +3,7 @@ $margin: 0 10px;
 $title: 25px;
 $fill_text: 18px;
 
+$max_width_min: 600px;
 
 .wrapper_all {
    max-width: $max_width;
@@ -81,5 +82,26 @@ body {
          }
       }
 
+   }
+}
+
+
+@media (max-width:760px) {
+   .wrapper {
+      margin-top: 80px;
+      margin-left: 0px !important;
+      margin-bottom: 100px;
+      font-family: 'Popins', sans-serif;
+      padding: 0 10px;
+
+   }
+
+   .wrapper_all {
+
+      max-width: $max_width_min;
+      margin: 0 auto;
+      width: 100%;
+
+      background-color: #181818;
    }
 }

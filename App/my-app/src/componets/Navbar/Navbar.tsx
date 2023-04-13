@@ -212,8 +212,6 @@ const Navbar: FC = () => {
                                     <div className="line"></div>
                                  </>
                               )}
-
-
                               <li>
                                  <Link onClick={LogoutUser} to={"/user/login"}>Exit</Link>
                               </li>

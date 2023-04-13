@@ -2,7 +2,6 @@ import pool from "../database/db.js";
 import jwt from "jsonwebtoken";
 
 class UserController {
-  
   async Register(req, res) {
     try {
       const {
@@ -22,6 +21,7 @@ class UserController {
         return res.json({ message: "User already exists" });
       }
 
+      console.log("2");
       const result = await pool.query(
         "SELECT Register($1, $2, $3, $4, $5, $6)",
         [
@@ -30,7 +30,7 @@ class UserController {
           user_password,
           user_date_of_birth,
           Number(user_role_id),
-          req.file.filename,
+          req?.file.filename,
         ]
       );
 
@@ -41,6 +41,7 @@ class UserController {
       user.rows[0].user_img =
         "http://localhost:3001/" + user.rows[0].user_img.toString("utf-8");
 
+      console.log(req.body);
       res.json({
         message: "User registered successfully",
         token: token,
@@ -57,6 +58,7 @@ class UserController {
     const { user_email, user_password } = req.body;
 
     try {
+      console.log(req.body);
       const isUserHave = await pool.query("SELECT Login($1,$2)", [
         user_email,
         user_password,
@@ -100,6 +102,9 @@ class UserController {
         [req.userData]
       );
 
+      console.log("name :" + req.userData);
+      console.log(result.rows[0].user_id);
+
       const user_id = result.rows[0].user_id;
 
       if (result.rows.length === 0) {
@@ -111,6 +116,7 @@ class UserController {
       user.rows[0].user_img =
         "http://localhost:3001/" + user.rows[0].user_img.toString("utf-8");
 
+      console.log(req.userData);
       const token = jwt.sign({ name: req.userData }, "secret");
       res.json({
         message: "User logged in successfully",

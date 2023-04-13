@@ -82,3 +82,31 @@
       }
    }
 }
+
+@media (max-width:1140px) {
+   .center .homes .blocks_reccomemd .blocks_card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+   }
+
+   .center .homes .blocks_reccomemd .blocks_card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+   }
+}
+
+@media (max-width:496px) {
+
+   .center .homes .top_tracks .raiting .rate {
+      display: none;
+   }
+
+   .center .homes .top_tracks .raiting .space {
+
+      display: none;
+   }
+}

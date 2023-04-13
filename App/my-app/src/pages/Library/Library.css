@@ -67,6 +67,21 @@ body {
   border-radius: 20px;
 }
 
+@media (max-width: 760px) {
+  .wrapper {
+    margin-top: 80px;
+    margin-left: 0px !important;
+    margin-bottom: 100px;
+    font-family: "Popins", sans-serif;
+    padding: 0 10px;
+  }
+  .wrapper_all {
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+    background-color: #181818;
+  }
+}
 .library {
   margin-top: 0px;
   margin-bottom: 20px;
@@ -330,4 +345,14 @@ body {
 .library .input_search img {
   width: 20px;
   height: 20px;
+}
+
+@media screen and (max-width: 450px) {
+  .library .my_list .playlist .ifnotsearch {
+    margin: 0 auto;
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 }/*# sourceMappingURL=Library.css.map */

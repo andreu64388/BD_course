@@ -64,4 +64,20 @@ body {
   color: white;
   background-color: #1FDF64;
   border-radius: 20px;
+}
+
+@media (max-width: 760px) {
+  .wrapper {
+    margin-top: 80px;
+    margin-left: 0px !important;
+    margin-bottom: 100px;
+    font-family: "Popins", sans-serif;
+    padding: 0 10px;
+  }
+  .wrapper_all {
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+    background-color: #181818;
+  }
 }/*# sourceMappingURL=index.css.map */

@@ -248,9 +248,9 @@ const PageAddTrack: FC = () => {
                            (
                               Array.isArray(songs_array) && songs_array.map?.((item: any, ind: number) => (
                                  <Song
-                                    active={index === ind ? true : false}
+                                   
                                     item={item}
-                                    index={ind}
+            
                                     songs_array={songs_array}
                                     key={item?.track_id}
                                  />

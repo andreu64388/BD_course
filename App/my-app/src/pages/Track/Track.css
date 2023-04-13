@@ -67,6 +67,21 @@ body {
   border-radius: 20px;
 }
 
+@media (max-width: 760px) {
+  .wrapper {
+    margin-top: 80px;
+    margin-left: 0px !important;
+    margin-bottom: 100px;
+    font-family: "Popins", sans-serif;
+    padding: 0 10px;
+  }
+  .wrapper_all {
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+    background-color: #181818;
+  }
+}
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -169,7 +184,7 @@ body {
 }
 .wrapper .about_track .text .full_info {
   display: flex;
-  gap: 30px;
+  gap: 20px;
   align-items: center;
   color: white;
 }
@@ -206,4 +221,74 @@ body {
   -o-object-fit: cover;
      object-fit: cover;
   width: 100%;
+}
+
+@media (max-width: 1065px) {
+  .wrapper .about_track .text .full_info {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    color: white;
+    flex-wrap: wrap;
+  }
+  .wrapper .about_track .text .name_track {
+    color: white;
+    font-size: 30px;
+    margin-bottom: 35px;
+  }
+  .wrapper .about_track .image img {
+    max-width: 200px;
+    height: 200px;
+    -o-object-fit: cover;
+       object-fit: cover;
+    width: 200px;
+  }
+}
+@media (max-width: 575px) {
+  .wrapper .about_track .text .name_track {
+    color: white;
+    font-size: 20px;
+    margin-bottom: 35px;
+  }
+  .wrapper .about_track .image img {
+    max-width: 180px;
+    height: 180px;
+    -o-object-fit: cover;
+       object-fit: cover;
+    width: 180px;
+  }
+  .wrapper .about_track .text .full_info a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+  }
+  .wrapper .about_track .text .full_info a p {
+    font-size: 15px;
+  }
+}
+@media (max-width: 500px) {
+  .wrapper .about_track .text .full_info {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    color: white;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .wrapper .about_track {
+    background-color: black;
+    padding: 20px 40px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0;
+    gap: 20px;
+    padding: 10px 0;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
 }/*# sourceMappingURL=Track.css.map */

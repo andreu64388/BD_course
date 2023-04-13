@@ -64,7 +64,7 @@ function App() {
           </div>
         </Modal>
       }
-      <Player ClosePlayer={ChangePlayer} player={player} />
+      <Player  />
     </div >
 
   );

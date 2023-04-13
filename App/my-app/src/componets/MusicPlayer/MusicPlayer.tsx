@@ -81,6 +81,21 @@ const MusicPlayer: React.FC<Props> = () => {
       audio.currentTime = newTime;
    };
 
+   useEffect(() => {
+      const handleKeyDown = (event: KeyboardEvent) => {
+         if (event.key === 'ArrowLeft') {
+            playPrevTrack();
+         } else if (event.key === 'ArrowRight') {
+            playNextTrack();
+         }
+      };
+
+      window.addEventListener('keydown', handleKeyDown);
+
+      return () => {
+         window.removeEventListener('keydown', handleKeyDown);
+      };
+   }, []);
 
    return (
       <div className="music-player">

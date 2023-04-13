@@ -17,8 +17,6 @@ interface ISong {
    isAddDelete?: boolean,
    item?: any,
    songs_array?: any,
-   index?: number,
-   active?: boolean,
    style?: any,
    AddPlaylist?(data: any): void,
    DeletePlaylist?(data: any): void,
@@ -26,7 +24,7 @@ interface ISong {
 }
 
 
-const Song: FC<ISong> = ({ isAdd, item, songs_array, index, active, style, isAddDelete, playlist_id }) => {
+const Song: FC<ISong> = ({ isAdd, item, songs_array, style, isAddDelete, playlist_id }) => {
    const { isAuth, user }: any = useAppSelector(state => state.user);
    const { genres, track_id, isPlay }: any = useAppSelector(state => state.song)
    const { library }: any = useAppSelector(state => state.library)
@@ -248,7 +246,6 @@ const Song: FC<ISong> = ({ isAdd, item, songs_array, index, active, style, isAdd
       dispatch(PlayMusic(data))
 
    };
-
 
    return (
       <div ref={songRef} className="song" style={style && { order: style }}>

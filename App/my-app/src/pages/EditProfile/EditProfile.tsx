@@ -61,9 +61,8 @@ const EditProfile: FC = () => {
          user_img: data.get("user_img"),
       }
       await dispatch(UpdateUser(form));
-
    }
-   
+
    const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files![0];
       setImage(file);

@@ -35,9 +35,9 @@ const Executor: FC = () => {
                <div className="musics">
                   {user_tracks?.map((item: any, ind: number) => (
                      <Song
-                        active={index === ind ? true : false}
+                        
                         item={item}
-                        index={ind}
+                     
                         songs_array={user_tracks}
                         key={item?.track_id}
                      />

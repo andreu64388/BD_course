@@ -220,3 +220,13 @@
       }
    }
 }
+
+@media (max-width: 760px) {
+   .playlist .blocks_card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+   }
+}

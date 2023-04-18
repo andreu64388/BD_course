@@ -21,7 +21,6 @@ class UserController {
         return res.json({ message: "User already exists" });
       }
 
-      console.log("2");
       const result = await pool.query(
         "SELECT Register($1, $2, $3, $4, $5, $6)",
         [

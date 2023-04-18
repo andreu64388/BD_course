@@ -16,7 +16,7 @@ const AdminDashboard: FC = () => {
    const [genresA, setGenresA] = useState<any[]>([]);
 
    useEffect(() => {
-      dispatch(GetTracks())
+      dispatch(GetTracks({ offset: 5, limit: 5 }))
       dispatch(GetUsers())
       dispatch(GetGenres())
    }, [])

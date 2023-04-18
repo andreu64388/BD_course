@@ -8,7 +8,7 @@ class SongController {
 
   async GetPlayListRecommend(req, res) {
     try {
-      const playlists_id = [15, 16, 17];
+      const playlists_id = [5, 6, 7];
       const playlistData = [];
       for (const playlist_id of playlists_id) {
         const tracks = await pool.query(
@@ -44,7 +44,7 @@ class SongController {
           "select user_id,title from playlist where playlist_id = $1",
           [Number(playlist_id)]
         );
-
+        console.log("1");
         playlistData.push({
           playlist_id: playlist_id,
           user_id: title_playlist.rows[0].user_id,
@@ -56,6 +56,7 @@ class SongController {
       const songs = await pool.query("select * from get_recent_tracks($1)", [
         5,
       ]);
+
       const songs_send = [];
 
       for (const song of songs.rows) {
@@ -94,7 +95,7 @@ class SongController {
 
   async GetGenres(req, res) {
     try {
-      const genres = await pool.query("SELECT * FROM genre");
+      const genres = await pool.query("SELECT * FROM genre limit 10");
 
       res.json(genres.rows);
     } catch (err) {
@@ -137,7 +138,7 @@ class SongController {
         Number(user_id),
       ]);
       const songs_send = [];
-
+      console.log("upload");
       for (const song of songs.rows) {
         song.track_image = `http://localhost:3001/images/${song.track_image?.toString(
           "utf-8"
@@ -217,7 +218,7 @@ class SongController {
       });
     }
   }
-  
+
   async UpdateTrack(req, res) {
     try {
       const { track_id, track_title, genre_id, user_id } = req.body;
@@ -227,7 +228,7 @@ class SongController {
         req?.file.filename == undefined
           ? null
           : req?.files["track_image"][0].filename;
-    
+
       const query = "CALL update_track($1, $2, $3, $4)";
       await pool.query(query, [
         Number(track_id),

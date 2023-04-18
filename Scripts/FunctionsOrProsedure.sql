@@ -27,9 +27,10 @@ END;
 $$;
 
 
-SELECT Register('Andrey', 'admin1', 'admin', '1995-01-01', 1, '\x1234567890ABCDEF');
+SELECT Register('admin', 'admin', 'admin', '1995-01-01', 1, '\x1234567890ABCDEF');
 select *from users
 
+SELECT Register('ans', 'ans', 'ans', '1995-01-01', 2, '\x1234567890ABCDEF');
 --------------------- Login user---------------------
 CREATE OR REPLACE FUNCTION Login(in_user_email VARCHAR(255), in_user_password TEXT)
 RETURNS BOOLEAN
@@ -185,7 +186,11 @@ select * from Library_user;
 ----------------------------——————————--------------------------*/
 
 -------------------- Update user --------------------
-CREATE OR REPLACE PROCEDURE update_user(in_user_id INTEGER, in_user_name VARCHAR(255), in_user_date_of_birth DATE, in_user_img BYTEA) LANGUAGE plpgsql AS $$
+CREATE OR REPLACE PROCEDURE update_user(in_user_id INTEGER,
+										in_user_name VARCHAR(255), 
+										in_user_date_of_birth DATE, 
+										in_user_img BYTEA) 
+										LANGUAGE plpgsql AS $$
 BEGIN
     IF in_user_img IS NOT NULL THEN
         UPDATE Users
@@ -273,7 +278,10 @@ select *
 from track CALL update_track(4, 'New Title', '2022-01-01', 1, NULL, 'new content', 3);
 
 -------------------- Update playlist title --------------------
-CREATE OR REPLACE PROCEDURE update_playlist(in_playlist_id INTEGER, in_title VARCHAR(255)) LANGUAGE plpgsql AS $$
+CREATE OR REPLACE PROCEDURE update_playlist
+(in_playlist_id INTEGER,
+ in_title VARCHAR(255)) 
+LANGUAGE plpgsql AS $$
 BEGIN
     UPDATE Playlist SET title = in_title WHERE playlist_id = in_playlist_id;
 END;

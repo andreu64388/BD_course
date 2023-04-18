@@ -6,7 +6,7 @@
 CREATE OR REPLACE VIEW all_info_user AS
 SELECT Users.user_id, user_name, user_img, user_email, user_password, user_date_of_birth, Role.role_name
 FROM Users
-JOIN Role ON Users.user_role_id = Role.role_id
+JOIN Role ON Users.user_role_id = Role.role_id;
 DROP VIEW all_info_user;
 
 -------------------- Info track --------------------
@@ -33,4 +33,3 @@ JOIN Genre g ON t.genre_id = g.genre_id;
 SELECT *
 FROM playlist_tracks_info
 WHERE playlist_id = 8
-

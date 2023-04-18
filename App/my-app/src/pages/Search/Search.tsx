@@ -104,7 +104,7 @@ const Search: FC = () => {
                                  <div className="songs_blocks">
                                     {tracks?.map((item: any, index: number) => {
                                        return (
-                                          <Song item={item} />
+                                          <Song item={item} songs_array={tracks} />
                                        );
                                     })}
                                  </div>

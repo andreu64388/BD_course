@@ -274,15 +274,17 @@ RETURNS TABLE (
 )
 AS $$
 BEGIN
-   RETURN QUERY SELECT *
-                 FROM all_info_track
-				 order by all_info_track.track_date DESC
+  RETURN QUERY SELECT *
+FROM all_info_track
+ORDER BY all_info_track.track_date DESC, all_info_track.track_id DESC
           LIMIT num_tracks;
 END;
 $$ LANGUAGE plpgsql;
 
 
-select * from get_recent_tracks(10)
+
+select * from playlist
+select * from get_recent_tracks(5)
 --------------------------------------------------------
 --------------------------------------------------------
 --------------------------------------------------------

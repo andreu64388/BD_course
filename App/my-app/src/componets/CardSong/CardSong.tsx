@@ -20,28 +20,24 @@ const CardSong: FC<ICardSong> = ({ item, songs_array }) => {
 
    const dispatch = useAppDispatch();
 
-   function handlePlayClick(event: any) {
-      event.preventDefault();
-      if (!isAuth) {
-         dispatch(ShowModal())
-         return
-      }
-
-      dispatch(PlayMusic())
-   }
-
-
 
    const pauseSong = () => {
       dispatch(PlayPause());
    };
 
    const playSong = (item: any) => {
+
+      if (!isAuth) {
+         dispatch(ShowModal())
+         return
+      }
       const data = {
          track: item,
          songs_array: songs_array
       }
       dispatch(PlayMusic(data))
+
+
 
    };
    return (

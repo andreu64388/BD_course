@@ -19,23 +19,37 @@ const AdminSongs: FC = () => {
    const [audio, setAudio] = useState<string | any>("");
    const [tracksA, setTracksA] = useState<any[]>([]);
    const [value, setValue] = useState<string>("");
+   const [offset, setOffset] = useState<number>(0);
+   const [limit, setLimit] = useState<number>(8);
+   const [loading, setLoading] = useState(false);
    const dispatch = useAppDispatch();
 
    useEffect(() => {
-      dispatch(GetTracks())
-   }, [])
+      dispatch(GetTracks({ offset, limit }));
+   }, [dispatch, offset, limit]);
 
    useEffect(() => {
       if (tracks) {
-         setTracksA(tracks)
+         setTracksA(tracks);
       }
-   }, [tracks])
+   }, [tracks]);
+
+
    
+   const handleScroll = (e: any) => {
+      const bottom =
+         e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
+      if (bottom) {
+         alert("tedt")
+         setOffset(offset + limit);
+         setLimit(limit + 10);
+      }
+   };
    const changeModalState = (state: boolean) => {
       setModal(state)
    }
    return (
-      <div className='wrapper'>
+      <div className='wrapper' onScroll={handleScroll}>
          <div className="wrapper_all">
             <div className="users">
                <h1 className="title">

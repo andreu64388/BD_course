@@ -1,9 +1,9 @@
-
 /*---------------------————————————————---------------------
 -----------------------| INSERT TABLES |--------------------
 ------------------------————————————————-------------------*/
 INSERT INTO Role (role_name) VALUES ('user');
 INSERT INTO Role (role_name) VALUES ('admin');
+
 
 /*Роль "user" предназначена для обычных пользователей, которые могут
 добавлять и просматривать музыкальные треки, создавать плейлисты и
@@ -24,5 +24,18 @@ INSERT INTO Genre (genre_name) VALUES
 ('R&B'),
 ('Country'),
 ('Reggae');
+--------------- INSERT 100000 --------------- 
+CREATE OR REPLACE FUNCTION INSERT_GENRES()
+RETURNS VOID AS $$
+DECLARE
+    I INTEGER := 1;
+BEGIN
+    WHILE I <= 100000 LOOP
+        INSERT INTO GENRE (GENRE_NAME) VALUES ('GENRE ' || I);
+        I := I + 1;
+    END LOOP;
+END;
+$$ LANGUAGE PLPGSQL;
 
-
+SELECT INSERT_GENRES();
+SELECT * FROM GENRE

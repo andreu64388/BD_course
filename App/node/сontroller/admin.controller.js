@@ -1,7 +1,6 @@
 import pool from "../database/db.js";
 
 class AdminController {
-
   async getUsers(req, res) {
     try {
       const query = await pool.query("SELECT * from GetUsers()");
@@ -23,7 +22,11 @@ class AdminController {
 
   async getTracks(req, res) {
     try {
-      const tracks = await pool.query("select * from GetTracks()");
+      const { offset, limit } = req.query;
+      const tracks = await pool.query(
+        "select * from GetTracks() OFFSET $1 LIMIT $2",
+        [offset, limit]
+      );
       const tracks_send = [];
 
       for (const song of tracks.rows) {
@@ -60,7 +63,7 @@ class AdminController {
 
   async GetGenres(req, res) {
     try {
-      const genres = await pool.query("SELECT * FROM genre");
+      const genres = await pool.query("SELECT * FROM genre limit 10");
       res.json({
         genres: genres.rows,
       });
@@ -171,7 +174,7 @@ class AdminController {
       });
     }
   }
-  
+
   async deleteUser(req, res) {
     try {
       const { user_id } = req.params;
@@ -245,7 +248,7 @@ class AdminController {
       });
     }
   }
-  
+
   async updateTrack(req, res) {
     try {
       const { track_id, track_title, genre_id, user_id } = req.body;

@@ -209,26 +209,6 @@ const Song: FC<ISong> = ({ isAdd, item, songs_array, style, isAddDelete, playlis
          document.removeEventListener("click", handleClick);
       };
    }, []);
-   const PlayMusics = (item: any) => {
-
-      if (item?.track_id === track_id) {
-         dispatch(PlayPause())
-      }
-      else {
-         const data = {
-            track: item,
-            songs_array: songs_array
-         }
-         dispatch(PlayMusic(data))
-      }
-
-
-      if (!isAuth) {
-         dispatch(ShowModal())
-         return
-      }
-
-   }
 
    const stopSong = () => {
       dispatch(StopPlay());
@@ -239,6 +219,11 @@ const Song: FC<ISong> = ({ isAdd, item, songs_array, style, isAddDelete, playlis
    };
 
    const playSong = (item: any) => {
+      if (!isAuth) {
+         dispatch(ShowModal())
+         return
+      }
+
       const data = {
          track: item,
          songs_array: songs_array

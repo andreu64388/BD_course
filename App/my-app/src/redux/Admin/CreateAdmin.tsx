@@ -9,19 +9,16 @@ const initialState = {
 
 
 export const GetTracks = createAsyncThunk(
-   "song/gettracks",
-   async () => {
+   "tracks/getTracks",
+   async ({ offset, limit }: any) => {
       try {
-         const { data } = await axios.get("/admin/tracks");
-         console.log(data);
-         return data;
-      }
-      catch (error) {
+         const response = await axios.get(`/admin/tracks?offset=${offset}&limit=${limit}`);
+         return response.data;
+      } catch (error) {
          console.log(error);
       }
-
    }
-)
+);
 
 
 export const GetUsers = createAsyncThunk(

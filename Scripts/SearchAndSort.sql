@@ -108,6 +108,8 @@ $$ LANGUAGE plpgsql;
 
 
 -------------------- INDEXES --------------------
+CREATE INDEX idx_user_name on users(user_name);
+CREATE INDEX IDX_TITLE ON TRACK(track_title);
 CREATE INDEX idx_user_id ON Users(user_id);
 CREATE INDEX idx_genre_id ON Genre(genre_id);
 CREATE INDEX idx_playlist_user_id ON Playlist(user_id);
